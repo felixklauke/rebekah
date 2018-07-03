@@ -37,6 +37,6 @@ class AbstractRequestContextTest {
     @Test
     void testGetRequest() {
         Request request = abstractRequestContext.getRequest();
-        assertEquals(TEST_REQUEST, request);
+        assertEquals(TEST_REQUEST, request, "The test request doesn't equal the one got from the context.");
     }
 }
