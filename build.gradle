@@ -1,0 +1,44 @@
+plugins {
+
+    id 'java'
+}
+
+group 'de.d3adspace'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+
+    /**
+     * Resolving local maven repository.
+     */
+    mavenLocal()
+
+    /**
+     * Maven central repository.
+     */
+    mavenCentral()
+}
+
+dependencies {
+
+    /**
+     * JUnit Jupiter as a testing framework.
+     */
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.2.0'
+
+    /**
+     * JUnit Jupiter parameter configuration.
+     */
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.2.0'
+
+    /**
+     * JUnit Jupiter testing engine.
+     */
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.2.0'
+}
+
+allprojects {
+
+}
