@@ -8,11 +8,9 @@ package de.d3adspace.rebekah.server.transport;
 public interface TransportServer {
 
     /**
-     * Start the server on the given port.
-     *
-     * @param port The port.
+     * Start the server.
      */
-    void start(int port);
+    void start();
 
     /**
      * Stop the server.

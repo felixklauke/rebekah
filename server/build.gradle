@@ -13,4 +13,6 @@ repositories {
 
 dependencies {
     compile group: 'io.reactivex', name: 'rxnetty', version: '0.5.1'
+
+    compile project(':rebekah-commons')
 }
