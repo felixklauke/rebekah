@@ -28,6 +28,15 @@ allprojects {
     }
 
     dependencies {
+        /**
+         * Google Guice for dependency injection.
+         */
+        compile group: 'com.google.inject', name: 'guice', version: '4.2.0'
+
+        /**
+         * Testing for google guice.
+         */
+        testCompile group: 'com.google.inject.extensions', name: 'guice-testlib', version: '4.2.0'
 
         /**
          * JUnit Jupiter as a testing framework.

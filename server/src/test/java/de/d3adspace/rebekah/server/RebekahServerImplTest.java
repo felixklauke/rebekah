@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,25 +24,25 @@ class RebekahServerImplTest {
     @BeforeEach
     void setUp() {
         transportServer = mock(TransportServer.class);
-        rebekahServer = new RebekahServerImpl(8081, transportServer);
+        rebekahServer = new RebekahServerImpl(transportServer);
     }
 
     @Test
     void testStart() {
         rebekahServer.start();
 
-        verify(transportServer).start(Mockito.anyInt());
+        verify(transportServer).start();
     }
 
     @Test
-    void stop() {
+    void testStop() {
         rebekahServer.stop();
 
         verify(transportServer).stop();
     }
 
     @Test
-    void isRunning() {
+    void testIsRunning() {
         // Given
         boolean isRunning = true;
 
