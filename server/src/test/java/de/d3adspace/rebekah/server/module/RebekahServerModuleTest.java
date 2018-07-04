@@ -2,14 +2,19 @@ package de.d3adspace.rebekah.server.module;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.testing.fieldbinder.Bind;
+import com.google.inject.testing.fieldbinder.BoundFieldModule;
 import de.d3adspace.rebekah.commons.request.Request;
 import de.d3adspace.rebekah.commons.response.Response;
 import de.d3adspace.rebekah.server.RebekahServer;
 import de.d3adspace.rebekah.server.transport.TransportServer;
+import io.reactivex.netty.channel.ConnectionHandler;
+import io.reactivex.netty.pipeline.PipelineConfigurator;
 import io.reactivex.netty.server.RxServer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.inject.Inject;
@@ -25,6 +30,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @ExtendWith(MockitoExtension.class)
 class RebekahServerModuleTest {
 
+    @Mock
+    @Bind
+    ConnectionHandler<Request, Response> connectionHandler;
+    @Mock
+    @Bind
+    PipelineConfigurator<Request, Response> pipelineConfigurator;
+
     @Inject
     Provider<TransportServer> transportServerProvider;
     @Inject
@@ -34,7 +46,7 @@ class RebekahServerModuleTest {
 
     @BeforeEach
     void setUp() {
-        Injector injector = Guice.createInjector(new RebekahServerModule());
+        Injector injector = Guice.createInjector(BoundFieldModule.of(this), new RebekahServerModule());
         injector.injectMembers(this);
     }
 
