@@ -8,6 +8,7 @@ import de.d3adspace.rebekah.commons.response.Response;
 import de.d3adspace.rebekah.server.RebekahServer;
 import de.d3adspace.rebekah.server.transport.TransportServer;
 import io.reactivex.netty.channel.ConnectionHandler;
+import io.reactivex.netty.pipeline.PipelineConfigurator;
 import io.reactivex.netty.server.RxServer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
