@@ -2,18 +2,17 @@ package de.d3adspace.rebekah.server.module;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.google.inject.testing.fieldbinder.Bind;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
 import de.d3adspace.rebekah.commons.request.Request;
 import de.d3adspace.rebekah.commons.response.Response;
 import de.d3adspace.rebekah.server.RebekahServer;
 import de.d3adspace.rebekah.server.transport.TransportServer;
 import io.reactivex.netty.channel.ConnectionHandler;
+import io.reactivex.netty.pipeline.PipelineConfigurator;
 import io.reactivex.netty.server.RxServer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.inject.Inject;
@@ -29,16 +28,16 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @ExtendWith(MockitoExtension.class)
 class RebekahServerModuleTest {
 
-    @Mock
-    @Bind
-    ConnectionHandler<Request, Response> connectionHandler;
-
     @Inject
     Provider<TransportServer> transportServerProvider;
     @Inject
     Provider<RebekahServer> rebekahServerProvider;
     @Inject
     Provider<RxServer<Request, Response>> rxServerProvider;
+    @Inject
+    Provider<ConnectionHandler<Request, Response>> connectionHandlerProvider;
+    @Inject
+    Provider<PipelineConfigurator<Request, Response>> pipelineConfiguratorProvider;
 
     @BeforeEach
     void setUp() {
@@ -65,5 +64,19 @@ class RebekahServerModuleTest {
         RxServer<Request, Response> rxServer = rxServerProvider.get();
 
         assertNotNull(rxServer, "Rx server instance should not be null.");
+    }
+
+    @Test
+    void testProvideConnectionHandler() {
+        ConnectionHandler<Request, Response> connectionHandler = connectionHandlerProvider.get();
+
+        assertNotNull(connectionHandler, "Connection handler should not be null.");
+    }
+
+    @Test
+    void testProvidePipelineConfigurator() {
+        PipelineConfigurator<Request, Response> pipelineConfigurator = pipelineConfiguratorProvider.get();
+
+        assertNotNull(pipelineConfigurator, "Pipeline configurator should not be null.");
     }
 }
