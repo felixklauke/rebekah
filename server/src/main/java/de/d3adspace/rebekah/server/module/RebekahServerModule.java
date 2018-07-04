@@ -8,8 +8,10 @@ import de.d3adspace.rebekah.commons.response.Response;
 import de.d3adspace.rebekah.server.RebekahServer;
 import de.d3adspace.rebekah.server.RebekahServerImpl;
 import de.d3adspace.rebekah.server.netty.NettyServerImpl;
+import de.d3adspace.rebekah.server.netty.pipeline.NettyPipelineConfigurator;
 import de.d3adspace.rebekah.server.provider.RxServerProvider;
 import de.d3adspace.rebekah.server.transport.TransportServer;
+import io.reactivex.netty.pipeline.PipelineConfigurator;
 import io.reactivex.netty.server.RxServer;
 
 /**
@@ -28,6 +30,8 @@ public class RebekahServerModule extends AbstractModule {
         bind(TransportServer.class).to(NettyServerImpl.class);
 
         // Rx Server
+        bind(new TypeLiteral<PipelineConfigurator<Request, Response>>() {
+        }).to(NettyPipelineConfigurator.class);
         bind(new TypeLiteral<RxServer<Request, Response>>() {
         }).toProvider(RxServerProvider.class);
     }
