@@ -62,6 +62,6 @@ public class NettyServerImpl implements TransportServer {
 
     @Override
     public boolean isRunning() {
-        return rxServer != null && running;
+        return running;
     }
 }
