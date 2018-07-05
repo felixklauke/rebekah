@@ -11,14 +11,14 @@ import io.netty.channel.ChannelHandlerContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -71,5 +71,16 @@ class PacketCodecTest {
 
         verify(packet).decode(Mockito.any(PacketReader.class));
         assertTrue(objects.contains(packet), "Packet should be added to outgoing objects.");
+    }
+
+    @Test
+    void testDecodeUnknownPacket() {
+        ArrayList<Object> objects = Lists.newArrayList();
+
+        when(byteBuf.readInt()).thenReturn(TEST_PACKET_ID);
+        when(packetRegistry.getPacketDescriptionById(TEST_PACKET_ID)).thenReturn(null);
+
+        Executable executable = () -> packetCodec.decode(channelHandlerContext, byteBuf, objects);
+        assertThrows(IllegalStateException.class, executable);
     }
 }
