@@ -4,6 +4,9 @@ import de.d3adspace.rebekah.commons.request.Request;
 import de.d3adspace.rebekah.commons.response.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -12,13 +15,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author Felix Klauke <info@felix-klauke.de>
  */
+@ExtendWith(MockitoExtension.class)
 class AbstractRequestContextTest {
 
-    /**
-     * Mocked test request.
-     */
-    private static final Request TEST_REQUEST = new Request() {
-    };
+    @Mock
+    private Request testRequest;
 
     /**
      * The request context test subject.
@@ -27,7 +28,7 @@ class AbstractRequestContextTest {
 
     @BeforeEach
     void setUp() {
-        abstractRequestContext = new AbstractRequestContext<Request>(TEST_REQUEST) {
+        abstractRequestContext = new AbstractRequestContext<Request>(testRequest) {
             @Override
             public void resume(Response response) {
             }
@@ -37,6 +38,6 @@ class AbstractRequestContextTest {
     @Test
     void testGetRequest() {
         Request request = abstractRequestContext.getRequest();
-        assertEquals(TEST_REQUEST, request, "The test request doesn't equal the one got from the context.");
+        assertEquals(testRequest, request, "The test request doesn't equal the one got from the context.");
     }
 }
