@@ -66,6 +66,7 @@ class PacketRegistryImplTest {
     @Test
     void testIsPacketRegistered() {
         assertTrue(packetRegistry.isPacketRegistered(TEST_PACKET_CLASS), "Packet should be registered.");
+        assertFalse(packetRegistry.isPacketRegistered(TEST_PACKET_CLASS_DUPLICATE_ID), "Packet should not be registered.");
     }
 
     @PacketMeta(id = TEST_PACKET_ID)
@@ -106,6 +107,10 @@ class PacketRegistryImplTest {
 
     @PacketMeta(id = TEST_PACKET_ID)
     private static class TestPacketDuplicateId implements Packet {
+
+        public TestPacketDuplicateId() {
+
+        }
 
         @Override
         public void encode(PacketWriter packetWriter) {
