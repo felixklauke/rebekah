@@ -15,13 +15,13 @@ import java.util.List;
 public class PacketCodec extends ByteToMessageCodec<Packet> {
 
     @Override
-    protected void encode(ChannelHandlerContext ctx, Packet packet, ByteBuf out) {
-        PacketWriter packetWriter = new BinaryPacketWriter(out);
+    protected void encode(ChannelHandlerContext ctx, Packet packet, ByteBuf outgoingByteBuf) {
+        PacketWriter packetWriter = new BinaryPacketWriter(outgoingByteBuf);
         packet.encode(packetWriter);
     }
 
     @Override
-    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
+    protected void decode(ChannelHandlerContext ctx, ByteBuf incomingByteBuf, List<Object> out) {
 
     }
 }
