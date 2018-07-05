@@ -17,7 +17,7 @@ class PacketRegistryImplTest {
 
     private static final int TEST_PACKET_ID = 0;
     private static final Class<? extends Packet> TEST_PACKET_CLASS = TestPacket.class;
-    private static final Class<? extends Packet> TEST_PACKET_STACK_CLASS = TestPacket.class;
+    private static final Class<? extends Packet> TEST_PACKET_STACK_CLASS = TestPacketStack.class;
     private static final Class<? extends Packet> TEST_PACKET_CLASS_DUPLICATE_ID = TestPacketDuplicateId.class;
 
     private PacketRegistry packetRegistry;
