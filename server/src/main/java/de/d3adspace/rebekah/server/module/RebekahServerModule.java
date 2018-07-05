@@ -3,6 +3,7 @@ package de.d3adspace.rebekah.server.module;
 import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
+import de.d3adspace.rebekah.commons.module.CommonsModule;
 import de.d3adspace.rebekah.commons.request.Request;
 import de.d3adspace.rebekah.commons.response.Response;
 import de.d3adspace.rebekah.server.RebekahServer;
@@ -43,5 +44,8 @@ public class RebekahServerModule extends AbstractModule {
         }).to(NettyConnectionHandler.class);
         bind(new TypeLiteral<RxServer<Request, Response>>() {
         }).toProvider(RxServerProvider.class);
+
+        // Install foreign modules
+        install(new CommonsModule());
     }
 }

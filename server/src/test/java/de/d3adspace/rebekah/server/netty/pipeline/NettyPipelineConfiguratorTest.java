@@ -1,5 +1,6 @@
 package de.d3adspace.rebekah.server.netty.pipeline;
 
+import de.d3adspace.rebekah.commons.codec.PacketCodec;
 import io.netty.channel.ChannelPipeline;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
@@ -20,13 +21,15 @@ import static org.mockito.Mockito.verify;
 class NettyPipelineConfiguratorTest {
 
     @Mock
+    PacketCodec packetCodec;
+    @Mock
     ChannelPipeline channelPipeline;
 
     private NettyPipelineConfigurator nettyPipelineConfigurator;
 
     @BeforeEach
     void setUp() {
-        nettyPipelineConfigurator = new NettyPipelineConfigurator();
+        nettyPipelineConfigurator = new NettyPipelineConfigurator(packetCodec);
     }
 
     @Test
@@ -34,6 +37,7 @@ class NettyPipelineConfiguratorTest {
         nettyPipelineConfigurator.configureNewPipeline(channelPipeline);
 
         verify(channelPipeline).addLast(eq("lengthFieldBasedFrameDecoder"), Mockito.any(LengthFieldBasedFrameDecoder.class));
+        verify(channelPipeline).addLast("packetCodec", packetCodec);
         verify(channelPipeline).addLast(eq("lengthFieldPrepender"), Mockito.any(LengthFieldPrepender.class));
     }
 }

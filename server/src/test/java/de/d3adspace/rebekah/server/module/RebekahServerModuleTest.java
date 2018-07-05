@@ -3,6 +3,7 @@ package de.d3adspace.rebekah.server.module;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
+import de.d3adspace.rebekah.commons.codec.PacketCodec;
 import de.d3adspace.rebekah.commons.request.Request;
 import de.d3adspace.rebekah.commons.response.Response;
 import de.d3adspace.rebekah.server.RebekahServer;
@@ -41,6 +42,8 @@ class RebekahServerModuleTest {
     Provider<PipelineConfigurator<Request, Response>> pipelineConfiguratorProvider;
     @Inject
     Provider<Kernel> kernelProvider;
+    @Inject
+    Provider<PacketCodec> packetCodecProvider;
 
     @BeforeEach
     void setUp() {
@@ -88,5 +91,13 @@ class RebekahServerModuleTest {
         Kernel kernel = kernelProvider.get();
 
         assertNotNull(kernel, "Kernel should not be null.");
+    }
+
+    @Test
+    void testProvidePacketCodec() {
+        PacketCodec packetCodec = packetCodecProvider.get();
+
+
+        assertNotNull(packetCodec, "Packet codec should not be null.");
     }
 }
