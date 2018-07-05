@@ -17,6 +17,7 @@ class PacketRegistryImplTest {
 
     private static final int TEST_PACKET_ID = 0;
     private static final Class<? extends Packet> TEST_PACKET_CLASS = TestPacket.class;
+    private static final Class<? extends Packet> TEST_PACKET_STACK_CLASS = TestPacket.class;
     private static final Class<? extends Packet> TEST_PACKET_CLASS_DUPLICATE_ID = TestPacketDuplicateId.class;
 
     private PacketRegistry packetRegistry;
@@ -25,6 +26,7 @@ class PacketRegistryImplTest {
     void setUp() {
         packetRegistry = new PacketRegistryImpl();
         packetRegistry.registerPacket(TEST_PACKET_CLASS);
+        packetRegistry.registerPacket(TEST_PACKET_STACK_CLASS);
     }
 
     @Test
@@ -68,6 +70,20 @@ class PacketRegistryImplTest {
 
     @PacketMeta(id = TEST_PACKET_ID)
     private class TestPacket implements Packet {
+
+        @Override
+        public void encode(PacketWriter packetWriter) {
+
+        }
+
+        @Override
+        public void decode(PacketReader packetReader) {
+
+        }
+    }
+
+    @PacketMeta(id = TEST_PACKET_ID + 1)
+    private class TestPacketStack implements Packet {
 
         @Override
         public void encode(PacketWriter packetWriter) {
