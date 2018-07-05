@@ -21,7 +21,7 @@ public class PacketCodec extends ByteToMessageCodec<Packet> {
     }
 
     @Override
-    protected void decode(ChannelHandlerContext ctx, ByteBuf incomingByteBuf, List<Object> out) {
+    protected void decode(ChannelHandlerContext ctx, ByteBuf incomingByteBuf, List<Object> outgoingObjects) {
 
     }
 }
