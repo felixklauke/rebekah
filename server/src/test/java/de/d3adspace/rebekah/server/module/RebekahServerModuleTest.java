@@ -6,6 +6,7 @@ import com.google.inject.testing.fieldbinder.BoundFieldModule;
 import de.d3adspace.rebekah.commons.request.Request;
 import de.d3adspace.rebekah.commons.response.Response;
 import de.d3adspace.rebekah.server.RebekahServer;
+import de.d3adspace.rebekah.server.kernel.Kernel;
 import de.d3adspace.rebekah.server.transport.TransportServer;
 import io.reactivex.netty.channel.ConnectionHandler;
 import io.reactivex.netty.pipeline.PipelineConfigurator;
@@ -38,6 +39,8 @@ class RebekahServerModuleTest {
     Provider<ConnectionHandler<Request, Response>> connectionHandlerProvider;
     @Inject
     Provider<PipelineConfigurator<Request, Response>> pipelineConfiguratorProvider;
+    @Inject
+    Provider<Kernel> kernelProvider;
 
     @BeforeEach
     void setUp() {
@@ -78,5 +81,12 @@ class RebekahServerModuleTest {
         PipelineConfigurator<Request, Response> pipelineConfigurator = pipelineConfiguratorProvider.get();
 
         assertNotNull(pipelineConfigurator, "Pipeline configurator should not be null.");
+    }
+
+    @Test
+    void testProvideKernel() {
+        Kernel kernel = kernelProvider.get();
+
+        assertNotNull(kernel, "Kernel should not be null.");
     }
 }
