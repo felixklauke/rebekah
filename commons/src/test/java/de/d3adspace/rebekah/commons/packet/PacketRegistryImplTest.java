@@ -69,7 +69,11 @@ class PacketRegistryImplTest {
     }
 
     @PacketMeta(id = TEST_PACKET_ID)
-    private class TestPacket implements Packet {
+    public static class TestPacket implements Packet {
+
+        public TestPacket() {
+
+        }
 
         @Override
         public void encode(PacketWriter packetWriter) {
@@ -83,7 +87,11 @@ class PacketRegistryImplTest {
     }
 
     @PacketMeta(id = TEST_PACKET_ID + 1)
-    private class TestPacketStack implements Packet {
+    private static class TestPacketStack implements Packet {
+
+        public TestPacketStack() {
+
+        }
 
         @Override
         public void encode(PacketWriter packetWriter) {
@@ -97,7 +105,7 @@ class PacketRegistryImplTest {
     }
 
     @PacketMeta(id = TEST_PACKET_ID)
-    private class TestPacketDuplicateId implements Packet {
+    private static class TestPacketDuplicateId implements Packet {
 
         @Override
         public void encode(PacketWriter packetWriter) {

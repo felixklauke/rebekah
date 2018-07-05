@@ -3,6 +3,8 @@ package de.d3adspace.rebekah.commons.packet.description;
 import de.d3adspace.rebekah.commons.packet.Packet;
 import de.d3adspace.rebekah.commons.packet.description.annotation.PacketMeta;
 
+import java.lang.reflect.Constructor;
+
 /**
  * An {@link PacketDescription} based on the {@link PacketMeta} annotation.
  *
@@ -45,6 +47,12 @@ public class MetaBasedPacketDescription implements PacketDescription {
             throw new IllegalStateException("Tried to create meta based packet description but @PacketMeta is not present at " + packetClass);
         }
 
+        try {
+            Constructor<? extends Packet> constructor = packetClass.getConstructor();
+        } catch (NoSuchMethodException e) {
+            throw new IllegalStateException("Class " + packetClass + " doesn't have a no args constructor", e);
+        }
+
         return new MetaBasedPacketDescription(packetMeta, packetClass);
     }
 
@@ -56,5 +64,14 @@ public class MetaBasedPacketDescription implements PacketDescription {
     @Override
     public Class<? extends Packet> getPacketClass() {
         return packetClass;
+    }
+
+    @Override
+    public Packet constructPacket() {
+        try {
+            return packetClass.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new IllegalStateException("Error during packet instantiation (" + packetClass + ")", e);
+        }
     }
 }

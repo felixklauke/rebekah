@@ -15,4 +15,11 @@ public interface PacketDescription {
     int getId();
 
     Class<? extends Packet> getPacketClass();
+
+    /**
+     * Construct an empty instance of the packet.
+     *
+     * @return The constructed packet.
+     */
+    Packet constructPacket();
 }

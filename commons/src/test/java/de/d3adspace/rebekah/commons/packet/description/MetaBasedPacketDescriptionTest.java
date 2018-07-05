@@ -11,8 +11,7 @@ import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 /**
@@ -24,6 +23,8 @@ class MetaBasedPacketDescriptionTest {
     private static final Class<? extends Packet> TEST_PACKET_CLASS = TestPacket.class;
     private static final int TEST_PACKET_ID = 0;
     private static final Class<? extends Packet> TEST_PACKET_CLASS_WITHOUT_META = TestPacketWithOutMeta.class;
+    private static final Class<? extends Packet> TEST_PACKET_CLASS_INVALID_CONSTRUCTOR = TestPacketWithInvalidConstructor.class;
+
     @Mock
     PacketMeta packetMeta;
     private MetaBasedPacketDescription metaBasedPacketDescription;
@@ -51,20 +52,42 @@ class MetaBasedPacketDescriptionTest {
     }
 
     @Test
-    void getId() {
+    void testCreatePacketDescriptionWithInvalidConstructor() {
+        Executable executable = () -> MetaBasedPacketDescription.createPacketDescription(TEST_PACKET_CLASS_INVALID_CONSTRUCTOR);
+        assertThrows(IllegalStateException.class, executable);
+    }
+
+    @Test
+    void testGetId() {
         when(packetMeta.id()).thenReturn(TEST_PACKET_ID);
 
         assertEquals(TEST_PACKET_ID, metaBasedPacketDescription.getId());
     }
 
     @Test
-    void getPacketClass() {
+    void testGetPacketClass() {
         assertEquals(TEST_PACKET_CLASS, metaBasedPacketDescription.getPacketClass());
+    }
+
+    @Test
+    void testConstructPacket() {
+        Packet packet = metaBasedPacketDescription.constructPacket();
+
+        assertNotNull(packet, "Packet should not be null.");
+    }
+
+    @Test
+    void testConstructPacketWithInvalidConstructor() {
+        MetaBasedPacketDescription metaBasedPacketDescription = new MetaBasedPacketDescription(TestPacketWithInvalidConstructor.class.getAnnotation(PacketMeta.class), TEST_PACKET_CLASS_INVALID_CONSTRUCTOR);
+
+        Executable executable = metaBasedPacketDescription::constructPacket;
+
+        assertThrows(IllegalStateException.class, executable);
     }
 
 
     @PacketMeta(id = TEST_PACKET_ID)
-    private class TestPacket implements Packet {
+    public static class TestPacket implements Packet {
 
         @Override
         public void encode(PacketWriter packetWriter) {
@@ -77,7 +100,27 @@ class MetaBasedPacketDescriptionTest {
         }
     }
 
-    private class TestPacketWithOutMeta implements Packet {
+    public static class TestPacketWithOutMeta implements Packet {
+
+        @Override
+        public void encode(PacketWriter packetWriter) {
+
+        }
+
+        @Override
+        public void decode(PacketReader packetReader) {
+
+        }
+    }
+
+    @PacketMeta(id = TEST_PACKET_ID + 1)
+    public static class TestPacketWithInvalidConstructor implements Packet {
+
+        private final int test;
+
+        private TestPacketWithInvalidConstructor(int test) {
+            this.test = test;
+        }
 
         @Override
         public void encode(PacketWriter packetWriter) {
