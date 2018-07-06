@@ -1,5 +1,9 @@
 package de.d3adspace.rebekah.server;
 
+import de.d3adspace.rebekah.commons.handler.RequestHandler;
+import de.d3adspace.rebekah.commons.handler.RequestHandlerManager;
+import de.d3adspace.rebekah.commons.packet.Packet;
+import de.d3adspace.rebekah.commons.packet.PacketRegistry;
 import de.d3adspace.rebekah.server.transport.TransportServer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,13 +22,21 @@ class RebekahServerImplTest {
 
     @Mock
     TransportServer transportServer;
+    @Mock
+    PacketRegistry packetRegistry;
+    @Mock
+    RequestHandlerManager requestHandlerManager;
+    @Mock
+    RequestHandler requestHandler;
+    @Mock
+    Class<? extends Packet> packetClass;
 
     private RebekahServer rebekahServer;
 
     @BeforeEach
     void setUp() {
         transportServer = mock(TransportServer.class);
-        rebekahServer = new RebekahServerImpl(transportServer);
+        rebekahServer = new RebekahServerImpl(transportServer, packetRegistry, requestHandlerManager);
     }
 
     @Test
@@ -53,5 +65,44 @@ class RebekahServerImplTest {
 
         // Then
         assertEquals(isRunning, rebekahServerRunning, "Server should be running.");
+    }
+
+    @Test
+    void testRegisterRequestHandler() {
+        rebekahServer.registerRequestHandler(requestHandler);
+
+        verify(requestHandlerManager).registerRequestHandler(requestHandler);
+    }
+
+    @Test
+    void testUnregisterRequestHandler() {
+        rebekahServer.unregisterRequestHandler(requestHandler);
+
+        verify(requestHandlerManager).unregisterRequestHandler(requestHandler);
+    }
+
+    @Test
+    void testRegisterPacket() {
+        rebekahServer.registerPacket(packetClass);
+
+        verify(packetRegistry).registerPacket(packetClass);
+    }
+
+    @Test
+    void testUnregisterPacket() {
+        rebekahServer.unregisterPacket(packetClass);
+
+        verify(packetRegistry).unregisterPacket(packetClass);
+    }
+
+    @Test
+    void testIsPacketRegistered() {
+        boolean shouldBeRegistered = true;
+        when(packetRegistry.isPacketRegistered(packetClass)).thenReturn(shouldBeRegistered);
+
+        boolean packetRegistered = rebekahServer.isPacketRegistered(packetClass);
+
+        verify(packetRegistry).isPacketRegistered(packetClass);
+        assertEquals(shouldBeRegistered, packetRegistered, "Packet registered state differs.");
     }
 }
