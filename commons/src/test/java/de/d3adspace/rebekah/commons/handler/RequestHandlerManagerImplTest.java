@@ -83,6 +83,10 @@ class RequestHandlerManagerImplTest {
 
         }
 
+        public void handleRequest2(RequestContext requestContext, TestRequest testRequest) {
+
+        }
+
         public void handleRequestNot0(RequestContext requestContext) {
             throw new IllegalStateException();
         }

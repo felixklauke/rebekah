@@ -79,10 +79,11 @@ public class RequestHandlerManagerImpl implements RequestHandlerManager {
 
             RequestConsumer requestConsumer = assembleRequestConsumer(requestHandler, packetHandlerClassDeclaredMethod);
 
-            List<RequestConsumer> consumers = requestConsumers.get(parameterTypes[1]);
+            Class<? extends Packet> parameterType = (Class<? extends Packet>) parameterTypes[1];
+            List<RequestConsumer> consumers = requestConsumers.get(parameterType);
             if (consumers == null) {
                 consumers = new CopyOnWriteArrayList<>();
-                requestConsumers.put((Class<? extends Packet>) parameterTypes[1], consumers);
+                requestConsumers.put(parameterType, new CopyOnWriteArrayList<>());
             }
 
             consumers.add(requestConsumer);
