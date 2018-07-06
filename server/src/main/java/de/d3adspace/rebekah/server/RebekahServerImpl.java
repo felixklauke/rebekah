@@ -1,8 +1,8 @@
 package de.d3adspace.rebekah.server;
 
+import de.d3adspace.rebekah.commons.agent.RebekahPacketAgent;
 import de.d3adspace.rebekah.commons.handler.RequestHandler;
 import de.d3adspace.rebekah.commons.handler.RequestHandlerManager;
-import de.d3adspace.rebekah.commons.packet.Packet;
 import de.d3adspace.rebekah.commons.packet.PacketRegistry;
 import de.d3adspace.rebekah.server.transport.TransportServer;
 
@@ -13,17 +13,12 @@ import javax.inject.Inject;
  *
  * @author Felix Klauke <info@felix-klauke.de>
  */
-public class RebekahServerImpl implements RebekahServer {
+public class RebekahServerImpl extends RebekahPacketAgent implements RebekahServer {
 
     /**
      * The underlying transporting server.
      */
     private final TransportServer transportServer;
-
-    /**
-     * The registry of all known packets.
-     */
-    private final PacketRegistry packetRegistry;
 
     /**
      * The manager of all request managers.
@@ -38,8 +33,8 @@ public class RebekahServerImpl implements RebekahServer {
      */
     @Inject
     public RebekahServerImpl(TransportServer transportServer, PacketRegistry packetRegistry, RequestHandlerManager requestHandlerManager) {
+        super(packetRegistry);
         this.transportServer = transportServer;
-        this.packetRegistry = packetRegistry;
         this.requestHandlerManager = requestHandlerManager;
     }
 
@@ -71,20 +66,5 @@ public class RebekahServerImpl implements RebekahServer {
     @Override
     public boolean isRequestHandlerRegistered(RequestHandler requestHandler) {
         return requestHandlerManager.isRequestHandlerRegistered(requestHandler);
-    }
-
-    @Override
-    public void registerPacket(Class<? extends Packet> packetClass) {
-        packetRegistry.registerPacket(packetClass);
-    }
-
-    @Override
-    public void unregisterPacket(Class<? extends Packet> packetClass) {
-        packetRegistry.unregisterPacket(packetClass);
-    }
-
-    @Override
-    public boolean isPacketRegistered(Class<? extends Packet> packetClass) {
-        return packetRegistry.isPacketRegistered(packetClass);
     }
 }
