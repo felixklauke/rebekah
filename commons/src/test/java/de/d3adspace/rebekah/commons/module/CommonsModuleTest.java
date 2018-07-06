@@ -3,6 +3,7 @@ package de.d3adspace.rebekah.commons.module;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
+import de.d3adspace.rebekah.commons.handler.RequestHandlerManager;
 import de.d3adspace.rebekah.commons.packet.PacketRegistry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class CommonsModuleTest {
 
     @Inject
-    private Provider<PacketRegistry> packetRegistryProvider;
+    Provider<PacketRegistry> packetRegistryProvider;
+    @Inject
+    Provider<RequestHandlerManager> packetHandlerManagerProvider;
 
     @BeforeEach
     void setUp() {
@@ -34,5 +37,12 @@ class CommonsModuleTest {
         PacketRegistry packetRegistry = packetRegistryProvider.get();
 
         assertNotNull(packetRegistry, "Packet registry should not be null");
+    }
+
+    @Test
+    void testProvidePacketHandlerManager() {
+        RequestHandlerManager requestHandlerManager = packetHandlerManagerProvider.get();
+
+        assertNotNull(requestHandlerManager, "Packet handler manager should not be null.");
     }
 }
