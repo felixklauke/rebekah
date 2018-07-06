@@ -1,2 +1,18 @@
+plugins {
+    id 'java'
+}
+
 group 'de.d3adspace.rebekah'
 version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'io.reactivex', name: 'rxnetty', version: '0.5.1'
+
+    compile project(':rebekah-commons')
+}
