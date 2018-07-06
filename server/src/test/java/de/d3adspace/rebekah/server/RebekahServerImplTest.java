@@ -4,6 +4,8 @@ import de.d3adspace.rebekah.commons.handler.RequestHandler;
 import de.d3adspace.rebekah.commons.handler.RequestHandlerManager;
 import de.d3adspace.rebekah.commons.packet.Packet;
 import de.d3adspace.rebekah.commons.packet.PacketRegistry;
+import de.d3adspace.rebekah.commons.packet.io.PacketReader;
+import de.d3adspace.rebekah.commons.packet.io.PacketWriter;
 import de.d3adspace.rebekah.server.transport.TransportServer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,8 +30,8 @@ class RebekahServerImplTest {
     RequestHandlerManager requestHandlerManager;
     @Mock
     RequestHandler requestHandler;
-    @Mock
-    Class<? extends Packet> packetClass;
+
+    private Class<? extends Packet> packetClass = TestPacket.class;
 
     private RebekahServer rebekahServer;
 
@@ -104,5 +106,18 @@ class RebekahServerImplTest {
 
         verify(packetRegistry).isPacketRegistered(packetClass);
         assertEquals(shouldBeRegistered, packetRegistered, "Packet registered state differs.");
+    }
+
+    public static class TestPacket implements Packet {
+
+        @Override
+        public void encode(PacketWriter packetWriter) {
+
+        }
+
+        @Override
+        public void decode(PacketReader packetReader) {
+
+        }
     }
 }
