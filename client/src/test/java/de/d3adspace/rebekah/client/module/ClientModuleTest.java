@@ -5,6 +5,7 @@ import com.google.inject.Injector;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
 import de.d3adspace.rebekah.client.RebekahClient;
 import de.d3adspace.rebekah.client.transport.TransportClient;
+import de.d3adspace.rebekah.commons.packet.PacketRegistry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,6 +26,8 @@ class ClientModuleTest {
     Provider<RebekahClient> rebekahClientProvider;
     @Inject
     Provider<TransportClient> transportClientProvider;
+    @Inject
+    Provider<PacketRegistry> packetRegistryProvider;
 
     @BeforeEach
     void setUp() {
@@ -44,5 +47,12 @@ class ClientModuleTest {
         TransportClient transportClient = transportClientProvider.get();
 
         assertNotNull(transportClient, "Transport client should not be null.");
+    }
+
+    @Test
+    void testProvidePacketRegistry() {
+        PacketRegistry packetRegistry = packetRegistryProvider.get();
+
+        assertNotNull(packetRegistry, "Packet registry should not be null.");
     }
 }

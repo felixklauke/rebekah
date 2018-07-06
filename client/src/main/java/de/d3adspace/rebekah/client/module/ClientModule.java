@@ -5,6 +5,7 @@ import de.d3adspace.rebekah.client.RebekahClient;
 import de.d3adspace.rebekah.client.RebekahClientImpl;
 import de.d3adspace.rebekah.client.netty.NettyClient;
 import de.d3adspace.rebekah.client.transport.TransportClient;
+import de.d3adspace.rebekah.commons.module.CommonsModule;
 
 /**
  * @author Felix Klauke <info@felix-klauke.de>
@@ -15,5 +16,7 @@ public class ClientModule extends AbstractModule {
     protected void configure() {
         bind(RebekahClient.class).to(RebekahClientImpl.class).asEagerSingleton();
         bind(TransportClient.class).to(NettyClient.class).asEagerSingleton();
+
+        install(new CommonsModule());
     }
 }
