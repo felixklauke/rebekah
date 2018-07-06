@@ -11,18 +11,18 @@ import de.d3adspace.rebekah.commons.request.Request;
 public interface RequestHandlerManager {
 
     /**
-     * Register the given packet handler.
+     * Register the given request handler.
      *
      * @param requestHandler The packet handler.
      */
-    void registerPacketHandler(RequestHandler requestHandler);
+    void registerRequestHandler(RequestHandler requestHandler);
 
     /**
-     * Unregister the given packet handler.
+     * Unregister the given request handler.
      *
-     * @param requestHandler The packet handler.
+     * @param requestHandler The request handler.
      */
-    void unregisterPacketHandler(RequestHandler requestHandler);
+    void unregisterRequestHandler(RequestHandler requestHandler);
 
     /**
      * Process the given request in the given request by let it be handled by all eligible handlers.

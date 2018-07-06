@@ -37,15 +37,15 @@ class RequestHandlerManagerImplTest {
 
     @Test
     void testRegisterPacketHandler() {
-        requestHandlerManager.registerPacketHandler(new TestRequestHandler());
+        requestHandlerManager.registerRequestHandler(new TestRequestHandler());
     }
 
     @Test
     void testUnregisterPacketHandlerTwiceInstance() {
         TestRequestHandler testPacketHandler = new TestRequestHandler();
-        requestHandlerManager.registerPacketHandler(testPacketHandler);
+        requestHandlerManager.registerRequestHandler(testPacketHandler);
 
-        Executable executable = () -> requestHandlerManager.registerPacketHandler(testPacketHandler);
+        Executable executable = () -> requestHandlerManager.registerRequestHandler(testPacketHandler);
         assertThrows(IllegalStateException.class, executable);
     }
 

@@ -29,13 +29,13 @@ public class RebekahServerModule extends AbstractModule {
         bindConstant().annotatedWith(Names.named("serverPort")).to(8081);
 
         // The main server entry point
-        bind(RebekahServer.class).to(RebekahServerImpl.class);
+        bind(RebekahServer.class).to(RebekahServerImpl.class).asEagerSingleton();
 
         // Transport layer
-        bind(TransportServer.class).to(NettyServerImpl.class);
+        bind(TransportServer.class).to(NettyServerImpl.class).asEagerSingleton();
 
         // Kernel
-        bind(Kernel.class).to(SimpleKernel.class);
+        bind(Kernel.class).to(SimpleKernel.class).asEagerSingleton();
 
         // Rx Server
         bind(new TypeLiteral<PipelineConfigurator<Request, Response>>() {

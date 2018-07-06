@@ -27,7 +27,7 @@ public class RequestHandlerManagerImpl implements RequestHandlerManager {
     private final Map<RequestHandler, Map<Class<? extends Packet>, List<RequestConsumer>>> packetHandlers = Maps.newConcurrentMap();
 
     @Override
-    public void registerPacketHandler(RequestHandler requestHandler) {
+    public void registerRequestHandler(RequestHandler requestHandler) {
         if (packetHandlers.containsKey(requestHandler)) {
             throw new IllegalStateException("Packet handler " + requestHandler + " already registered.");
         }
@@ -37,7 +37,7 @@ public class RequestHandlerManagerImpl implements RequestHandlerManager {
     }
 
     @Override
-    public void unregisterPacketHandler(RequestHandler requestHandler) {
+    public void unregisterRequestHandler(RequestHandler requestHandler) {
         packetHandlers.remove(requestHandler);
     }
 

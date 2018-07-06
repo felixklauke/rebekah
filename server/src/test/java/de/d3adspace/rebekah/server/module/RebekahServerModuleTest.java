@@ -5,6 +5,7 @@ import com.google.inject.Injector;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
 import de.d3adspace.rebekah.commons.codec.PacketCodec;
 import de.d3adspace.rebekah.commons.handler.RequestHandlerManager;
+import de.d3adspace.rebekah.commons.packet.PacketRegistry;
 import de.d3adspace.rebekah.commons.request.Request;
 import de.d3adspace.rebekah.commons.response.Response;
 import de.d3adspace.rebekah.server.RebekahServer;
@@ -47,6 +48,10 @@ class RebekahServerModuleTest {
     Provider<PacketCodec> packetCodecProvider;
     @Inject
     Provider<RequestHandlerManager> packetHandlerManagerProvider;
+    @Inject
+    Provider<PacketRegistry> packetRegistryProvider;
+    @Inject
+    Provider<RequestHandlerManager> requestHandlerManagerProvider;
 
     @BeforeEach
     void setUp() {
@@ -103,11 +108,24 @@ class RebekahServerModuleTest {
         assertNotNull(packetCodec, "Packet codec should not be null.");
     }
 
-
     @Test
     void testProvidePacketHandlerManager() {
         RequestHandlerManager requestHandlerManager = packetHandlerManagerProvider.get();
 
         assertNotNull(requestHandlerManager, "Packet handler manager should not be null.");
+    }
+
+    @Test
+    void testProvidePacketRegistry() {
+        PacketRegistry packetRegistry = packetRegistryProvider.get();
+
+        assertNotNull(packetRegistry, "Packet registry should not be null.");
+    }
+
+    @Test
+    void testProvideRequestHandlerManager() {
+        RequestHandlerManager requestHandlerManager = requestHandlerManagerProvider.get();
+
+        assertNotNull(requestHandlerManager, "Request handler manager should not be null.");
     }
 }
