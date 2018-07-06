@@ -49,13 +49,8 @@ public class RequestHandlerManagerImpl implements RequestHandlerManager {
     public void process(RequestContext requestContext, Request request) {
         for (Map<Class<? extends Packet>, List<RequestConsumer>> packetConsumers : requestHandlers.values()) {
             List<RequestConsumer> consumers = packetConsumers.get(request.getClass());
-
-            if (consumers == null) {
-                continue;
-            }
-
-            for (RequestConsumer consumer : consumers) {
-                consumer.accept(requestContext, request);
+            if (consumers != null) {
+                consumers.forEach(consumer -> consumer.accept(requestContext, request));
             }
         }
     }
