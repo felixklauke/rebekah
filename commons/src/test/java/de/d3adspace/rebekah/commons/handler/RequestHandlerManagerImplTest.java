@@ -1,6 +1,7 @@
 package de.d3adspace.rebekah.commons.handler;
 
 import de.d3adspace.rebekah.commons.context.RequestContext;
+import de.d3adspace.rebekah.commons.packet.Packet;
 import de.d3adspace.rebekah.commons.packet.io.PacketReader;
 import de.d3adspace.rebekah.commons.packet.io.PacketWriter;
 import de.d3adspace.rebekah.commons.request.Request;
@@ -76,7 +77,7 @@ class RequestHandlerManagerImplTest {
         }
     }
 
-    public static class TestRequest implements Request {
+    public static class TestRequest implements Packet {
 
         @Override
         public void encode(PacketWriter packetWriter) {

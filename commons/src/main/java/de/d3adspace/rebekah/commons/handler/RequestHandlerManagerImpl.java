@@ -3,6 +3,7 @@ package de.d3adspace.rebekah.commons.handler;
 import com.google.common.collect.Maps;
 import de.d3adspace.rebekah.commons.context.RequestContext;
 import de.d3adspace.rebekah.commons.packet.Packet;
+import de.d3adspace.rebekah.commons.request.Request;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -77,16 +78,16 @@ public class RequestHandlerManagerImpl implements RequestHandlerManager {
     }
 
     @Override
-    public void process(RequestContext requestContext, Packet packet) {
+    public void process(RequestContext requestContext, Request request) {
         for (Map<Class<? extends Packet>, List<RequestConsumer>> packetConsumers : packetHandlers.values()) {
-            List<RequestConsumer> consumers = packetConsumers.get(packet.getClass());
+            List<RequestConsumer> consumers = packetConsumers.get(request.getClass());
 
             if (consumers == null) {
                 continue;
             }
 
             for (RequestConsumer consumer : consumers) {
-                consumer.accept(requestContext, packet);
+                consumer.accept(requestContext, request);
             }
         }
     }
