@@ -84,6 +84,17 @@ class RebekahServerImplTest {
     }
 
     @Test
+    void testIsRequestHandlerRegistered() {
+        boolean shouldBeRegistered = true;
+        when(requestHandlerManager.isRequestHandlerRegistered(requestHandler)).thenReturn(shouldBeRegistered);
+
+        boolean requestHandlerRegistered = rebekahServer.isRequestHandlerRegistered(requestHandler);
+
+        verify(requestHandlerManager).isRequestHandlerRegistered(requestHandler);
+        assertEquals(shouldBeRegistered, requestHandlerRegistered, "Request handler reguistered state differs.");
+    }
+
+    @Test
     void testRegisterPacket() {
         rebekahServer.registerPacket(packetClass);
 

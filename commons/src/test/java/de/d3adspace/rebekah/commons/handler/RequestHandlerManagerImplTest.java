@@ -12,7 +12,7 @@ import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Felix Klauke <info@felix-klauke.de>
@@ -20,8 +20,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @ExtendWith(MockitoExtension.class)
 class RequestHandlerManagerImplTest {
 
-    @Mock
-    RequestHandler requestHandler;
+    private static final RequestHandler TEST_EMPTY_REQUEST_HANDLER = new EmptyTestRequestHandler();
+    private static final RequestHandler TEST_REQUEST_HANDLER = new TestRequestHandler0();
+
     @Mock
     RequestContext requestContext;
 
@@ -33,15 +34,21 @@ class RequestHandlerManagerImplTest {
     void setUp() {
         request = new TestRequest();
         requestHandlerManager = new RequestHandlerManagerImpl();
+        requestHandlerManager.registerRequestHandler(TEST_REQUEST_HANDLER);
+        requestHandlerManager.registerRequestHandler(TEST_EMPTY_REQUEST_HANDLER);
     }
 
     @Test
-    void testRegisterPacketHandler() {
-        requestHandlerManager.registerRequestHandler(new TestRequestHandler());
+    void testRegisterRequestHandler() {
+        TestRequestHandler testRequestHandler = new TestRequestHandler();
+
+        requestHandlerManager.registerRequestHandler(testRequestHandler);
+
+        assertTrue(requestHandlerManager.isRequestHandlerRegistered(testRequestHandler), "Packet handler should be registered.");
     }
 
     @Test
-    void testUnregisterPacketHandlerTwiceInstance() {
+    void testRegisterRequestHandlerTwiceInstance() {
         TestRequestHandler testPacketHandler = new TestRequestHandler();
         requestHandlerManager.registerRequestHandler(testPacketHandler);
 
@@ -50,8 +57,24 @@ class RequestHandlerManagerImplTest {
     }
 
     @Test
+    void testUnregisterRequestHandler() {
+        requestHandlerManager.unregisterRequestHandler(TEST_REQUEST_HANDLER);
+
+        assertFalse(requestHandlerManager.isRequestHandlerRegistered(TEST_REQUEST_HANDLER), "Packet handler should not be registered.");
+    }
+
+    @Test
+    void testIsRequestHandlerRegistered() {
+        assertTrue(requestHandlerManager.isRequestHandlerRegistered(TEST_REQUEST_HANDLER), "Packet handler should be registered.");
+    }
+
+    @Test
     void testProcess() {
         requestHandlerManager.process(requestContext, request);
+    }
+
+    public static class EmptyTestRequestHandler implements RequestHandler {
+
     }
 
     public static class TestRequestHandler implements RequestHandler {
@@ -74,6 +97,18 @@ class RequestHandlerManagerImplTest {
 
         public void handleRequestNot3(TestRequest testRequest, RequestContext requestContext) {
             throw new IllegalStateException();
+        }
+
+        public void handleRequestNot4(RequestContext requestContext, RequestContext requestContext1) {
+            throw new IllegalStateException();
+        }
+
+    }
+
+    public static class TestRequestHandler0 implements RequestHandler {
+
+        public void handleRequest(RequestContext requestContext, TestRequest testRequest) {
+
         }
     }
 

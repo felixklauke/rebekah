@@ -69,6 +69,11 @@ public class RebekahServerImpl implements RebekahServer {
     }
 
     @Override
+    public boolean isRequestHandlerRegistered(RequestHandler requestHandler) {
+        return requestHandlerManager.isRequestHandlerRegistered(requestHandler);
+    }
+
+    @Override
     public void registerPacket(Class<? extends Packet> packetClass) {
         packetRegistry.registerPacket(packetClass);
     }

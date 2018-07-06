@@ -25,6 +25,15 @@ public interface RequestHandlerManager {
     void unregisterRequestHandler(RequestHandler requestHandler);
 
     /**
+     * Check if the given request handler is already registered.
+     *
+     * @param requestHandler The request handler.
+     *
+     * @return If the given request handler is already registered.
+     */
+    boolean isRequestHandlerRegistered(RequestHandler requestHandler);
+
+    /**
      * Process the given request in the given request by let it be handled by all eligible handlers.
      *
      * @param requestContext The context of the request.
