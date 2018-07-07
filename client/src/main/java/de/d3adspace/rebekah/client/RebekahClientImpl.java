@@ -11,6 +11,9 @@ import javax.inject.Inject;
  */
 public class RebekahClientImpl extends RebekahPacketAgent implements RebekahClient {
 
+    /**
+     * The underlying transport client.
+     */
     private final TransportClient transportClient;
 
     @Inject
