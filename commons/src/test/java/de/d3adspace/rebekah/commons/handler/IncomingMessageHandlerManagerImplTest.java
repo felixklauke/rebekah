@@ -1,6 +1,6 @@
 package de.d3adspace.rebekah.commons.handler;
 
-import de.d3adspace.rebekah.commons.context.RequestContext;
+import de.d3adspace.rebekah.commons.context.MessageContext;
 import de.d3adspace.rebekah.commons.message.IncomingMessage;
 import de.d3adspace.rebekah.commons.packet.Packet;
 import de.d3adspace.rebekah.commons.packet.io.PacketReader;
@@ -24,7 +24,7 @@ class IncomingMessageHandlerManagerImplTest {
     private static final IncomingMessageHandler TEST_REQUEST_HANDLER = new TestIncomingMessageHandler0();
 
     @Mock
-    RequestContext requestContext;
+    MessageContext messageContext;
 
     IncomingMessage incomingMessage;
 
@@ -70,7 +70,7 @@ class IncomingMessageHandlerManagerImplTest {
 
     @Test
     void testProcess() {
-        incomingMessageHandlerManager.process(requestContext, incomingMessage);
+        incomingMessageHandlerManager.process(messageContext, incomingMessage);
     }
 
     public static class EmptyTestIncomingMessageHandler implements IncomingMessageHandler {
@@ -79,15 +79,15 @@ class IncomingMessageHandlerManagerImplTest {
 
     public static class TestIncomingMessageHandler implements IncomingMessageHandler {
 
-        public void handleRequest(RequestContext requestContext, TestPacket testPacket) {
+        public void handleRequest(MessageContext messageContext, TestPacket testPacket) {
 
         }
 
-        public void handleRequest2(RequestContext requestContext, TestPacket testPacket) {
+        public void handleRequest2(MessageContext messageContext, TestPacket testPacket) {
 
         }
 
-        public void handleRequestNot0(RequestContext requestContext) {
+        public void handleRequestNot0(MessageContext messageContext) {
             throw new IllegalStateException();
         }
 
@@ -99,11 +99,11 @@ class IncomingMessageHandlerManagerImplTest {
             throw new IllegalStateException();
         }
 
-        public void handleRequestNot3(TestPacket testPacket, RequestContext requestContext) {
+        public void handleRequestNot3(TestPacket testPacket, MessageContext messageContext) {
             throw new IllegalStateException();
         }
 
-        public void handleRequestNot4(RequestContext requestContext, RequestContext requestContext1) {
+        public void handleRequestNot4(MessageContext messageContext, MessageContext messageContext1) {
             throw new IllegalStateException();
         }
 
@@ -111,7 +111,7 @@ class IncomingMessageHandlerManagerImplTest {
 
     public static class TestIncomingMessageHandler0 implements IncomingMessageHandler {
 
-        public void handleRequest(RequestContext requestContext, TestPacket testPacket) {
+        public void handleRequest(MessageContext messageContext, TestPacket testPacket) {
 
         }
     }

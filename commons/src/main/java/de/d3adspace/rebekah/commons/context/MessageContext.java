@@ -7,7 +7,7 @@ import de.d3adspace.rebekah.commons.message.OutgoingMessage;
  *
  * @author Felix Klauke <info@felix-klauke.de>
  */
-public interface RequestContext {
+public interface MessageContext {
 
     /**
      * Resume the request response lifecycle with the given response.

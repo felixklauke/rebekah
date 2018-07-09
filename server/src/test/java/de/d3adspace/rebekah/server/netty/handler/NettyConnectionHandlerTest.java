@@ -1,6 +1,6 @@
 package de.d3adspace.rebekah.server.netty.handler;
 
-import de.d3adspace.rebekah.commons.context.RequestContext;
+import de.d3adspace.rebekah.commons.context.MessageContext;
 import de.d3adspace.rebekah.commons.message.IncomingMessage;
 import de.d3adspace.rebekah.commons.message.OutgoingMessage;
 import de.d3adspace.rebekah.server.kernel.Kernel;
@@ -46,7 +46,7 @@ class NettyConnectionHandlerTest {
 
         Observable<Void> handle = nettyConnectionHandler.handle(observableConnection);
 
-        verify(kernel).handleRequest(Mockito.any(RequestContext.class), eq(request));
+        verify(kernel).handleRequest(Mockito.any(MessageContext.class), eq(request));
 
         assertNotNull(handle, "Observable of handled connection should not be null.");
     }

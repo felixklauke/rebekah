@@ -1,6 +1,6 @@
 package de.d3adspace.rebekah.server.kernel;
 
-import de.d3adspace.rebekah.commons.context.RequestContext;
+import de.d3adspace.rebekah.commons.context.MessageContext;
 import de.d3adspace.rebekah.commons.handler.IncomingMessageHandlerManager;
 import de.d3adspace.rebekah.commons.message.IncomingMessage;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +20,7 @@ class SimpleKernelTest {
     @Mock
     private IncomingMessageHandlerManager incomingMessageHandlerManager;
     @Mock
-    private RequestContext requestContext;
+    private MessageContext messageContext;
     @Mock
     private IncomingMessage request;
 
@@ -33,8 +33,8 @@ class SimpleKernelTest {
 
     @Test
     void testHandleRequest() {
-        kernel.handleRequest(requestContext, request);
+        kernel.handleRequest(messageContext, request);
 
-        verify(incomingMessageHandlerManager).process(requestContext, request);
+        verify(incomingMessageHandlerManager).process(messageContext, request);
     }
 }

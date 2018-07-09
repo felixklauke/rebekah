@@ -1,6 +1,6 @@
 package de.d3adspace.rebekah.server.kernel;
 
-import de.d3adspace.rebekah.commons.context.RequestContext;
+import de.d3adspace.rebekah.commons.context.MessageContext;
 import de.d3adspace.rebekah.commons.handler.IncomingMessageHandlerManager;
 import de.d3adspace.rebekah.commons.message.IncomingMessage;
 
@@ -27,7 +27,7 @@ public class SimpleKernel implements Kernel {
     }
 
     @Override
-    public void handleRequest(RequestContext requestContext, IncomingMessage request) {
-        incomingMessageHandlerManager.process(requestContext, request);
+    public void handleRequest(MessageContext messageContext, IncomingMessage request) {
+        incomingMessageHandlerManager.process(messageContext, request);
     }
 }
