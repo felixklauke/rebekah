@@ -36,8 +36,8 @@ public interface IncomingMessageHandlerManager {
     /**
      * Process the given request in the given request by let it be handled by all eligible handlers.
      *
-     * @param messageContext The context of the request.
+     * @param requestContext The context of the request.
      * @param request        The request.
      */
-    void process(MessageContext messageContext, IncomingMessage request);
+    void process(MessageContext requestContext, IncomingMessage request);
 }
