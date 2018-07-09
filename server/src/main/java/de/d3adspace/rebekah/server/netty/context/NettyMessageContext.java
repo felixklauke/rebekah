@@ -1,6 +1,6 @@
 package de.d3adspace.rebekah.server.netty.context;
 
-import de.d3adspace.rebekah.commons.context.AbstractRequestContext;
+import de.d3adspace.rebekah.commons.context.AbstractMessageContext;
 import de.d3adspace.rebekah.commons.message.IncomingMessage;
 import de.d3adspace.rebekah.commons.message.OutgoingMessage;
 import io.reactivex.netty.channel.ObservableConnection;
@@ -8,7 +8,7 @@ import io.reactivex.netty.channel.ObservableConnection;
 /**
  * @author Felix Klauke <info@felix-klauke.de>
  */
-public class NettyRequestContext extends AbstractRequestContext<IncomingMessage> {
+public class NettyMessageContext extends AbstractMessageContext<IncomingMessage> {
 
     /**
      * The connection of the context where the request comes from.
@@ -21,7 +21,7 @@ public class NettyRequestContext extends AbstractRequestContext<IncomingMessage>
      * @param connection The connection needed for sending back the response.
      * @param request    The request.
      */
-    public NettyRequestContext(ObservableConnection<IncomingMessage, OutgoingMessage> connection, IncomingMessage request) {
+    public NettyMessageContext(ObservableConnection<IncomingMessage, OutgoingMessage> connection, IncomingMessage request) {
         super(request);
         this.connection = connection;
     }

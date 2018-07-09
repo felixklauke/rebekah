@@ -11,12 +11,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Test for the {@link AbstractRequestContext}.
+ * Test for the {@link AbstractMessageContext}.
  *
  * @author Felix Klauke <info@felix-klauke.de>
  */
 @ExtendWith(MockitoExtension.class)
-class AbstractRequestContextTest {
+class AbstractMessageContextTest {
 
     @Mock
     private IncomingMessage testRequest;
@@ -24,11 +24,11 @@ class AbstractRequestContextTest {
     /**
      * The request context test subject.
      */
-    private AbstractRequestContext abstractRequestContext;
+    private AbstractMessageContext abstractRequestContext;
 
     @BeforeEach
     void setUp() {
-        abstractRequestContext = new AbstractRequestContext<IncomingMessage>(testRequest) {
+        abstractRequestContext = new AbstractMessageContext<IncomingMessage>(testRequest) {
             @Override
             public void resume(OutgoingMessage response) {
             }

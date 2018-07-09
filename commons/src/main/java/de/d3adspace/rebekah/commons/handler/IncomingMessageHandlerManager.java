@@ -1,6 +1,6 @@
 package de.d3adspace.rebekah.commons.handler;
 
-import de.d3adspace.rebekah.commons.context.RequestContext;
+import de.d3adspace.rebekah.commons.context.MessageContext;
 import de.d3adspace.rebekah.commons.message.IncomingMessage;
 
 /**
@@ -36,8 +36,8 @@ public interface IncomingMessageHandlerManager {
     /**
      * Process the given request in the given request by let it be handled by all eligible handlers.
      *
-     * @param requestContext The context of the request.
+     * @param messageContext The context of the request.
      * @param request        The request.
      */
-    void process(RequestContext requestContext, IncomingMessage request);
+    void process(MessageContext messageContext, IncomingMessage request);
 }

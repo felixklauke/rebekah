@@ -8,7 +8,7 @@ import de.d3adspace.rebekah.commons.message.IncomingMessage;
  *
  * @author Felix Klauke <info@felix-klauke.de>
  */
-public abstract class AbstractRequestContext<RequestType extends IncomingMessage> implements RequestContext {
+public abstract class AbstractMessageContext<RequestType extends IncomingMessage> implements MessageContext {
 
     /**
      * The reference to the request handled in this context.
@@ -20,7 +20,7 @@ public abstract class AbstractRequestContext<RequestType extends IncomingMessage
      *
      * @param request The request.
      */
-    public AbstractRequestContext(RequestType request) {
+    public AbstractMessageContext(RequestType request) {
         this.request = request;
     }
 

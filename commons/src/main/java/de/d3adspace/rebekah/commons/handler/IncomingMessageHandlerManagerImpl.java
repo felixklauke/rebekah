@@ -1,7 +1,7 @@
 package de.d3adspace.rebekah.commons.handler;
 
 import com.google.common.collect.Maps;
-import de.d3adspace.rebekah.commons.context.RequestContext;
+import de.d3adspace.rebekah.commons.context.MessageContext;
 import de.d3adspace.rebekah.commons.message.IncomingMessage;
 import de.d3adspace.rebekah.commons.packet.Packet;
 
@@ -46,11 +46,11 @@ public class IncomingMessageHandlerManagerImpl implements IncomingMessageHandler
     }
 
     @Override
-    public void process(RequestContext requestContext, IncomingMessage incomingMessage) {
+    public void process(MessageContext messageContext, IncomingMessage incomingMessage) {
         for (Map<Class<? extends Packet>, List<IncomingMessageConsumer>> packetConsumers : requestHandlers.values()) {
             List<IncomingMessageConsumer> consumers = packetConsumers.get(incomingMessage.getClass());
             if (consumers != null) {
-                consumers.forEach(consumer -> consumer.accept(requestContext, incomingMessage));
+                consumers.forEach(consumer -> consumer.accept(messageContext, incomingMessage));
             }
         }
     }
@@ -68,7 +68,7 @@ public class IncomingMessageHandlerManagerImpl implements IncomingMessageHandler
             }
 
             Class<?>[] parameterTypes = packetHandlerClassDeclaredMethod.getParameterTypes();
-            if (!parameterTypes[0].isAssignableFrom(RequestContext.class) || !Packet.class.isAssignableFrom(parameterTypes[1])) {
+            if (!parameterTypes[0].isAssignableFrom(MessageContext.class) || !Packet.class.isAssignableFrom(parameterTypes[1])) {
                 continue;
             }
 

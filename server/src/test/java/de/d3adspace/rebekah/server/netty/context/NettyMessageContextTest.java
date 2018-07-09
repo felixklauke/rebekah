@@ -15,7 +15,7 @@ import static org.mockito.Mockito.verify;
  * @author Felix Klauke <info@felix-klauke.de>
  */
 @ExtendWith(MockitoExtension.class)
-class NettyRequestContextTest {
+class NettyMessageContextTest {
 
     @Mock
     private IncomingMessage request;
@@ -24,11 +24,11 @@ class NettyRequestContextTest {
     @Mock
     private OutgoingMessage response;
 
-    private NettyRequestContext nettyRequestContext;
+    private NettyMessageContext nettyRequestContext;
 
     @BeforeEach
     void setUp() {
-        nettyRequestContext = new NettyRequestContext(observableConnection, request);
+        nettyRequestContext = new NettyMessageContext(observableConnection, request);
     }
 
     @Test

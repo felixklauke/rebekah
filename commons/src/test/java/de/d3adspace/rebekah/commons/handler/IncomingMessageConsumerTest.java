@@ -1,6 +1,6 @@
 package de.d3adspace.rebekah.commons.handler;
 
-import de.d3adspace.rebekah.commons.context.RequestContext;
+import de.d3adspace.rebekah.commons.context.MessageContext;
 import de.d3adspace.rebekah.commons.message.IncomingMessage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +28,7 @@ class IncomingMessageConsumerTest {
     @Mock
     IncomingMessageHandler incomingMessageHandler;
     @Mock
-    RequestContext requestContext;
+    MessageContext messageContext;
     @Mock
     IncomingMessage incomingMessage;
 
@@ -41,10 +41,10 @@ class IncomingMessageConsumerTest {
 
     @Test
     void testAccept() {
-        incomingMessageConsumer.accept(requestContext, incomingMessage);
+        incomingMessageConsumer.accept(messageContext, incomingMessage);
 
         try {
-            verify(method).invoke(incomingMessageHandler, requestContext, incomingMessage);
+            verify(method).invoke(incomingMessageHandler, messageContext, incomingMessage);
         } catch (IllegalAccessException | InvocationTargetException e) {
             fail(e);
         }
@@ -53,12 +53,12 @@ class IncomingMessageConsumerTest {
     @Test
     void testAcceptWithException() {
         try {
-            when(method.invoke(incomingMessageHandler, requestContext, incomingMessage)).thenThrow(new IllegalAccessException());
+            when(method.invoke(incomingMessageHandler, messageContext, incomingMessage)).thenThrow(new IllegalAccessException());
         } catch (IllegalAccessException | InvocationTargetException e) {
             fail(e);
         }
 
-        Executable executable = () -> incomingMessageConsumer.accept(requestContext, incomingMessage);
+        Executable executable = () -> incomingMessageConsumer.accept(messageContext, incomingMessage);
 
         assertThrows(IllegalStateException.class, executable);
     }
