@@ -1,7 +1,7 @@
 package de.d3adspace.rebekah.commons.context;
 
-import de.d3adspace.rebekah.commons.request.Request;
-import de.d3adspace.rebekah.commons.response.Response;
+import de.d3adspace.rebekah.commons.message.IncomingMessage;
+import de.d3adspace.rebekah.commons.message.OutgoingMessage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class AbstractRequestContextTest {
 
     @Mock
-    private Request testRequest;
+    private IncomingMessage testRequest;
 
     /**
      * The request context test subject.
@@ -28,16 +28,16 @@ class AbstractRequestContextTest {
 
     @BeforeEach
     void setUp() {
-        abstractRequestContext = new AbstractRequestContext<Request>(testRequest) {
+        abstractRequestContext = new AbstractRequestContext<IncomingMessage>(testRequest) {
             @Override
-            public void resume(Response response) {
+            public void resume(OutgoingMessage response) {
             }
         };
     }
 
     @Test
     void testGetRequest() {
-        Request request = abstractRequestContext.getRequest();
+        IncomingMessage request = abstractRequestContext.getRequest();
         assertEquals(testRequest, request, "The test request doesn't equal the one got from the context.");
     }
 }

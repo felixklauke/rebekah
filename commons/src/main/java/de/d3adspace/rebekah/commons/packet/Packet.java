@@ -1,26 +1,12 @@
 package de.d3adspace.rebekah.commons.packet;
 
-import de.d3adspace.rebekah.commons.packet.io.PacketReader;
-import de.d3adspace.rebekah.commons.packet.io.PacketWriter;
-import de.d3adspace.rebekah.commons.request.Request;
-import de.d3adspace.rebekah.commons.response.Response;
+import de.d3adspace.rebekah.commons.message.IncomingMessage;
+import de.d3adspace.rebekah.commons.message.OutgoingMessage;
 
 /**
  * @author Felix Klauke <info@felix-klauke.de>
  */
-public interface Packet extends Request, Response {
+public interface Packet extends IncomingMessage, OutgoingMessage {
 
-    /**
-     * Write the packet using the given writer.
-     *
-     * @param packetWriter The packet writer.
-     */
-    void encode(PacketWriter packetWriter);
 
-    /**
-     * Read the packet content from the given reader.
-     *
-     * @param packetReader The reader.
-     */
-    void decode(PacketReader packetReader);
 }

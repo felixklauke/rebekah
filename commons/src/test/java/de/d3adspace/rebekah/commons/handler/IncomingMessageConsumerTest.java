@@ -1,7 +1,7 @@
 package de.d3adspace.rebekah.commons.handler;
 
 import de.d3adspace.rebekah.commons.context.RequestContext;
-import de.d3adspace.rebekah.commons.request.Request;
+import de.d3adspace.rebekah.commons.message.IncomingMessage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,30 +21,30 @@ import static org.mockito.Mockito.when;
  * @author Felix Klauke <info@felix-klauke.de>
  */
 @ExtendWith(MockitoExtension.class)
-class RequestConsumerTest {
+class IncomingMessageConsumerTest {
 
     @Mock
     Method method;
     @Mock
-    RequestHandler requestHandler;
+    IncomingMessageHandler incomingMessageHandler;
     @Mock
     RequestContext requestContext;
     @Mock
-    Request request;
+    IncomingMessage incomingMessage;
 
-    private RequestConsumer requestConsumer;
+    private IncomingMessageConsumer incomingMessageConsumer;
 
     @BeforeEach
     void setUp() {
-        requestConsumer = new RequestConsumer(requestHandler, method);
+        incomingMessageConsumer = new IncomingMessageConsumer(incomingMessageHandler, method);
     }
 
     @Test
     void testAccept() {
-        requestConsumer.accept(requestContext, request);
+        incomingMessageConsumer.accept(requestContext, incomingMessage);
 
         try {
-            verify(method).invoke(requestHandler, requestContext, request);
+            verify(method).invoke(incomingMessageHandler, requestContext, incomingMessage);
         } catch (IllegalAccessException | InvocationTargetException e) {
             fail(e);
         }
@@ -53,12 +53,12 @@ class RequestConsumerTest {
     @Test
     void testAcceptWithException() {
         try {
-            when(method.invoke(requestHandler, requestContext, request)).thenThrow(new IllegalAccessException());
+            when(method.invoke(incomingMessageHandler, requestContext, incomingMessage)).thenThrow(new IllegalAccessException());
         } catch (IllegalAccessException | InvocationTargetException e) {
             fail(e);
         }
 
-        Executable executable = () -> requestConsumer.accept(requestContext, request);
+        Executable executable = () -> incomingMessageConsumer.accept(requestContext, incomingMessage);
 
         assertThrows(IllegalStateException.class, executable);
     }

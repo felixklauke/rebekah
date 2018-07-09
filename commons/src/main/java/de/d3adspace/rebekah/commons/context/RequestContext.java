@@ -1,6 +1,6 @@
 package de.d3adspace.rebekah.commons.context;
 
-import de.d3adspace.rebekah.commons.response.Response;
+import de.d3adspace.rebekah.commons.message.OutgoingMessage;
 
 /**
  * Describes the context of a request, that can be answered by a response.
@@ -12,7 +12,7 @@ public interface RequestContext {
     /**
      * Resume the request response lifecycle with the given response.
      *
-     * @param response The response.
+     * @param outgoingMessage The outgoing message.
      */
-    void resume(Response response);
+    void resume(OutgoingMessage outgoingMessage);
 }

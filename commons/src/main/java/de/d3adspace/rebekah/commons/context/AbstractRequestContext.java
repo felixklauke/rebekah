@@ -1,6 +1,6 @@
 package de.d3adspace.rebekah.commons.context;
 
-import de.d3adspace.rebekah.commons.request.Request;
+import de.d3adspace.rebekah.commons.message.IncomingMessage;
 
 /**
  * Abstraction of a request context that will hold a reference to a request by using the field {@link #request}. The
@@ -8,7 +8,7 @@ import de.d3adspace.rebekah.commons.request.Request;
  *
  * @author Felix Klauke <info@felix-klauke.de>
  */
-public abstract class AbstractRequestContext<RequestType extends Request> implements RequestContext {
+public abstract class AbstractRequestContext<RequestType extends IncomingMessage> implements RequestContext {
 
     /**
      * The reference to the request handled in this context.

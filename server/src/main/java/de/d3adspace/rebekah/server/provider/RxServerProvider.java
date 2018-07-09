@@ -1,7 +1,7 @@
 package de.d3adspace.rebekah.server.provider;
 
-import de.d3adspace.rebekah.commons.request.Request;
-import de.d3adspace.rebekah.commons.response.Response;
+import de.d3adspace.rebekah.commons.message.IncomingMessage;
+import de.d3adspace.rebekah.commons.message.OutgoingMessage;
 import io.reactivex.netty.RxNetty;
 import io.reactivex.netty.channel.ConnectionHandler;
 import io.reactivex.netty.pipeline.PipelineConfigurator;
@@ -16,7 +16,7 @@ import javax.inject.Provider;
  *
  * @author Felix Klauke <info@felix-klauke.de>
  */
-public class RxServerProvider implements Provider<RxServer<Request, Response>> {
+public class RxServerProvider implements Provider<RxServer<IncomingMessage, OutgoingMessage>> {
 
     /**
      * The port of the server.
@@ -26,22 +26,22 @@ public class RxServerProvider implements Provider<RxServer<Request, Response>> {
     /**
      * The configurator of the netty pipeline.
      */
-    private final PipelineConfigurator<Request, Response> pipelineConfigurator;
+    private final PipelineConfigurator<IncomingMessage, OutgoingMessage> pipelineConfigurator;
 
     /**
      * The connection handler of the netty server.
      */
-    private final ConnectionHandler<Request, Response> connectionHandler;
+    private final ConnectionHandler<IncomingMessage, OutgoingMessage> connectionHandler;
 
     @Inject
-    public RxServerProvider(@Named("serverPort") int serverPort, PipelineConfigurator<Request, Response> pipelineConfigurator, ConnectionHandler<Request, Response> connectionHandler) {
+    public RxServerProvider(@Named("serverPort") int serverPort, PipelineConfigurator<IncomingMessage, OutgoingMessage> pipelineConfigurator, ConnectionHandler<IncomingMessage, OutgoingMessage> connectionHandler) {
         this.serverPort = serverPort;
         this.pipelineConfigurator = pipelineConfigurator;
         this.connectionHandler = connectionHandler;
     }
 
     @Override
-    public RxServer<Request, Response> get() {
+    public RxServer<IncomingMessage, OutgoingMessage> get() {
         return RxNetty.createTcpServer(serverPort, pipelineConfigurator, connectionHandler);
     }
 }

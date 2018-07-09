@@ -1,7 +1,7 @@
 package de.d3adspace.rebekah.server.netty.context;
 
-import de.d3adspace.rebekah.commons.request.Request;
-import de.d3adspace.rebekah.commons.response.Response;
+import de.d3adspace.rebekah.commons.message.IncomingMessage;
+import de.d3adspace.rebekah.commons.message.OutgoingMessage;
 import io.reactivex.netty.channel.ObservableConnection;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,11 +18,11 @@ import static org.mockito.Mockito.verify;
 class NettyRequestContextTest {
 
     @Mock
-    private Request request;
+    private IncomingMessage request;
     @Mock
-    private ObservableConnection<Request, Response> observableConnection;
+    private ObservableConnection<IncomingMessage, OutgoingMessage> observableConnection;
     @Mock
-    private Response response;
+    private OutgoingMessage response;
 
     private NettyRequestContext nettyRequestContext;
 

@@ -3,9 +3,9 @@ package de.d3adspace.rebekah.server.module;
 import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
+import de.d3adspace.rebekah.commons.message.IncomingMessage;
+import de.d3adspace.rebekah.commons.message.OutgoingMessage;
 import de.d3adspace.rebekah.commons.module.CommonsModule;
-import de.d3adspace.rebekah.commons.request.Request;
-import de.d3adspace.rebekah.commons.response.Response;
 import de.d3adspace.rebekah.server.RebekahServer;
 import de.d3adspace.rebekah.server.RebekahServerImpl;
 import de.d3adspace.rebekah.server.kernel.Kernel;
@@ -38,11 +38,11 @@ public class RebekahServerModule extends AbstractModule {
         bind(Kernel.class).to(SimpleKernel.class).asEagerSingleton();
 
         // Rx Server
-        bind(new TypeLiteral<PipelineConfigurator<Request, Response>>() {
+        bind(new TypeLiteral<PipelineConfigurator<IncomingMessage, OutgoingMessage>>() {
         }).to(NettyPipelineConfigurator.class);
-        bind(new TypeLiteral<ConnectionHandler<Request, Response>>() {
+        bind(new TypeLiteral<ConnectionHandler<IncomingMessage, OutgoingMessage>>() {
         }).to(NettyConnectionHandler.class);
-        bind(new TypeLiteral<RxServer<Request, Response>>() {
+        bind(new TypeLiteral<RxServer<IncomingMessage, OutgoingMessage>>() {
         }).toProvider(RxServerProvider.class);
 
         // Install foreign modules

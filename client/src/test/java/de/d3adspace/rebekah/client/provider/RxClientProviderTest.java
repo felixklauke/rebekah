@@ -1,7 +1,7 @@
 package de.d3adspace.rebekah.client.provider;
 
-import de.d3adspace.rebekah.commons.request.Request;
-import de.d3adspace.rebekah.commons.response.Response;
+import de.d3adspace.rebekah.commons.message.IncomingMessage;
+import de.d3adspace.rebekah.commons.message.OutgoingMessage;
 import io.reactivex.netty.client.RxClient;
 import io.reactivex.netty.pipeline.PipelineConfigurator;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +22,7 @@ class RxClientProviderTest {
     private static final int TEST_SERVER_PORT = 8083;
 
     @Mock
-    PipelineConfigurator<Response, Request> pipelineConfigurator;
+    PipelineConfigurator<IncomingMessage, OutgoingMessage> pipelineConfigurator;
 
     private RxClientProvider rxClientProvider;
 
@@ -33,7 +33,7 @@ class RxClientProviderTest {
 
     @Test
     void testGet() {
-        RxClient<Request, Response> rxClient = rxClientProvider.get();
+        RxClient<OutgoingMessage, IncomingMessage> rxClient = rxClientProvider.get();
 
         assertNotNull(rxClient, "Client should not be null.");
     }

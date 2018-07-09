@@ -1,7 +1,7 @@
 package de.d3adspace.rebekah.commons.handler;
 
 import de.d3adspace.rebekah.commons.context.RequestContext;
-import de.d3adspace.rebekah.commons.request.Request;
+import de.d3adspace.rebekah.commons.message.IncomingMessage;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -10,12 +10,12 @@ import java.util.function.BiConsumer;
 /**
  * @author Felix Klauke <info@felix-klauke.de>
  */
-class RequestConsumer implements BiConsumer<RequestContext, Request> {
+class IncomingMessageConsumer implements BiConsumer<RequestContext, IncomingMessage> {
 
     /**
      * The corresponding packet handler.
      */
-    private final RequestHandler requestHandler;
+    private final IncomingMessageHandler incomingMessageHandler;
 
     /**
      * The method that should be executed on consume.
@@ -25,18 +25,18 @@ class RequestConsumer implements BiConsumer<RequestContext, Request> {
     /**
      * Create a new packet consumer based on its underlying method.
      *
-     * @param requestHandler The packet handler.
+     * @param incomingMessageHandler The packet handler.
      * @param method         The method.
      */
-    RequestConsumer(RequestHandler requestHandler, Method method) {
-        this.requestHandler = requestHandler;
+    IncomingMessageConsumer(IncomingMessageHandler incomingMessageHandler, Method method) {
+        this.incomingMessageHandler = incomingMessageHandler;
         this.method = method;
     }
 
     @Override
-    public void accept(RequestContext requestContext, Request request) {
+    public void accept(RequestContext requestContext, IncomingMessage request) {
         try {
-            method.invoke(requestHandler, requestContext, request);
+            method.invoke(incomingMessageHandler, requestContext, request);
         } catch (IllegalAccessException | InvocationTargetException e) {
             throw new IllegalStateException("Error handling request while executing handler method: " + method, e);
         }

@@ -1,7 +1,7 @@
 package de.d3adspace.rebekah.client.netty;
 
-import de.d3adspace.rebekah.commons.request.Request;
-import de.d3adspace.rebekah.commons.response.Response;
+import de.d3adspace.rebekah.commons.message.IncomingMessage;
+import de.d3adspace.rebekah.commons.message.OutgoingMessage;
 import io.reactivex.netty.channel.ObservableConnection;
 import io.reactivex.netty.client.RxClient;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,12 +22,12 @@ import static org.mockito.Mockito.*;
 class NettyClientTest {
 
     @Mock
-    ObservableConnection<Response, Request> observableConnection;
+    ObservableConnection<IncomingMessage, OutgoingMessage> observableConnection;
     @Mock
-    Request request;
+    OutgoingMessage request;
     @Mock
-    RxClient<Request, Response> rxClient;
-    private BehaviorSubject<ObservableConnection<Response, Request>> observableConnectionObservable = BehaviorSubject.create();
+    RxClient<OutgoingMessage, IncomingMessage> rxClient;
+    private BehaviorSubject<ObservableConnection<IncomingMessage, OutgoingMessage>> observableConnectionObservable = BehaviorSubject.create();
 
     private NettyClient nettyClient;
 

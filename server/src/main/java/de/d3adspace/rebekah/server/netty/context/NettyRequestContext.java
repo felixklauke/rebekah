@@ -1,19 +1,19 @@
 package de.d3adspace.rebekah.server.netty.context;
 
 import de.d3adspace.rebekah.commons.context.AbstractRequestContext;
-import de.d3adspace.rebekah.commons.request.Request;
-import de.d3adspace.rebekah.commons.response.Response;
+import de.d3adspace.rebekah.commons.message.IncomingMessage;
+import de.d3adspace.rebekah.commons.message.OutgoingMessage;
 import io.reactivex.netty.channel.ObservableConnection;
 
 /**
  * @author Felix Klauke <info@felix-klauke.de>
  */
-public class NettyRequestContext extends AbstractRequestContext<Request> {
+public class NettyRequestContext extends AbstractRequestContext<IncomingMessage> {
 
     /**
      * The connection of the context where the request comes from.
      */
-    private final ObservableConnection<Request, Response> connection;
+    private final ObservableConnection<IncomingMessage, OutgoingMessage> connection;
 
     /**
      * Create a new request context by its underlying request.
@@ -21,13 +21,13 @@ public class NettyRequestContext extends AbstractRequestContext<Request> {
      * @param connection The connection needed for sending back the response.
      * @param request    The request.
      */
-    public NettyRequestContext(ObservableConnection<Request, Response> connection, Request request) {
+    public NettyRequestContext(ObservableConnection<IncomingMessage, OutgoingMessage> connection, IncomingMessage request) {
         super(request);
         this.connection = connection;
     }
 
     @Override
-    public void resume(Response response) {
+    public void resume(OutgoingMessage response) {
         connection.writeAndFlush(response);
     }
 }

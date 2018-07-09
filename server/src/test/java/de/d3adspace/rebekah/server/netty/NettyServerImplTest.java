@@ -1,7 +1,7 @@
 package de.d3adspace.rebekah.server.netty;
 
-import de.d3adspace.rebekah.commons.request.Request;
-import de.d3adspace.rebekah.commons.response.Response;
+import de.d3adspace.rebekah.commons.message.IncomingMessage;
+import de.d3adspace.rebekah.commons.message.OutgoingMessage;
 import io.reactivex.netty.server.RxServer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.verify;
 class NettyServerImplTest {
 
     @Mock
-    private RxServer<Request, Response> rxServer;
+    private RxServer<IncomingMessage, OutgoingMessage> rxServer;
 
     private NettyServerImpl nettyServer;
 

@@ -1,8 +1,8 @@
 package de.d3adspace.rebekah.server.netty.handler;
 
 import de.d3adspace.rebekah.commons.context.RequestContext;
-import de.d3adspace.rebekah.commons.request.Request;
-import de.d3adspace.rebekah.commons.response.Response;
+import de.d3adspace.rebekah.commons.message.IncomingMessage;
+import de.d3adspace.rebekah.commons.message.OutgoingMessage;
 import de.d3adspace.rebekah.server.kernel.Kernel;
 import io.reactivex.netty.channel.ObservableConnection;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,11 +25,11 @@ import static org.mockito.Mockito.when;
 class NettyConnectionHandlerTest {
 
     @Mock
-    Request request;
+    IncomingMessage request;
     @Mock
     Kernel kernel;
     @Mock
-    ObservableConnection<Request, Response> observableConnection;
+    ObservableConnection<IncomingMessage, OutgoingMessage> observableConnection;
 
     private NettyConnectionHandler nettyConnectionHandler;
 
@@ -40,7 +40,7 @@ class NettyConnectionHandlerTest {
 
     @Test
     void testHandle() {
-        Observable<Request> requestObservable = Observable.just(request);
+        Observable<IncomingMessage> requestObservable = Observable.just(request);
 
         when(observableConnection.getInput()).thenReturn(requestObservable);
 

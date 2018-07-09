@@ -1,0 +1,131 @@
+package de.d3adspace.rebekah.commons.handler;
+
+import de.d3adspace.rebekah.commons.context.RequestContext;
+import de.d3adspace.rebekah.commons.message.IncomingMessage;
+import de.d3adspace.rebekah.commons.packet.Packet;
+import de.d3adspace.rebekah.commons.packet.io.PacketReader;
+import de.d3adspace.rebekah.commons.packet.io.PacketWriter;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * @author Felix Klauke <info@felix-klauke.de>
+ */
+@ExtendWith(MockitoExtension.class)
+class IncomingMessageHandlerManagerImplTest {
+
+    private static final IncomingMessageHandler TEST_EMPTY_REQUEST_HANDLER = new EmptyTestIncomingMessageHandler();
+    private static final IncomingMessageHandler TEST_REQUEST_HANDLER = new TestIncomingMessageHandler0();
+
+    @Mock
+    RequestContext requestContext;
+
+    IncomingMessage incomingMessage;
+
+    private IncomingMessageHandlerManager incomingMessageHandlerManager;
+
+    @BeforeEach
+    void setUp() {
+        incomingMessage = new TestPacket();
+        incomingMessageHandlerManager = new IncomingMessageHandlerManagerImpl();
+        incomingMessageHandlerManager.registerRequestHandler(TEST_REQUEST_HANDLER);
+        incomingMessageHandlerManager.registerRequestHandler(TEST_EMPTY_REQUEST_HANDLER);
+    }
+
+    @Test
+    void testRegisterRequestHandler() {
+        TestIncomingMessageHandler testRequestHandler = new TestIncomingMessageHandler();
+
+        incomingMessageHandlerManager.registerRequestHandler(testRequestHandler);
+
+        assertTrue(incomingMessageHandlerManager.isRequestHandlerRegistered(testRequestHandler), "Packet handler should be registered.");
+    }
+
+    @Test
+    void testRegisterRequestHandlerTwiceInstance() {
+        TestIncomingMessageHandler testPacketHandler = new TestIncomingMessageHandler();
+        incomingMessageHandlerManager.registerRequestHandler(testPacketHandler);
+
+        Executable executable = () -> incomingMessageHandlerManager.registerRequestHandler(testPacketHandler);
+        assertThrows(IllegalStateException.class, executable);
+    }
+
+    @Test
+    void testUnregisterRequestHandler() {
+        incomingMessageHandlerManager.unregisterRequestHandler(TEST_REQUEST_HANDLER);
+
+        assertFalse(incomingMessageHandlerManager.isRequestHandlerRegistered(TEST_REQUEST_HANDLER), "Packet handler should not be registered.");
+    }
+
+    @Test
+    void testIsRequestHandlerRegistered() {
+        assertTrue(incomingMessageHandlerManager.isRequestHandlerRegistered(TEST_REQUEST_HANDLER), "Packet handler should be registered.");
+    }
+
+    @Test
+    void testProcess() {
+        incomingMessageHandlerManager.process(requestContext, incomingMessage);
+    }
+
+    public static class EmptyTestIncomingMessageHandler implements IncomingMessageHandler {
+
+    }
+
+    public static class TestIncomingMessageHandler implements IncomingMessageHandler {
+
+        public void handleRequest(RequestContext requestContext, TestPacket testPacket) {
+
+        }
+
+        public void handleRequest2(RequestContext requestContext, TestPacket testPacket) {
+
+        }
+
+        public void handleRequestNot0(RequestContext requestContext) {
+            throw new IllegalStateException();
+        }
+
+        public void handleRequestNot1(IncomingMessage request) {
+            throw new IllegalStateException();
+        }
+
+        public void handleRequestNot2(TestPacket request) {
+            throw new IllegalStateException();
+        }
+
+        public void handleRequestNot3(TestPacket testPacket, RequestContext requestContext) {
+            throw new IllegalStateException();
+        }
+
+        public void handleRequestNot4(RequestContext requestContext, RequestContext requestContext1) {
+            throw new IllegalStateException();
+        }
+
+    }
+
+    public static class TestIncomingMessageHandler0 implements IncomingMessageHandler {
+
+        public void handleRequest(RequestContext requestContext, TestPacket testPacket) {
+
+        }
+    }
+
+    public static class TestPacket implements Packet {
+
+        @Override
+        public void encode(PacketWriter packetWriter) {
+
+        }
+
+        @Override
+        public void decode(PacketReader packetReader) {
+
+        }
+    }
+}

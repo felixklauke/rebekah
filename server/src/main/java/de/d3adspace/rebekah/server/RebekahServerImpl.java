@@ -1,8 +1,8 @@
 package de.d3adspace.rebekah.server;
 
 import de.d3adspace.rebekah.commons.agent.RebekahPacketAgent;
-import de.d3adspace.rebekah.commons.handler.RequestHandler;
-import de.d3adspace.rebekah.commons.handler.RequestHandlerManager;
+import de.d3adspace.rebekah.commons.handler.IncomingMessageHandler;
+import de.d3adspace.rebekah.commons.handler.IncomingMessageHandlerManager;
 import de.d3adspace.rebekah.commons.packet.PacketRegistry;
 import de.d3adspace.rebekah.server.transport.TransportServer;
 
@@ -23,19 +23,19 @@ public class RebekahServerImpl extends RebekahPacketAgent implements RebekahServ
     /**
      * The manager of all request managers.
      */
-    private final RequestHandlerManager requestHandlerManager;
+    private final IncomingMessageHandlerManager incomingMessageHandlerManager;
 
     /**
      * Create a new rebekah server instance by its underlying transport layer.
      *  @param transportServer The transport layer.
      * @param packetRegistry The packet registry.
-     * @param requestHandlerManager The request handler manager.
+     * @param incomingMessageHandlerManager The request handler manager.
      */
     @Inject
-    public RebekahServerImpl(TransportServer transportServer, PacketRegistry packetRegistry, RequestHandlerManager requestHandlerManager) {
+    public RebekahServerImpl(TransportServer transportServer, PacketRegistry packetRegistry, IncomingMessageHandlerManager incomingMessageHandlerManager) {
         super(packetRegistry);
         this.transportServer = transportServer;
-        this.requestHandlerManager = requestHandlerManager;
+        this.incomingMessageHandlerManager = incomingMessageHandlerManager;
     }
 
     @Override
@@ -54,17 +54,17 @@ public class RebekahServerImpl extends RebekahPacketAgent implements RebekahServ
     }
 
     @Override
-    public void registerRequestHandler(RequestHandler requestHandler) {
-        requestHandlerManager.registerRequestHandler(requestHandler);
+    public void registerRequestHandler(IncomingMessageHandler incomingMessageHandler) {
+        incomingMessageHandlerManager.registerRequestHandler(incomingMessageHandler);
     }
 
     @Override
-    public void unregisterRequestHandler(RequestHandler requestHandler) {
-        requestHandlerManager.unregisterRequestHandler(requestHandler);
+    public void unregisterRequestHandler(IncomingMessageHandler incomingMessageHandler) {
+        incomingMessageHandlerManager.unregisterRequestHandler(incomingMessageHandler);
     }
 
     @Override
-    public boolean isRequestHandlerRegistered(RequestHandler requestHandler) {
-        return requestHandlerManager.isRequestHandlerRegistered(requestHandler);
+    public boolean isRequestHandlerRegistered(IncomingMessageHandler incomingMessageHandler) {
+        return incomingMessageHandlerManager.isRequestHandlerRegistered(incomingMessageHandler);
     }
 }

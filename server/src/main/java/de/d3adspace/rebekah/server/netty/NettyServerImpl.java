@@ -1,7 +1,7 @@
 package de.d3adspace.rebekah.server.netty;
 
-import de.d3adspace.rebekah.commons.request.Request;
-import de.d3adspace.rebekah.commons.response.Response;
+import de.d3adspace.rebekah.commons.message.IncomingMessage;
+import de.d3adspace.rebekah.commons.message.OutgoingMessage;
 import de.d3adspace.rebekah.server.transport.TransportServer;
 import io.reactivex.netty.RxNetty;
 import io.reactivex.netty.server.RxServer;
@@ -26,7 +26,7 @@ public class NettyServerImpl implements TransportServer {
     /**
      * The underlying rx server.
      */
-    private final RxServer<Request, Response> rxServer;
+    private final RxServer<IncomingMessage, OutgoingMessage> rxServer;
 
     /**
      * The current running state of the server.
@@ -39,7 +39,7 @@ public class NettyServerImpl implements TransportServer {
      * @param rxServer The underlying rx server.
      */
     @Inject
-    public NettyServerImpl(RxServer<Request, Response> rxServer) {
+    public NettyServerImpl(RxServer<IncomingMessage, OutgoingMessage> rxServer) {
         this.rxServer = rxServer;
     }
 

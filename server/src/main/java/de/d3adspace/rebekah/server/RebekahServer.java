@@ -1,7 +1,7 @@
 package de.d3adspace.rebekah.server;
 
 import de.d3adspace.rebekah.commons.agent.PacketAgent;
-import de.d3adspace.rebekah.commons.handler.RequestHandler;
+import de.d3adspace.rebekah.commons.handler.IncomingMessageHandler;
 
 /**
  * @author Felix Klauke <info@felix-klauke.de>
@@ -28,23 +28,23 @@ public interface RebekahServer extends PacketAgent {
     /**
      * Register the given request handler.
      *
-     * @param requestHandler The packet handler.
+     * @param incomingMessageHandler The packet handler.
      */
-    void registerRequestHandler(RequestHandler requestHandler);
+    void registerRequestHandler(IncomingMessageHandler incomingMessageHandler);
 
     /**
      * Unregister the given request handler.
      *
-     * @param requestHandler The request handler.
+     * @param incomingMessageHandler The request handler.
      */
-    void unregisterRequestHandler(RequestHandler requestHandler);
+    void unregisterRequestHandler(IncomingMessageHandler incomingMessageHandler);
 
     /**
      * Check if the given request handler is already registered.
      *
-     * @param requestHandler The request handler.
+     * @param incomingMessageHandler The request handler.
      *
      * @return If the given request handler is already registered.
      */
-    boolean isRequestHandlerRegistered(RequestHandler requestHandler);
+    boolean isRequestHandlerRegistered(IncomingMessageHandler incomingMessageHandler);
 }
