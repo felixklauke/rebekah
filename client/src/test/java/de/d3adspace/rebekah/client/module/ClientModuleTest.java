@@ -6,6 +6,10 @@ import com.google.inject.testing.fieldbinder.BoundFieldModule;
 import de.d3adspace.rebekah.client.RebekahClient;
 import de.d3adspace.rebekah.client.transport.TransportClient;
 import de.d3adspace.rebekah.commons.packet.PacketRegistry;
+import de.d3adspace.rebekah.commons.request.Request;
+import de.d3adspace.rebekah.commons.response.Response;
+import io.reactivex.netty.client.RxClient;
+import io.reactivex.netty.pipeline.PipelineConfigurator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,6 +32,10 @@ class ClientModuleTest {
     Provider<TransportClient> transportClientProvider;
     @Inject
     Provider<PacketRegistry> packetRegistryProvider;
+    @Inject
+    Provider<RxClient<Request, Response>> rxClientProvider;
+    @Inject
+    Provider<PipelineConfigurator<Response, Request>> pipelineConfiguratorProvider;
 
     @BeforeEach
     void setUp() {
@@ -54,5 +62,19 @@ class ClientModuleTest {
         PacketRegistry packetRegistry = packetRegistryProvider.get();
 
         assertNotNull(packetRegistry, "Packet registry should not be null.");
+    }
+
+    @Test
+    void testProvideRxClient() {
+        RxClient<Request, Response> requestResponseRxClient = rxClientProvider.get();
+
+        assertNotNull(requestResponseRxClient, "Rx Client should not be null.");
+    }
+
+    @Test
+    void testProvidePipelineConfigurator() {
+        PipelineConfigurator<Response, Request> requestResponsePipelineConfigurator = pipelineConfiguratorProvider.get();
+
+        assertNotNull(requestResponsePipelineConfigurator, "Pipeline configurator should not be null.");
     }
 }

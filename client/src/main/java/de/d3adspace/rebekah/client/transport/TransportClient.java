@@ -1,5 +1,7 @@
 package de.d3adspace.rebekah.client.transport;
 
+import de.d3adspace.rebekah.commons.request.Request;
+
 /**
  * @author Felix Klauke <info@felix-klauke.de>
  */
@@ -21,4 +23,6 @@ public interface TransportClient {
      * Disconnect from the server.
      */
     void disconnect();
+
+    void sendRequest(Request request);
 }
