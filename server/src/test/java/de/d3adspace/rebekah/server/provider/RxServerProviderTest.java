@@ -1,7 +1,7 @@
 package de.d3adspace.rebekah.server.provider;
 
-import de.d3adspace.rebekah.commons.request.Request;
-import de.d3adspace.rebekah.commons.response.Response;
+import de.d3adspace.rebekah.commons.message.IncomingMessage;
+import de.d3adspace.rebekah.commons.message.OutgoingMessage;
 import io.reactivex.netty.channel.ConnectionHandler;
 import io.reactivex.netty.pipeline.PipelineConfigurator;
 import io.reactivex.netty.server.RxServer;
@@ -22,9 +22,9 @@ class RxServerProviderTest {
 
     private static final int TEST_PORT = 1000;
     @Mock
-    ConnectionHandler<Request, Response> connectionHandler;
+    ConnectionHandler<IncomingMessage, OutgoingMessage> connectionHandler;
     @Mock
-    PipelineConfigurator<Request, Response> pipelineConfigurator;
+    PipelineConfigurator<IncomingMessage, OutgoingMessage> pipelineConfigurator;
 
     private RxServerProvider rxServerProvider;
 
@@ -35,7 +35,7 @@ class RxServerProviderTest {
 
     @Test
     void testGet() {
-        RxServer<Request, Response> rxServer = rxServerProvider.get();
+        RxServer<IncomingMessage, OutgoingMessage> rxServer = rxServerProvider.get();
 
         assertNotNull(rxServer, "Server should not be null.");
         assertEquals(TEST_PORT, rxServer.getServerPort());

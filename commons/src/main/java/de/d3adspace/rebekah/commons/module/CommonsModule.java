@@ -1,8 +1,8 @@
 package de.d3adspace.rebekah.commons.module;
 
 import com.google.inject.AbstractModule;
-import de.d3adspace.rebekah.commons.handler.RequestHandlerManager;
-import de.d3adspace.rebekah.commons.handler.RequestHandlerManagerImpl;
+import de.d3adspace.rebekah.commons.handler.IncomingMessageHandlerManager;
+import de.d3adspace.rebekah.commons.handler.IncomingMessageHandlerManagerImpl;
 import de.d3adspace.rebekah.commons.packet.PacketRegistry;
 import de.d3adspace.rebekah.commons.packet.PacketRegistryImpl;
 
@@ -14,6 +14,6 @@ public class CommonsModule extends AbstractModule {
     @Override
     protected void configure() {
         bind(PacketRegistry.class).to(PacketRegistryImpl.class).asEagerSingleton();
-        bind(RequestHandlerManager.class).to(RequestHandlerManagerImpl.class).asEagerSingleton();
+        bind(IncomingMessageHandlerManager.class).to(IncomingMessageHandlerManagerImpl.class).asEagerSingleton();
     }
 }

@@ -1,7 +1,7 @@
 package de.d3adspace.rebekah.server;
 
-import de.d3adspace.rebekah.commons.handler.RequestHandler;
-import de.d3adspace.rebekah.commons.handler.RequestHandlerManager;
+import de.d3adspace.rebekah.commons.handler.IncomingMessageHandler;
+import de.d3adspace.rebekah.commons.handler.IncomingMessageHandlerManager;
 import de.d3adspace.rebekah.commons.packet.Packet;
 import de.d3adspace.rebekah.commons.packet.PacketRegistry;
 import de.d3adspace.rebekah.commons.packet.io.PacketReader;
@@ -27,9 +27,9 @@ class RebekahServerImplTest {
     @Mock
     PacketRegistry packetRegistry;
     @Mock
-    RequestHandlerManager requestHandlerManager;
+    IncomingMessageHandlerManager incomingMessageHandlerManager;
     @Mock
-    RequestHandler requestHandler;
+    IncomingMessageHandler incomingMessageHandler;
 
     private Class<? extends Packet> packetClass = TestPacket.class;
 
@@ -38,7 +38,7 @@ class RebekahServerImplTest {
     @BeforeEach
     void setUp() {
         transportServer = mock(TransportServer.class);
-        rebekahServer = new RebekahServerImpl(transportServer, packetRegistry, requestHandlerManager);
+        rebekahServer = new RebekahServerImpl(transportServer, packetRegistry, incomingMessageHandlerManager);
     }
 
     @Test
@@ -71,26 +71,26 @@ class RebekahServerImplTest {
 
     @Test
     void testRegisterRequestHandler() {
-        rebekahServer.registerRequestHandler(requestHandler);
+        rebekahServer.registerRequestHandler(incomingMessageHandler);
 
-        verify(requestHandlerManager).registerRequestHandler(requestHandler);
+        verify(incomingMessageHandlerManager).registerRequestHandler(incomingMessageHandler);
     }
 
     @Test
     void testUnregisterRequestHandler() {
-        rebekahServer.unregisterRequestHandler(requestHandler);
+        rebekahServer.unregisterRequestHandler(incomingMessageHandler);
 
-        verify(requestHandlerManager).unregisterRequestHandler(requestHandler);
+        verify(incomingMessageHandlerManager).unregisterRequestHandler(incomingMessageHandler);
     }
 
     @Test
     void testIsRequestHandlerRegistered() {
         boolean shouldBeRegistered = true;
-        when(requestHandlerManager.isRequestHandlerRegistered(requestHandler)).thenReturn(shouldBeRegistered);
+        when(incomingMessageHandlerManager.isRequestHandlerRegistered(incomingMessageHandler)).thenReturn(shouldBeRegistered);
 
-        boolean requestHandlerRegistered = rebekahServer.isRequestHandlerRegistered(requestHandler);
+        boolean requestHandlerRegistered = rebekahServer.isRequestHandlerRegistered(incomingMessageHandler);
 
-        verify(requestHandlerManager).isRequestHandlerRegistered(requestHandler);
+        verify(incomingMessageHandlerManager).isRequestHandlerRegistered(incomingMessageHandler);
         assertEquals(shouldBeRegistered, requestHandlerRegistered, "Request handler reguistered state differs.");
     }
 

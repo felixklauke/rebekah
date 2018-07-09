@@ -4,10 +4,10 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
 import de.d3adspace.rebekah.commons.codec.PacketCodec;
-import de.d3adspace.rebekah.commons.handler.RequestHandlerManager;
+import de.d3adspace.rebekah.commons.handler.IncomingMessageHandlerManager;
+import de.d3adspace.rebekah.commons.message.IncomingMessage;
+import de.d3adspace.rebekah.commons.message.OutgoingMessage;
 import de.d3adspace.rebekah.commons.packet.PacketRegistry;
-import de.d3adspace.rebekah.commons.request.Request;
-import de.d3adspace.rebekah.commons.response.Response;
 import de.d3adspace.rebekah.server.RebekahServer;
 import de.d3adspace.rebekah.server.kernel.Kernel;
 import de.d3adspace.rebekah.server.transport.TransportServer;
@@ -37,21 +37,21 @@ class RebekahServerModuleTest {
     @Inject
     Provider<RebekahServer> rebekahServerProvider;
     @Inject
-    Provider<RxServer<Request, Response>> rxServerProvider;
+    Provider<RxServer<IncomingMessage, OutgoingMessage>> rxServerProvider;
     @Inject
-    Provider<ConnectionHandler<Request, Response>> connectionHandlerProvider;
+    Provider<ConnectionHandler<IncomingMessage, OutgoingMessage>> connectionHandlerProvider;
     @Inject
-    Provider<PipelineConfigurator<Request, Response>> pipelineConfiguratorProvider;
+    Provider<PipelineConfigurator<IncomingMessage, OutgoingMessage>> pipelineConfiguratorProvider;
     @Inject
     Provider<Kernel> kernelProvider;
     @Inject
     Provider<PacketCodec> packetCodecProvider;
     @Inject
-    Provider<RequestHandlerManager> packetHandlerManagerProvider;
+    Provider<IncomingMessageHandlerManager> packetHandlerManagerProvider;
     @Inject
     Provider<PacketRegistry> packetRegistryProvider;
     @Inject
-    Provider<RequestHandlerManager> requestHandlerManagerProvider;
+    Provider<IncomingMessageHandlerManager> requestHandlerManagerProvider;
 
     @BeforeEach
     void setUp() {
@@ -75,21 +75,21 @@ class RebekahServerModuleTest {
 
     @Test
     void testProvideRxServer() {
-        RxServer<Request, Response> rxServer = rxServerProvider.get();
+        RxServer<IncomingMessage, OutgoingMessage> rxServer = rxServerProvider.get();
 
         assertNotNull(rxServer, "Rx server instance should not be null.");
     }
 
     @Test
     void testProvideConnectionHandler() {
-        ConnectionHandler<Request, Response> connectionHandler = connectionHandlerProvider.get();
+        ConnectionHandler<IncomingMessage, OutgoingMessage> connectionHandler = connectionHandlerProvider.get();
 
         assertNotNull(connectionHandler, "Connection handler should not be null.");
     }
 
     @Test
     void testProvidePipelineConfigurator() {
-        PipelineConfigurator<Request, Response> pipelineConfigurator = pipelineConfiguratorProvider.get();
+        PipelineConfigurator<IncomingMessage, OutgoingMessage> pipelineConfigurator = pipelineConfiguratorProvider.get();
 
         assertNotNull(pipelineConfigurator, "Pipeline configurator should not be null.");
     }
@@ -110,9 +110,9 @@ class RebekahServerModuleTest {
 
     @Test
     void testProvidePacketHandlerManager() {
-        RequestHandlerManager requestHandlerManager = packetHandlerManagerProvider.get();
+        IncomingMessageHandlerManager incomingMessageHandlerManager = packetHandlerManagerProvider.get();
 
-        assertNotNull(requestHandlerManager, "Packet handler manager should not be null.");
+        assertNotNull(incomingMessageHandlerManager, "Packet handler manager should not be null.");
     }
 
     @Test
@@ -124,8 +124,8 @@ class RebekahServerModuleTest {
 
     @Test
     void testProvideRequestHandlerManager() {
-        RequestHandlerManager requestHandlerManager = requestHandlerManagerProvider.get();
+        IncomingMessageHandlerManager incomingMessageHandlerManager = requestHandlerManagerProvider.get();
 
-        assertNotNull(requestHandlerManager, "Request handler manager should not be null.");
+        assertNotNull(incomingMessageHandlerManager, "Request handler manager should not be null.");
     }
 }

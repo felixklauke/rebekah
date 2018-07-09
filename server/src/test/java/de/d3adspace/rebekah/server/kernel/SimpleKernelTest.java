@@ -1,8 +1,8 @@
 package de.d3adspace.rebekah.server.kernel;
 
 import de.d3adspace.rebekah.commons.context.RequestContext;
-import de.d3adspace.rebekah.commons.handler.RequestHandlerManager;
-import de.d3adspace.rebekah.commons.request.Request;
+import de.d3adspace.rebekah.commons.handler.IncomingMessageHandlerManager;
+import de.d3adspace.rebekah.commons.message.IncomingMessage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,23 +18,23 @@ import static org.mockito.Mockito.verify;
 class SimpleKernelTest {
 
     @Mock
-    private RequestHandlerManager requestHandlerManager;
+    private IncomingMessageHandlerManager incomingMessageHandlerManager;
     @Mock
     private RequestContext requestContext;
     @Mock
-    private Request request;
+    private IncomingMessage request;
 
     private Kernel kernel;
 
     @BeforeEach
     void setUp() {
-        kernel = new SimpleKernel(requestHandlerManager);
+        kernel = new SimpleKernel(incomingMessageHandlerManager);
     }
 
     @Test
     void testHandleRequest() {
         kernel.handleRequest(requestContext, request);
 
-        verify(requestHandlerManager).process(requestContext, request);
+        verify(incomingMessageHandlerManager).process(requestContext, request);
     }
 }
