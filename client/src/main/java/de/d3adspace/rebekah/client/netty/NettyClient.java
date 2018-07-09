@@ -6,6 +6,7 @@ import de.d3adspace.rebekah.commons.response.Response;
 import io.reactivex.netty.channel.ObservableConnection;
 import io.reactivex.netty.client.RxClient;
 import rx.Observable;
+import rx.Subscription;
 
 import javax.inject.Inject;
 
@@ -19,6 +20,7 @@ public class NettyClient implements TransportClient {
      */
     private final RxClient<Request, Response> rxClient;
     private Observable<ObservableConnection<Response, Request>> observableConnectionObservable;
+    private Subscription observableConnectionSubscription;
     private boolean connected;
 
     @Inject
@@ -29,7 +31,7 @@ public class NettyClient implements TransportClient {
     @Override
     public void connect() {
         observableConnectionObservable = rxClient.connect();
-        observableConnectionObservable.subscribe(responseRequestObservableConnection -> {
+        observableConnectionSubscription = observableConnectionObservable.subscribe(responseRequestObservableConnection -> {
             connected = true;
         });
     }
@@ -45,8 +47,13 @@ public class NettyClient implements TransportClient {
 
     @Override
     public void disconnect() {
+        if (!isConnected()) {
+            throw new IllegalStateException("You can't disconnect while not being connected.");
+        }
+
         rxClient.shutdown();
         connected = false;
+        observableConnectionSubscription.unsubscribe();
     }
 
     @Override

@@ -7,12 +7,12 @@ import io.reactivex.netty.client.RxClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import rx.subjects.BehaviorSubject;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 /**
@@ -77,8 +77,20 @@ class NettyClientTest {
     }
 
     @Test
+    void testDisconnectWithException() {
+        Executable executable = () -> nettyClient.disconnect();
+        assertThrows(IllegalStateException.class, executable);
+    }
+
+    @Test
     void testDisconnect() {
+        when(rxClient.connect()).thenReturn(observableConnectionObservable);
+        nettyClient.connect();
+        observableConnectionObservable.onNext(observableConnection);
+
         nettyClient.disconnect();
+
+        verify(rxClient).shutdown();
     }
 
     @Test
