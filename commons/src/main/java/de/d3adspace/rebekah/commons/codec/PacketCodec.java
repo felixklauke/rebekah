@@ -3,6 +3,7 @@ package de.d3adspace.rebekah.commons.codec;
 import de.d3adspace.rebekah.commons.packet.Packet;
 import de.d3adspace.rebekah.commons.packet.PacketRegistry;
 import de.d3adspace.rebekah.commons.packet.description.PacketDescription;
+import de.d3adspace.rebekah.commons.packet.factory.PacketFactory;
 import de.d3adspace.rebekah.commons.packet.io.PacketReader;
 import de.d3adspace.rebekah.commons.packet.io.PacketWriter;
 import de.d3adspace.rebekah.commons.packet.io.binary.BinaryPacketReader;
@@ -25,13 +26,20 @@ public class PacketCodec extends ByteToMessageCodec<Packet> {
     private final PacketRegistry packetRegistry;
 
     /**
+     * The factory used for packet creation.
+     */
+    private final PacketFactory packetFactory;
+
+    /**
      * Create a new codec by its registry.
      *
      * @param packetRegistry The registry.
+     * @param packetFactory The packet factory.
      */
     @Inject
-    public PacketCodec(PacketRegistry packetRegistry) {
+    public PacketCodec(PacketRegistry packetRegistry, PacketFactory packetFactory) {
         this.packetRegistry = packetRegistry;
+        this.packetFactory = packetFactory;
     }
 
     @Override
@@ -50,7 +58,8 @@ public class PacketCodec extends ByteToMessageCodec<Packet> {
             throw new IllegalStateException("Unknown packet id: " + packetId);
         }
 
-        Packet packet = packetDescription.constructPacket();
+        Class<? extends Packet> packetClass = packetDescription.getPacketClass();
+        Packet packet = packetFactory.createPacket(packetClass);
         PacketReader packetReader = new BinaryPacketReader(incomingByteBuf);
         packet.decode(packetReader);
 

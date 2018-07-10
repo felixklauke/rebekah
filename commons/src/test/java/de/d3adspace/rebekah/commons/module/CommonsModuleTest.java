@@ -5,6 +5,7 @@ import com.google.inject.Injector;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
 import de.d3adspace.rebekah.commons.handler.IncomingMessageHandlerManager;
 import de.d3adspace.rebekah.commons.packet.PacketRegistry;
+import de.d3adspace.rebekah.commons.packet.factory.PacketFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,6 +26,8 @@ class CommonsModuleTest {
     Provider<PacketRegistry> packetRegistryProvider;
     @Inject
     Provider<IncomingMessageHandlerManager> packetHandlerManagerProvider;
+    @Inject
+    Provider<PacketFactory> packetFactoryProvider;
 
     @BeforeEach
     void setUp() {
@@ -44,5 +47,12 @@ class CommonsModuleTest {
         IncomingMessageHandlerManager incomingMessageHandlerManager = packetHandlerManagerProvider.get();
 
         assertNotNull(incomingMessageHandlerManager, "Packet handler manager should not be null.");
+    }
+
+    @Test
+    void testProvidePacketFactory() {
+        PacketFactory packetFactory = packetFactoryProvider.get();
+
+        assertNotNull(packetFactory, "Packet factory should not be null.");
     }
 }
