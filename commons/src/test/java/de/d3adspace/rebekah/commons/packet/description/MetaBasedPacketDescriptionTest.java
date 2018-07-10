@@ -11,7 +11,8 @@ import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 /**
@@ -68,23 +69,6 @@ class MetaBasedPacketDescriptionTest {
     void testGetPacketClass() {
         assertEquals(TEST_PACKET_CLASS, metaBasedPacketDescription.getPacketClass());
     }
-
-    @Test
-    void testConstructPacket() {
-        Packet packet = metaBasedPacketDescription.constructPacket();
-
-        assertNotNull(packet, "Packet should not be null.");
-    }
-
-    @Test
-    void testConstructPacketWithInvalidConstructor() {
-        MetaBasedPacketDescription metaBasedPacketDescription = new MetaBasedPacketDescription(TestPacketWithInvalidConstructor.class.getAnnotation(PacketMeta.class), TEST_PACKET_CLASS_INVALID_CONSTRUCTOR);
-
-        Executable executable = metaBasedPacketDescription::constructPacket;
-
-        assertThrows(IllegalStateException.class, executable);
-    }
-
 
     @PacketMeta(id = TEST_PACKET_ID)
     public static class TestPacket implements Packet {
