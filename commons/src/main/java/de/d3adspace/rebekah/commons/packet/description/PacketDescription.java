@@ -14,12 +14,10 @@ public interface PacketDescription {
      */
     int getId();
 
-    Class<? extends Packet> getPacketClass();
-
     /**
-     * Construct an empty instance of the packet.
+     * Get the class of the packet.
      *
-     * @return The constructed packet.
+     * @return The class of the packet.
      */
-    Packet constructPacket();
+    Class<? extends Packet> getPacketClass();
 }
