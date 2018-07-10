@@ -65,13 +65,4 @@ public class MetaBasedPacketDescription implements PacketDescription {
     public Class<? extends Packet> getPacketClass() {
         return packetClass;
     }
-
-    @Override
-    public Packet constructPacket() {
-        try {
-            return packetClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw new IllegalStateException("Error during packet instantiation (" + packetClass + ")", e);
-        }
-    }
 }

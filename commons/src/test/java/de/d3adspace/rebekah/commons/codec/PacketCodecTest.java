@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import de.d3adspace.rebekah.commons.packet.Packet;
 import de.d3adspace.rebekah.commons.packet.PacketRegistry;
 import de.d3adspace.rebekah.commons.packet.description.PacketDescription;
+import de.d3adspace.rebekah.commons.packet.factory.PacketFactory;
 import de.d3adspace.rebekah.commons.packet.io.PacketReader;
 import de.d3adspace.rebekah.commons.packet.io.PacketWriter;
 import io.netty.buffer.ByteBuf;
@@ -33,6 +34,8 @@ class PacketCodecTest {
     @Mock
     PacketRegistry packetRegistry;
     @Mock
+    PacketFactory packetFactory;
+    @Mock
     ChannelHandlerContext channelHandlerContext;
     @Mock
     Packet packet;
@@ -45,7 +48,7 @@ class PacketCodecTest {
 
     @BeforeEach
     void setUp() {
-        packetCodec = new PacketCodec(packetRegistry);
+        packetCodec = new PacketCodec(packetRegistry, packetFactory);
     }
 
     @Test
@@ -65,7 +68,7 @@ class PacketCodecTest {
 
         when(byteBuf.readInt()).thenReturn(TEST_PACKET_ID);
         when(packetRegistry.getPacketDescriptionById(TEST_PACKET_ID)).thenReturn(packetDescription);
-        when(packetDescription.constructPacket()).thenReturn(packet);
+        when(packetFactory.createPacket(packetDescription.getPacketClass())).thenReturn(packet);
 
         packetCodec.decode(channelHandlerContext, byteBuf, objects);
 
