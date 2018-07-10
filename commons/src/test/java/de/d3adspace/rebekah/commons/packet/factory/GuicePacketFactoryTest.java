@@ -11,7 +11,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -22,6 +24,8 @@ class GuicePacketFactoryTest {
 
     @Mock
     Injector injector;
+    @Mock
+    Packet packet;
 
     private Class<? extends Packet> aClass = TestPacket.class;
     private GuicePacketFactory packetFactory;
@@ -33,9 +37,12 @@ class GuicePacketFactoryTest {
 
     @Test
     void testCreatePacket() {
+        doReturn(packet).when(injector).getInstance(aClass);
+
         Packet packet = packetFactory.createPacket(aClass);
 
         assertNotNull(packet, "Packet should not be null.");
+        assertEquals(this.packet, packet, "Packet instances differ.");
 
         verify(injector).getInstance(aClass);
     }
