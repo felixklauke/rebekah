@@ -11,4 +11,12 @@ public class BinaryPacketReader extends BinaryHolder implements PacketReader {
     public BinaryPacketReader(ByteBuf byteBuf) {
         super(byteBuf);
     }
+
+    @Override
+    public String readString() {
+        int length = getByteBuf().readInt();
+        byte[] bytes = new byte[length];
+        getByteBuf().readBytes(bytes);
+        return new String(bytes);
+    }
 }

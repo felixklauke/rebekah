@@ -7,6 +7,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
+
 /**
  * @author Felix Klauke <info@felix-klauke.de>
  */
@@ -24,7 +28,13 @@ class BinaryPacketReaderTest {
     }
 
     @Test
-    void test() {
+    void testReadString() {
+        String readString = packetReader.readString();
 
+        int readInt = verify(byteBuf).readInt();
+        byte[] bytes = new byte[readInt];
+        verify(byteBuf).readBytes(eq(bytes));
+
+        assertArrayEquals(readString.getBytes(), bytes);
     }
 }

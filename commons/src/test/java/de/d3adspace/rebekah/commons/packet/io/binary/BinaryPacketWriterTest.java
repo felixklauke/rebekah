@@ -7,6 +7,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.mockito.Mockito.verify;
+
 /**
  * @author Felix Klauke <info@felix-klauke.de>
  */
@@ -24,7 +26,12 @@ class BinaryPacketWriterTest {
     }
 
     @Test
-    void test() {
+    void testWriteString() {
+        String testString = "afwafagfwawwfgagawga";
 
+        packetWriter.writeString(testString);
+
+        verify(byteBuf).writeInt(testString.getBytes().length);
+        verify(byteBuf).writeBytes(testString.getBytes());
     }
 }

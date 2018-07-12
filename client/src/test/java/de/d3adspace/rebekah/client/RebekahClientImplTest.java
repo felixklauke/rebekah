@@ -2,6 +2,7 @@ package de.d3adspace.rebekah.client;
 
 import de.d3adspace.rebekah.client.transport.TransportClient;
 import de.d3adspace.rebekah.commons.handler.IncomingMessageHandlerManager;
+import de.d3adspace.rebekah.commons.message.OutgoingMessage;
 import de.d3adspace.rebekah.commons.packet.Packet;
 import de.d3adspace.rebekah.commons.packet.PacketRegistry;
 import de.d3adspace.rebekah.commons.packet.io.PacketReader;
@@ -28,6 +29,8 @@ class RebekahClientImplTest {
     PacketRegistry packetRegistry;
     @Mock
     IncomingMessageHandlerManager incomingMessageHandlerManager;
+    @Mock
+    OutgoingMessage outgoingMessage;
 
     private Class<? extends Packet> packetClass = TestPacket.class;
 
@@ -89,6 +92,13 @@ class RebekahClientImplTest {
 
         verify(this.packetRegistry).isPacketRegistered(packetClass);
         assertEquals(shouldBeRegistered, packetRegistered, "Packet registered state differs :(");
+    }
+
+    @Test
+    void testSendMessage() {
+        rebekahClient.sendMessage(outgoingMessage);
+
+        verify(transportClient).sendRequest(outgoingMessage);
     }
 
     public static class TestPacket implements Packet {
