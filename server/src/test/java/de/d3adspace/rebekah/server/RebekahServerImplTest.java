@@ -1,6 +1,5 @@
 package de.d3adspace.rebekah.server;
 
-import de.d3adspace.rebekah.commons.handler.IncomingMessageHandler;
 import de.d3adspace.rebekah.commons.handler.IncomingMessageHandlerManager;
 import de.d3adspace.rebekah.commons.packet.Packet;
 import de.d3adspace.rebekah.commons.packet.PacketRegistry;
@@ -28,8 +27,6 @@ class RebekahServerImplTest {
     PacketRegistry packetRegistry;
     @Mock
     IncomingMessageHandlerManager incomingMessageHandlerManager;
-    @Mock
-    IncomingMessageHandler incomingMessageHandler;
 
     private Class<? extends Packet> packetClass = TestPacket.class;
 
@@ -67,31 +64,6 @@ class RebekahServerImplTest {
 
         // Then
         assertEquals(isRunning, rebekahServerRunning, "Server should be running.");
-    }
-
-    @Test
-    void testRegisterRequestHandler() {
-        rebekahServer.registerRequestHandler(incomingMessageHandler);
-
-        verify(incomingMessageHandlerManager).registerRequestHandler(incomingMessageHandler);
-    }
-
-    @Test
-    void testUnregisterRequestHandler() {
-        rebekahServer.unregisterRequestHandler(incomingMessageHandler);
-
-        verify(incomingMessageHandlerManager).unregisterRequestHandler(incomingMessageHandler);
-    }
-
-    @Test
-    void testIsRequestHandlerRegistered() {
-        boolean shouldBeRegistered = true;
-        when(incomingMessageHandlerManager.isRequestHandlerRegistered(incomingMessageHandler)).thenReturn(shouldBeRegistered);
-
-        boolean requestHandlerRegistered = rebekahServer.isRequestHandlerRegistered(incomingMessageHandler);
-
-        verify(incomingMessageHandlerManager).isRequestHandlerRegistered(incomingMessageHandler);
-        assertEquals(shouldBeRegistered, requestHandlerRegistered, "Request handler reguistered state differs.");
     }
 
     @Test

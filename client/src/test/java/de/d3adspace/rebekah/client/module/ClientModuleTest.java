@@ -4,7 +4,9 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
 import de.d3adspace.rebekah.client.RebekahClient;
+import de.d3adspace.rebekah.client.netty.handler.ClientConnectionHandler;
 import de.d3adspace.rebekah.client.transport.TransportClient;
+import de.d3adspace.rebekah.commons.kernel.Kernel;
 import de.d3adspace.rebekah.commons.message.IncomingMessage;
 import de.d3adspace.rebekah.commons.message.OutgoingMessage;
 import de.d3adspace.rebekah.commons.packet.PacketRegistry;
@@ -36,6 +38,10 @@ class ClientModuleTest {
     Provider<RxClient<OutgoingMessage, IncomingMessage>> rxClientProvider;
     @Inject
     Provider<PipelineConfigurator<IncomingMessage, OutgoingMessage>> pipelineConfiguratorProvider;
+    @Inject
+    Provider<ClientConnectionHandler> clientConnectionHandlerProvider;
+    @Inject
+    Provider<Kernel> kernelProvider;
 
     @BeforeEach
     void setUp() {
@@ -76,5 +82,19 @@ class ClientModuleTest {
         PipelineConfigurator<IncomingMessage, OutgoingMessage> requestResponsePipelineConfigurator = pipelineConfiguratorProvider.get();
 
         assertNotNull(requestResponsePipelineConfigurator, "Pipeline configurator should not be null.");
+    }
+
+    @Test
+    void testProvideClientConnectionHandler() {
+        ClientConnectionHandler clientConnectionHandler = clientConnectionHandlerProvider.get();
+
+        assertNotNull(clientConnectionHandler, "Client connection handler should not be null.");
+    }
+
+    @Test
+    void testProvideKernel() {
+        Kernel kernel = kernelProvider.get();
+
+        assertNotNull(kernel, "Kernel should not be null.");
     }
 }

@@ -1,5 +1,6 @@
 package de.d3adspace.rebekah.commons.agent;
 
+import de.d3adspace.rebekah.commons.handler.IncomingMessageHandler;
 import de.d3adspace.rebekah.commons.packet.Packet;
 import de.d3adspace.rebekah.commons.packet.PacketRegistry;
 
@@ -37,4 +38,27 @@ public interface PacketAgent {
      * @return If the packet is registered.
      */
     boolean isPacketRegistered(Class<? extends Packet> packetClass);
+
+    /**
+     * Register the given message handler.
+     *
+     * @param incomingMessageHandler The message handler.
+     */
+    void registerMessageHandler(IncomingMessageHandler incomingMessageHandler);
+
+    /**
+     * Unregister the given message handler.
+     *
+     * @param incomingMessageHandler The message handler.
+     */
+    void unregisterMessageHandler(IncomingMessageHandler incomingMessageHandler);
+
+    /**
+     * Check if the given message handler is already registered.
+     *
+     * @param incomingMessageHandler The message handler.
+     *
+     * @return If the given message handler is already registered.
+     */
+    boolean isMessageHandlerRegistered(IncomingMessageHandler incomingMessageHandler);
 }

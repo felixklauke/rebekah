@@ -2,6 +2,7 @@ package de.d3adspace.rebekah.client;
 
 import de.d3adspace.rebekah.client.transport.TransportClient;
 import de.d3adspace.rebekah.commons.agent.RebekahPacketAgent;
+import de.d3adspace.rebekah.commons.handler.IncomingMessageHandlerManager;
 import de.d3adspace.rebekah.commons.packet.PacketRegistry;
 
 import javax.inject.Inject;
@@ -17,8 +18,8 @@ public class RebekahClientImpl extends RebekahPacketAgent implements RebekahClie
     private final TransportClient transportClient;
 
     @Inject
-    public RebekahClientImpl(PacketRegistry packetRegistry, TransportClient transportClient) {
-        super(packetRegistry);
+    public RebekahClientImpl(PacketRegistry packetRegistry, TransportClient transportClient, IncomingMessageHandlerManager incomingMessageHandlerManager) {
+        super(packetRegistry, incomingMessageHandlerManager);
         this.transportClient = transportClient;
     }
 

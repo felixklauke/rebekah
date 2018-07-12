@@ -1,5 +1,6 @@
 package de.d3adspace.rebekah.client.netty;
 
+import de.d3adspace.rebekah.client.netty.handler.ClientConnectionHandler;
 import de.d3adspace.rebekah.client.transport.TransportClient;
 import de.d3adspace.rebekah.commons.message.IncomingMessage;
 import de.d3adspace.rebekah.commons.message.OutgoingMessage;
@@ -19,13 +20,15 @@ public class NettyClient implements TransportClient {
      * The underlying rx server.
      */
     private final RxClient<OutgoingMessage, IncomingMessage> rxClient;
+    private final ClientConnectionHandler clientConnectionHandler;
     private Observable<ObservableConnection<IncomingMessage, OutgoingMessage>> observableConnectionObservable;
     private Subscription observableConnectionSubscription;
     private boolean connected;
 
     @Inject
-    public NettyClient(RxClient<OutgoingMessage, IncomingMessage> rxClient) {
+    public NettyClient(RxClient<OutgoingMessage, IncomingMessage> rxClient, ClientConnectionHandler clientConnectionHandler) {
         this.rxClient = rxClient;
+        this.clientConnectionHandler = clientConnectionHandler;
     }
 
     @Override
@@ -33,6 +36,8 @@ public class NettyClient implements TransportClient {
         observableConnectionObservable = rxClient.connect();
         observableConnectionSubscription = observableConnectionObservable.subscribe(responseRequestObservableConnection -> {
             connected = true;
+
+            clientConnectionHandler.handleConnection(responseRequestObservableConnection);
         });
     }
 
@@ -58,8 +63,7 @@ public class NettyClient implements TransportClient {
 
     @Override
     public void sendRequest(OutgoingMessage request) {
-        observableConnectionObservable.subscribe(responseRequestObservableConnection -> {
-            responseRequestObservableConnection.writeAndFlush(request);
-        });
+        observableConnectionObservable.subscribe(responseRequestObservableConnection ->
+                responseRequestObservableConnection.writeAndFlush(request));
     }
 }

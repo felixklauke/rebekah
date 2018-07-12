@@ -34,38 +34,38 @@ class IncomingMessageHandlerManagerImplTest {
     void setUp() {
         incomingMessage = new TestPacket();
         incomingMessageHandlerManager = new IncomingMessageHandlerManagerImpl();
-        incomingMessageHandlerManager.registerRequestHandler(TEST_REQUEST_HANDLER);
-        incomingMessageHandlerManager.registerRequestHandler(TEST_EMPTY_REQUEST_HANDLER);
+        incomingMessageHandlerManager.registerMessageHandler(TEST_REQUEST_HANDLER);
+        incomingMessageHandlerManager.registerMessageHandler(TEST_EMPTY_REQUEST_HANDLER);
     }
 
     @Test
     void testRegisterRequestHandler() {
         TestIncomingMessageHandler testRequestHandler = new TestIncomingMessageHandler();
 
-        incomingMessageHandlerManager.registerRequestHandler(testRequestHandler);
+        incomingMessageHandlerManager.registerMessageHandler(testRequestHandler);
 
-        assertTrue(incomingMessageHandlerManager.isRequestHandlerRegistered(testRequestHandler), "Packet handler should be registered.");
+        assertTrue(incomingMessageHandlerManager.isMessageHandlerRegistered(testRequestHandler), "Packet handler should be registered.");
     }
 
     @Test
     void testRegisterRequestHandlerTwiceInstance() {
         TestIncomingMessageHandler testPacketHandler = new TestIncomingMessageHandler();
-        incomingMessageHandlerManager.registerRequestHandler(testPacketHandler);
+        incomingMessageHandlerManager.registerMessageHandler(testPacketHandler);
 
-        Executable executable = () -> incomingMessageHandlerManager.registerRequestHandler(testPacketHandler);
+        Executable executable = () -> incomingMessageHandlerManager.registerMessageHandler(testPacketHandler);
         assertThrows(IllegalStateException.class, executable);
     }
 
     @Test
     void testUnregisterRequestHandler() {
-        incomingMessageHandlerManager.unregisterRequestHandler(TEST_REQUEST_HANDLER);
+        incomingMessageHandlerManager.unregisterMessageHandler(TEST_REQUEST_HANDLER);
 
-        assertFalse(incomingMessageHandlerManager.isRequestHandlerRegistered(TEST_REQUEST_HANDLER), "Packet handler should not be registered.");
+        assertFalse(incomingMessageHandlerManager.isMessageHandlerRegistered(TEST_REQUEST_HANDLER), "Packet handler should not be registered.");
     }
 
     @Test
     void testIsRequestHandlerRegistered() {
-        assertTrue(incomingMessageHandlerManager.isRequestHandlerRegistered(TEST_REQUEST_HANDLER), "Packet handler should be registered.");
+        assertTrue(incomingMessageHandlerManager.isMessageHandlerRegistered(TEST_REQUEST_HANDLER), "Packet handler should be registered.");
     }
 
     @Test

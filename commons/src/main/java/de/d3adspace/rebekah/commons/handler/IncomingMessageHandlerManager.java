@@ -4,40 +4,40 @@ import de.d3adspace.rebekah.commons.context.MessageContext;
 import de.d3adspace.rebekah.commons.message.IncomingMessage;
 
 /**
- * Manages all known packet handlers.
+ * Manages all known message handlers.
  *
  * @author Felix Klauke <info@felix-klauke.de>
  */
 public interface IncomingMessageHandlerManager {
 
     /**
-     * Register the given request handler.
+     * Register the given message handler.
      *
      * @param incomingMessageHandler The packet handler.
      */
-    void registerRequestHandler(IncomingMessageHandler incomingMessageHandler);
+    void registerMessageHandler(IncomingMessageHandler incomingMessageHandler);
 
     /**
-     * Unregister the given request handler.
+     * Unregister the given message handler.
      *
-     * @param incomingMessageHandler The request handler.
+     * @param incomingMessageHandler The message handler.
      */
-    void unregisterRequestHandler(IncomingMessageHandler incomingMessageHandler);
+    void unregisterMessageHandler(IncomingMessageHandler incomingMessageHandler);
 
     /**
-     * Check if the given request handler is already registered.
+     * Check if the given message handler is already registered.
      *
-     * @param incomingMessageHandler The request handler.
+     * @param incomingMessageHandler The message handler.
      *
-     * @return If the given request handler is already registered.
+     * @return If the given message handler is already registered.
      */
-    boolean isRequestHandlerRegistered(IncomingMessageHandler incomingMessageHandler);
+    boolean isMessageHandlerRegistered(IncomingMessageHandler incomingMessageHandler);
 
     /**
-     * Process the given request in the given request by let it be handled by all eligible handlers.
+     * Process the given message in the given message by let it be handled by all eligible handlers.
      *
-     * @param requestContext The context of the request.
-     * @param request        The request.
+     * @param messageContext The context of the message.
+     * @param message        The message.
      */
-    void process(MessageContext requestContext, IncomingMessage request);
+    void process(MessageContext messageContext, IncomingMessage message);
 }

@@ -1,4 +1,4 @@
-package de.d3adspace.rebekah.server.netty.handler;
+package de.d3adspace.rebekah.client.netty.handler;
 
 import de.d3adspace.rebekah.commons.context.MessageContext;
 import de.d3adspace.rebekah.commons.kernel.Kernel;
@@ -11,43 +11,41 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import rx.Observable;
+import rx.subjects.BehaviorSubject;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * @author Felix Klauke <info@felix-klauke.de>
  */
 @ExtendWith(MockitoExtension.class)
-class NettyConnectionHandlerTest {
+class ClientConnectionHandlerImplTest {
 
-    @Mock
-    IncomingMessage request;
     @Mock
     Kernel kernel;
     @Mock
     ObservableConnection<IncomingMessage, OutgoingMessage> observableConnection;
+    @Mock
+    IncomingMessage incomingMessage;
 
-    private NettyConnectionHandler nettyConnectionHandler;
+    private BehaviorSubject<IncomingMessage> incomingMessageObservable = BehaviorSubject.create();
+    private ClientConnectionHandler clientConnectionHandler;
 
     @BeforeEach
     void setUp() {
-        nettyConnectionHandler = new NettyConnectionHandler(kernel);
+        clientConnectionHandler = new ClientConnectionHandlerImpl(kernel);
     }
 
     @Test
-    void testHandle() {
-        Observable<IncomingMessage> requestObservable = Observable.just(request);
+    void testHandleConnection() {
+        Mockito.when(observableConnection.getInput()).thenReturn(incomingMessageObservable);
 
-        when(observableConnection.getInput()).thenReturn(requestObservable);
+        clientConnectionHandler.handleConnection(observableConnection);
 
-        Observable<Void> handle = nettyConnectionHandler.handle(observableConnection);
+        incomingMessageObservable.onNext(incomingMessage);
 
-        verify(kernel).handleMessage(Mockito.any(MessageContext.class), eq(request));
-
-        assertNotNull(handle, "Observable of handled connection should not be null.");
+        verify(kernel).handleMessage(any(MessageContext.class), eq(incomingMessage));
     }
 }
