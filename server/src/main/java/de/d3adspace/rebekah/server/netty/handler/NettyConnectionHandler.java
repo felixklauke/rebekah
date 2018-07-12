@@ -1,10 +1,10 @@
 package de.d3adspace.rebekah.server.netty.handler;
 
 import de.d3adspace.rebekah.commons.context.MessageContext;
+import de.d3adspace.rebekah.commons.context.NettyMessageContext;
+import de.d3adspace.rebekah.commons.kernel.Kernel;
 import de.d3adspace.rebekah.commons.message.IncomingMessage;
 import de.d3adspace.rebekah.commons.message.OutgoingMessage;
-import de.d3adspace.rebekah.server.kernel.Kernel;
-import de.d3adspace.rebekah.server.netty.context.NettyMessageContext;
 import io.reactivex.netty.channel.ConnectionHandler;
 import io.reactivex.netty.channel.ObservableConnection;
 import rx.Observable;
@@ -34,7 +34,7 @@ public class NettyConnectionHandler implements ConnectionHandler<IncomingMessage
 
         connectionInput.subscribe(request -> {
             MessageContext messageContext = new NettyMessageContext(newConnection, request);
-            kernel.handleRequest(messageContext, request);
+            kernel.handleMessage(messageContext, request);
         });
 
         return Observable.just(null);

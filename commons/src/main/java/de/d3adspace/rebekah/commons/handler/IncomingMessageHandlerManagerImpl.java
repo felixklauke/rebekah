@@ -26,7 +26,7 @@ public class IncomingMessageHandlerManagerImpl implements IncomingMessageHandler
     private final Map<IncomingMessageHandler, Map<Class<? extends Packet>, List<IncomingMessageConsumer>>> requestHandlers = Maps.newConcurrentMap();
 
     @Override
-    public void registerRequestHandler(IncomingMessageHandler incomingMessageHandler) {
+    public void registerMessageHandler(IncomingMessageHandler incomingMessageHandler) {
         if (requestHandlers.containsKey(incomingMessageHandler)) {
             throw new IllegalStateException("Packet handler " + incomingMessageHandler + " already registered.");
         }
@@ -36,12 +36,12 @@ public class IncomingMessageHandlerManagerImpl implements IncomingMessageHandler
     }
 
     @Override
-    public void unregisterRequestHandler(IncomingMessageHandler incomingMessageHandler) {
+    public void unregisterMessageHandler(IncomingMessageHandler incomingMessageHandler) {
         requestHandlers.remove(incomingMessageHandler);
     }
 
     @Override
-    public boolean isRequestHandlerRegistered(IncomingMessageHandler incomingMessageHandler) {
+    public boolean isMessageHandlerRegistered(IncomingMessageHandler incomingMessageHandler) {
         return requestHandlers.containsKey(incomingMessageHandler);
     }
 

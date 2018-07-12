@@ -1,5 +1,6 @@
 package de.d3adspace.rebekah.server.netty.context;
 
+import de.d3adspace.rebekah.commons.context.NettyMessageContext;
 import de.d3adspace.rebekah.commons.message.IncomingMessage;
 import de.d3adspace.rebekah.commons.message.OutgoingMessage;
 import io.reactivex.netty.channel.ObservableConnection;

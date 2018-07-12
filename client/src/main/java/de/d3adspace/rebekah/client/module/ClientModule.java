@@ -5,10 +5,14 @@ import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
 import de.d3adspace.rebekah.client.RebekahClient;
 import de.d3adspace.rebekah.client.RebekahClientImpl;
+import de.d3adspace.rebekah.client.kernel.ClientKernel;
 import de.d3adspace.rebekah.client.netty.NettyClient;
+import de.d3adspace.rebekah.client.netty.handler.ClientConnectionHandler;
+import de.d3adspace.rebekah.client.netty.handler.ClientConnectionHandlerImpl;
 import de.d3adspace.rebekah.client.netty.pipeline.NettyPipelineConfigurator;
 import de.d3adspace.rebekah.client.provider.RxClientProvider;
 import de.d3adspace.rebekah.client.transport.TransportClient;
+import de.d3adspace.rebekah.commons.kernel.Kernel;
 import de.d3adspace.rebekah.commons.message.IncomingMessage;
 import de.d3adspace.rebekah.commons.message.OutgoingMessage;
 import de.d3adspace.rebekah.commons.module.CommonsModule;
@@ -27,6 +31,10 @@ public class ClientModule extends AbstractModule {
 
         bind(RebekahClient.class).to(RebekahClientImpl.class).asEagerSingleton();
         bind(TransportClient.class).to(NettyClient.class).asEagerSingleton();
+
+        bind(ClientConnectionHandler.class).to(ClientConnectionHandlerImpl.class);
+
+        bind(Kernel.class).to(ClientKernel.class).asEagerSingleton();
 
         bind(new TypeLiteral<PipelineConfigurator<IncomingMessage, OutgoingMessage>>() {
         }).to(NettyPipelineConfigurator.class);

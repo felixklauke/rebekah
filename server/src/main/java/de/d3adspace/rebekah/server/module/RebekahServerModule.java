@@ -3,13 +3,13 @@ package de.d3adspace.rebekah.server.module;
 import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
+import de.d3adspace.rebekah.commons.kernel.Kernel;
 import de.d3adspace.rebekah.commons.message.IncomingMessage;
 import de.d3adspace.rebekah.commons.message.OutgoingMessage;
 import de.d3adspace.rebekah.commons.module.CommonsModule;
 import de.d3adspace.rebekah.server.RebekahServer;
 import de.d3adspace.rebekah.server.RebekahServerImpl;
-import de.d3adspace.rebekah.server.kernel.Kernel;
-import de.d3adspace.rebekah.server.kernel.SimpleKernel;
+import de.d3adspace.rebekah.server.kernel.ServerKernel;
 import de.d3adspace.rebekah.server.netty.NettyServerImpl;
 import de.d3adspace.rebekah.server.netty.handler.NettyConnectionHandler;
 import de.d3adspace.rebekah.server.netty.pipeline.NettyPipelineConfigurator;
@@ -35,7 +35,7 @@ public class RebekahServerModule extends AbstractModule {
         bind(TransportServer.class).to(NettyServerImpl.class).asEagerSingleton();
 
         // Kernel
-        bind(Kernel.class).to(SimpleKernel.class).asEagerSingleton();
+        bind(Kernel.class).to(ServerKernel.class).asEagerSingleton();
 
         // Rx Server
         bind(new TypeLiteral<PipelineConfigurator<IncomingMessage, OutgoingMessage>>() {

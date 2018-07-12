@@ -1,6 +1,7 @@
 package de.d3adspace.rebekah.client;
 
 import de.d3adspace.rebekah.client.transport.TransportClient;
+import de.d3adspace.rebekah.commons.handler.IncomingMessageHandlerManager;
 import de.d3adspace.rebekah.commons.packet.Packet;
 import de.d3adspace.rebekah.commons.packet.PacketRegistry;
 import de.d3adspace.rebekah.commons.packet.io.PacketReader;
@@ -25,6 +26,8 @@ class RebekahClientImplTest {
     TransportClient transportClient;
     @Mock
     PacketRegistry packetRegistry;
+    @Mock
+    IncomingMessageHandlerManager incomingMessageHandlerManager;
 
     private Class<? extends Packet> packetClass = TestPacket.class;
 
@@ -32,7 +35,7 @@ class RebekahClientImplTest {
 
     @BeforeEach
     void setUp() {
-        rebekahClient = new RebekahClientImpl(packetRegistry, transportClient);
+        rebekahClient = new RebekahClientImpl(packetRegistry, transportClient, incomingMessageHandlerManager);
     }
 
     @Test

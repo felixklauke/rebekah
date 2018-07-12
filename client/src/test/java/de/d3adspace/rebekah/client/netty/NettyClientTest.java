@@ -1,5 +1,6 @@
 package de.d3adspace.rebekah.client.netty;
 
+import de.d3adspace.rebekah.client.netty.handler.ClientConnectionHandler;
 import de.d3adspace.rebekah.commons.message.IncomingMessage;
 import de.d3adspace.rebekah.commons.message.OutgoingMessage;
 import io.reactivex.netty.channel.ObservableConnection;
@@ -27,13 +28,16 @@ class NettyClientTest {
     OutgoingMessage request;
     @Mock
     RxClient<OutgoingMessage, IncomingMessage> rxClient;
+    @Mock
+    ClientConnectionHandler clientConnectionHandler;
+
     private BehaviorSubject<ObservableConnection<IncomingMessage, OutgoingMessage>> observableConnectionObservable = BehaviorSubject.create();
 
     private NettyClient nettyClient;
 
     @BeforeEach
     void setUp() {
-        nettyClient = new NettyClient(rxClient);
+        nettyClient = new NettyClient(rxClient, clientConnectionHandler);
     }
 
     @Test
@@ -72,6 +76,8 @@ class NettyClientTest {
         observableConnectionObservable.onNext(observableConnection);
 
         boolean clientConnected = nettyClient.isConnected();
+
+        verify(clientConnectionHandler).handleConnection(observableConnection);
 
         assertTrue(clientConnected, "Client should be connected.");
     }

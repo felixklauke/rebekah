@@ -1,5 +1,7 @@
 package de.d3adspace.rebekah.commons.agent;
 
+import de.d3adspace.rebekah.commons.handler.IncomingMessageHandler;
+import de.d3adspace.rebekah.commons.handler.IncomingMessageHandlerManager;
 import de.d3adspace.rebekah.commons.packet.Packet;
 import de.d3adspace.rebekah.commons.packet.PacketRegistry;
 
@@ -8,6 +10,10 @@ import de.d3adspace.rebekah.commons.packet.PacketRegistry;
  */
 public class RebekahPacketAgent implements PacketAgent {
 
+    /**
+     * The manager of all request managers.
+     */
+    protected final IncomingMessageHandlerManager incomingMessageHandlerManager;
     /**
      * The registry of all known packets.
      */
@@ -18,8 +24,9 @@ public class RebekahPacketAgent implements PacketAgent {
      *
      * @param packetRegistry The packet registry.
      */
-    public RebekahPacketAgent(PacketRegistry packetRegistry) {
+    public RebekahPacketAgent(PacketRegistry packetRegistry, IncomingMessageHandlerManager incomingMessageHandlerManager) {
         this.packetRegistry = packetRegistry;
+        this.incomingMessageHandlerManager = incomingMessageHandlerManager;
     }
 
     @Override
@@ -40,5 +47,20 @@ public class RebekahPacketAgent implements PacketAgent {
     @Override
     public boolean isPacketRegistered(Class<? extends Packet> packetClass) {
         return packetRegistry.isPacketRegistered(packetClass);
+    }
+
+    @Override
+    public void registerMessageHandler(IncomingMessageHandler incomingMessageHandler) {
+        incomingMessageHandlerManager.registerMessageHandler(incomingMessageHandler);
+    }
+
+    @Override
+    public void unregisterMessageHandler(IncomingMessageHandler incomingMessageHandler) {
+        incomingMessageHandlerManager.unregisterMessageHandler(incomingMessageHandler);
+    }
+
+    @Override
+    public boolean isMessageHandlerRegistered(IncomingMessageHandler incomingMessageHandler) {
+        return incomingMessageHandlerManager.isMessageHandlerRegistered(incomingMessageHandler);
     }
 }
