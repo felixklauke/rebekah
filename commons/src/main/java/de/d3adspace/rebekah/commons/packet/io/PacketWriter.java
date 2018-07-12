@@ -5,4 +5,10 @@ package de.d3adspace.rebekah.commons.packet.io;
  */
 public interface PacketWriter {
 
+    /**
+     * Write the given string.
+     *
+     * @param string The string.
+     */
+    void writeString(String string);
 }

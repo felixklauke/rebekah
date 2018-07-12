@@ -29,8 +29,7 @@ public class RebekahPacketAgent implements PacketAgent {
         this.incomingMessageHandlerManager = incomingMessageHandlerManager;
     }
 
-    @Override
-    public PacketRegistry getPacketRegistry() {
+    protected PacketRegistry getPacketRegistry() {
         return packetRegistry;
     }
 

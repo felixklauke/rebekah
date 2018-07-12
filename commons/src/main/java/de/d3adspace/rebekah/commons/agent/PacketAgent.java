@@ -2,19 +2,11 @@ package de.d3adspace.rebekah.commons.agent;
 
 import de.d3adspace.rebekah.commons.handler.IncomingMessageHandler;
 import de.d3adspace.rebekah.commons.packet.Packet;
-import de.d3adspace.rebekah.commons.packet.PacketRegistry;
 
 /**
  * @author Felix Klauke <info@felix-klauke.de>
  */
 public interface PacketAgent {
-
-    /**
-     * Get the packet registry.
-     *
-     * @return The packet registry.
-     */
-    PacketRegistry getPacketRegistry();
 
     /**
      * Register the packet represented by the given class.

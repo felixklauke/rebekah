@@ -3,6 +3,7 @@ package de.d3adspace.rebekah.client;
 import de.d3adspace.rebekah.client.transport.TransportClient;
 import de.d3adspace.rebekah.commons.agent.RebekahPacketAgent;
 import de.d3adspace.rebekah.commons.handler.IncomingMessageHandlerManager;
+import de.d3adspace.rebekah.commons.message.OutgoingMessage;
 import de.d3adspace.rebekah.commons.packet.PacketRegistry;
 
 import javax.inject.Inject;
@@ -36,5 +37,10 @@ public class RebekahClientImpl extends RebekahPacketAgent implements RebekahClie
     @Override
     public void disconnect() {
         transportClient.disconnect();
+    }
+
+    @Override
+    public void sendMessage(OutgoingMessage outgoingMessage) {
+        transportClient.sendRequest(outgoingMessage);
     }
 }

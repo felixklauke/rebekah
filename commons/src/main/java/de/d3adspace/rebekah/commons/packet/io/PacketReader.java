@@ -5,4 +5,10 @@ package de.d3adspace.rebekah.commons.packet.io;
  */
 public interface PacketReader {
 
+    /**
+     * Read the next string.
+     *
+     * @return The read string.
+     */
+    String readString();
 }
