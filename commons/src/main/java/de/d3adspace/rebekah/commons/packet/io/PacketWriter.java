@@ -11,4 +11,11 @@ public interface PacketWriter {
      * @param string The string.
      */
     void writeString(String string);
+
+    /**
+     * Write the given integer.
+     *
+     * @param integer The integer.
+     */
+    void writeInt(int integer);
 }

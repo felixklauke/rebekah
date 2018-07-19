@@ -19,4 +19,9 @@ public class BinaryPacketReader extends BinaryHolder implements PacketReader {
         getByteBuf().readBytes(bytes);
         return new String(bytes);
     }
+
+    @Override
+    public int readInt() {
+        return getByteBuf().readInt();
+    }
 }

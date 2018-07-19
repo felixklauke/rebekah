@@ -19,4 +19,9 @@ public class BinaryPacketWriter extends BinaryHolder implements PacketWriter {
         getByteBuf().writeInt(bytes.length);
         getByteBuf().writeBytes(bytes);
     }
+
+    @Override
+    public void writeInt(int integer) {
+        getByteBuf().writeInt(integer);
+    }
 }
