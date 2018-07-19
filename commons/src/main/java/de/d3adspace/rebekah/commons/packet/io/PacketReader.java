@@ -11,4 +11,11 @@ public interface PacketReader {
      * @return The read string.
      */
     String readString();
+
+    /**
+     * Read the next integer.
+     *
+     * @return The read integer.
+     */
+    int readInt();
 }

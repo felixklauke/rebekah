@@ -34,4 +34,13 @@ class BinaryPacketWriterTest {
         verify(byteBuf).writeInt(testString.getBytes().length);
         verify(byteBuf).writeBytes(testString.getBytes());
     }
+
+    @Test
+    void testWriteInt() {
+        int testInteger = 10;
+
+        packetWriter.writeInt(testInteger);
+
+        verify(byteBuf).writeInt(testInteger);
+    }
 }
