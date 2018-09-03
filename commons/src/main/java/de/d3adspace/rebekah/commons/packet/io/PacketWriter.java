@@ -18,4 +18,18 @@ public interface PacketWriter {
      * @param integer The integer.
      */
     void writeInt(int integer);
+
+    /**
+     * Write the given float.
+     *
+     * @param floatValue The value of the float
+     */
+    void writeFloat(float floatValue);
+
+    /**
+     * Write the given double.
+     *
+     * @param doubleValue The double.
+     */
+    void writeDouble(double doubleValue);
 }

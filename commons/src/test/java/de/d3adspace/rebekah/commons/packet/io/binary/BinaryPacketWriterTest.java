@@ -22,11 +22,13 @@ class BinaryPacketWriterTest {
 
     @BeforeEach
     void setUp() {
+
         packetWriter = new BinaryPacketWriter(byteBuf);
     }
 
     @Test
     void testWriteString() {
+
         String testString = "afwafagfwawwfgagawga";
 
         packetWriter.writeString(testString);
@@ -37,10 +39,31 @@ class BinaryPacketWriterTest {
 
     @Test
     void testWriteInt() {
+
         int testInteger = 10;
 
         packetWriter.writeInt(testInteger);
 
         verify(byteBuf).writeInt(testInteger);
+    }
+
+    @Test
+    void testWriteFloat() {
+
+        float testFloat = 10.1F;
+
+        packetWriter.writeFloat(testFloat);
+        
+        verify(byteBuf).writeFloat(testFloat);
+    }
+
+    @Test
+    void testWriteDouble() {
+
+        double testDouble = 10.2D;
+
+        packetWriter.writeDouble(testDouble);
+
+        verify(byteBuf).writeDouble(testDouble);
     }
 }

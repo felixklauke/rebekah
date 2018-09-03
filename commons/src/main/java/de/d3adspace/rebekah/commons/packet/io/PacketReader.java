@@ -18,4 +18,18 @@ public interface PacketReader {
      * @return The read integer.
      */
     int readInt();
+
+    /**
+     * Read the next float.
+     *
+     * @return The read float.
+     */
+    float readFloat();
+
+    /**
+     * Read the next double.
+     *
+     * @return The read double.
+     */
+    double readDouble();
 }
