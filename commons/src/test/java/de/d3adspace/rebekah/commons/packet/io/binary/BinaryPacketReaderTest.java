@@ -30,6 +30,7 @@ class BinaryPacketReaderTest {
 
     @Test
     void testReadString() {
+
         String readString = packetReader.readString();
 
         int readInt = verify(byteBuf).readInt();
@@ -41,10 +42,31 @@ class BinaryPacketReaderTest {
 
     @Test
     void testReadInt() {
+
         int integer = packetReader.readInt();
 
         int readInt = verify(byteBuf).readInt();
 
         assertEquals(integer, readInt);
+    }
+
+    @Test
+    void testReadFloat() {
+
+        float floatValue = packetReader.readFloat();
+
+        float readFloat = verify(byteBuf).readFloat();
+
+        assertEquals(floatValue, readFloat);
+    }
+
+    @Test
+    void testReadDouble() {
+
+        double doubleValue = packetReader.readDouble();
+
+        double readDouble = verify(byteBuf).readDouble();
+
+        assertEquals(doubleValue, readDouble);
     }
 }

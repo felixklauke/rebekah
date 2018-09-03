@@ -15,13 +15,31 @@ public class BinaryPacketWriter extends BinaryHolder implements PacketWriter {
 
     @Override
     public void writeString(String string) {
+
         byte[] bytes = string.getBytes(Charsets.UTF_8);
+
+        // Write string length
         getByteBuf().writeInt(bytes.length);
+
+        // Write content
         getByteBuf().writeBytes(bytes);
     }
 
     @Override
     public void writeInt(int integer) {
+
         getByteBuf().writeInt(integer);
+    }
+
+    @Override
+    public void writeFloat(float floatValue) {
+
+        getByteBuf().writeFloat(floatValue);
+    }
+
+    @Override
+    public void writeDouble(double doubleValue) {
+
+        getByteBuf().writeDouble(doubleValue);
     }
 }
