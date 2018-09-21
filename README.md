@@ -4,6 +4,7 @@
 # rebekah
 Inter process communication framework acting as extensive and reliable middleware with support for full featured request response lifecycle processing.
 
+# Build Status
 |             	| Build Status                                                                                                                                              	| Test Code Coverage                                                                                                                                               	|
 |-------------	|-----------------------------------------------------------------------------------------------------------------------------------------------------------	|------------------------------------------------------------------------------------------------------------------------------------------------------------------	|
 | Master      	| [![Build Status](https://travis-ci.org/FelixKlauke/rebekah.svg?branch=master)](https://travis-ci.org/FelixKlauke/rebekah) 	| [![codecov](https://codecov.io/gh/FelixKlauke/rebekah/branch/master/graph/badge.svg)](https://codecov.io/gh/FelixKlauke/rebekah) 	|
