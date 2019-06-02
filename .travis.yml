@@ -27,3 +27,13 @@ script:
 ###################################
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+
+##################
+### Deployment ###
+##################
+deploy:
+  provider: script
+  script: ./gradlew publish
+  on:
+    tags: true
+    branch: master
