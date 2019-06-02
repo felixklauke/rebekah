@@ -1,20 +1,36 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 # rebekah
 Inter process communication framework acting as extensive and reliable middleware with support for full featured request response lifecycle processing.
 
-# Status
+# Build Status
+|             	| Build Status                                                                                                                                              	| Test Code Coverage                                                                                                                                               	|
+|-------------	|-----------------------------------------------------------------------------------------------------------------------------------------------------------	|------------------------------------------------------------------------------------------------------------------------------------------------------------------	|
+| Master      	| [![Build Status](https://travis-ci.org/FelixKlauke/rebekah.svg?branch=master)](https://travis-ci.org/FelixKlauke/rebekah) 	| [![codecov](https://codecov.io/gh/FelixKlauke/rebekah/branch/master/graph/badge.svg)](https://codecov.io/gh/FelixKlauke/rebekah) 	|
+| Development 	| [![Build Status](https://travis-ci.org/FelixKlauke/rebekah.svg?branch=dev)](https://travis-ci.org/FelixKlauke/rebekah)    	| [![codecov](https://codecov.io/gh/FelixKlauke/rebekah/branch/dev/graph/badge.svg)](https://codecov.io/gh/FelixKlauke/rebekah)    	|
 
-Climate:
+# Usage
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7333ea32ec6445a28004309a19f4c93a)](https://www.codacy.com/app/info_101/rebekah?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=FelixKlauke/rebekah&amp;utm_campaign=Badge_Grade)
+**Maven Repositories**
 
-### master
+```xml
+<repositories>
+    <!-- Klauke Enterprises Releases -->
+    <repository>
+        <id>klauke-enterprises-maven-releases</id>
+        <name>Klauke Enterprises Maven Releases</name>
+        <url>https://repository.klauke-enterprises.com/repository/maven-releases/</url>
+    </repository>
+	
+    <!-- Klauke Enterprises Snapshots -->
+    <repository>
+        <id>klauke-enterprises-maven-snapshots</id>
+        <name>Klauke Enterprises Maven Snapshots</name>
+        <url>https://repository.klauke-enterprises.com/repository/maven-snapshots/</url>
+    </repository>
+</repositories>
+```
 
-[![Build Status](https://travis-ci.org/FelixKlauke/rebekah.svg?branch=master)](https://travis-ci.org/FelixKlauke/rebekah)
+# Introduction
 
-[![codecov](https://codecov.io/gh/FelixKlauke/rebekah/branch/master/graph/badge.svg)](https://codecov.io/gh/FelixKlauke/rebekah)
-
-### dev
-
-[![Build Status](https://travis-ci.org/FelixKlauke/rebekah.svg?branch=dev)](https://travis-ci.org/FelixKlauke/rebekah)
-
-[![codecov](https://codecov.io/gh/FelixKlauke/rebekah/branch/dev/graph/badge.svg)](https://codecov.io/gh/FelixKlauke/rebekah)
+# Example

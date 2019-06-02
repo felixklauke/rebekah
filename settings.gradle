@@ -17,4 +17,3 @@ findProject(':client')?.name = 'rebekah-client'
  */
 include 'server'
 findProject(':server')?.name = 'rebekah-server'
-

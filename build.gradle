@@ -1,18 +1,19 @@
 plugins {
-
+    id 'org.sonarqube' version "2.7"
     id 'java'
 }
 
-group 'de.d3adspace'
+group 'de.d3adspace.rebekah'
 version '1.0-SNAPSHOT'
 
 allprojects {
     apply plugin: 'java'
     apply plugin: 'jacoco'
     apply plugin: 'maven'
+    apply plugin: 'maven-publish'
 
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
+    sourceCompatibility = 1.11
+    targetCompatibility = 1.11
 
     repositories {
 
@@ -27,22 +28,35 @@ allprojects {
         mavenCentral()
     }
 
+    publishing {
+        publications {
+            mavenJava(MavenPublication) { publication ->
+                from components.java
+            }
+        }
+        repositories {
+            maven {
+                credentials {
+                    username = System.getenv('NEXUS_USERNAME')
+                    password = System.getenv('NEXUS_PASSWORD')
+                }
+
+                def releasesRepoUrl = 'https://repository.klauke-enterprises.com/repository/maven-releases/'
+                def snapshotsRepoUrl = 'https://repository.klauke-enterprises.com/repository/maven-snapshots/'
+                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            }
+        }
+    }
+
     dependencies {
-
         /**
-         * JUnit Jupiter as a testing framework.
+         * Google Guice for dependency injection.
          */
-        testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.2.0'
+        compile group: 'com.google.inject', name: 'guice', version: '4.2.0'
 
-        /**
-         * JUnit Jupiter parameter configuration.
-         */
-        testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.2.0'
-
-        /**
-         * JUnit Jupiter testing engine.
-         */
-        testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.2.0'
+        testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.4.2'
+        testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.4.2'
+        testCompile group: 'org.mockito', name: 'mockito-junit-jupiter', version: '2.28.2'
     }
 
     test {
