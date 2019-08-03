@@ -7,10 +7,10 @@ import de.d3adspace.rebekah.commons.packet.io.PacketReader;
  */
 public interface IncomingMessage {
 
-    /**
-     * Read the packet content from the given reader.
-     *
-     * @param packetReader The reader.
-     */
-    void decode(PacketReader packetReader);
+  /**
+   * Read the packet content from the given reader.
+   *
+   * @param packetReader The reader.
+   */
+  void decode(PacketReader packetReader);
 }

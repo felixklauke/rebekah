@@ -8,11 +8,11 @@ import de.d3adspace.rebekah.commons.message.IncomingMessage;
  */
 public interface Kernel {
 
-    /**
-     * Handle the given message in the given context.
-     *
-     * @param messageContext The context of the message.
-     * @param message        The request.
-     */
-    void handleMessage(MessageContext messageContext, IncomingMessage message);
+  /**
+   * Handle the given message in the given context.
+   *
+   * @param messageContext The context of the message.
+   * @param message The request.
+   */
+  void handleMessage(MessageContext messageContext, IncomingMessage message);
 }

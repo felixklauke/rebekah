@@ -7,20 +7,20 @@ import de.d3adspace.rebekah.commons.agent.PacketAgent;
  */
 public interface RebekahServer extends PacketAgent {
 
-    /**
-     * Start the server.
-     */
-    void start();
+  /**
+   * Start the server.
+   */
+  void start();
 
-    /**
-     * Stop the server.
-     */
-    void stop();
+  /**
+   * Stop the server.
+   */
+  void stop();
 
-    /**
-     * Check if the server is running.
-     *
-     * @return If the server is running.
-     */
-    boolean isRunning();
+  /**
+   * Check if the server is running.
+   *
+   * @return If the server is running.
+   */
+  boolean isRunning();
 }

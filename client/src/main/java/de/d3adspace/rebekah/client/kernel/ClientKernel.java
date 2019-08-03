@@ -4,7 +4,6 @@ import de.d3adspace.rebekah.commons.context.MessageContext;
 import de.d3adspace.rebekah.commons.handler.IncomingMessageHandlerManager;
 import de.d3adspace.rebekah.commons.kernel.Kernel;
 import de.d3adspace.rebekah.commons.message.IncomingMessage;
-
 import javax.inject.Inject;
 
 /**
@@ -12,15 +11,15 @@ import javax.inject.Inject;
  */
 public class ClientKernel implements Kernel {
 
-    private IncomingMessageHandlerManager incomingMessageHandlerManager;
+  private IncomingMessageHandlerManager incomingMessageHandlerManager;
 
-    @Inject
-    public ClientKernel(IncomingMessageHandlerManager incomingMessageHandlerManager) {
-        this.incomingMessageHandlerManager = incomingMessageHandlerManager;
-    }
+  @Inject
+  public ClientKernel(IncomingMessageHandlerManager incomingMessageHandlerManager) {
+    this.incomingMessageHandlerManager = incomingMessageHandlerManager;
+  }
 
-    @Override
-    public void handleMessage(MessageContext messageContext, IncomingMessage message) {
-        incomingMessageHandlerManager.process(messageContext, message);
-    }
+  @Override
+  public void handleMessage(MessageContext messageContext, IncomingMessage message) {
+    incomingMessageHandlerManager.process(messageContext, message);
+  }
 }

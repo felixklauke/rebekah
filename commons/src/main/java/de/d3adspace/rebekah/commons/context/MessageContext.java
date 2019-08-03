@@ -9,10 +9,10 @@ import de.d3adspace.rebekah.commons.message.OutgoingMessage;
  */
 public interface MessageContext {
 
-    /**
-     * Resume the request response lifecycle with the given response.
-     *
-     * @param outgoingMessage The outgoing message.
-     */
-    void resume(OutgoingMessage outgoingMessage);
+  /**
+   * Resume the request response lifecycle with the given response.
+   *
+   * @param outgoingMessage The outgoing message.
+   */
+  void resume(OutgoingMessage outgoingMessage);
 }

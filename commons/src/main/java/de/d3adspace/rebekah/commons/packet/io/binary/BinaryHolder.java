@@ -9,26 +9,26 @@ import io.netty.buffer.ByteBuf;
  */
 class BinaryHolder {
 
-    /**
-     * The contained byte buf.
-     */
-    private final ByteBuf byteBuf;
+  /**
+   * The contained byte buf.
+   */
+  private final ByteBuf byteBuf;
 
-    /**
-     * Create a new binary holder by its underlying binary.
-     *
-     * @param byteBuf The binary.
-     */
-    BinaryHolder(ByteBuf byteBuf) {
-        this.byteBuf = byteBuf;
-    }
+  /**
+   * Create a new binary holder by its underlying binary.
+   *
+   * @param byteBuf The binary.
+   */
+  BinaryHolder(ByteBuf byteBuf) {
+    this.byteBuf = byteBuf;
+  }
 
-    /**
-     * Get the underlying byte buf.
-     *
-     * @return The byte buf.
-     */
-    ByteBuf getByteBuf() {
-        return byteBuf;
-    }
+  /**
+   * Get the underlying byte buf.
+   *
+   * @return The byte buf.
+   */
+  ByteBuf getByteBuf() {
+    return byteBuf;
+  }
 }

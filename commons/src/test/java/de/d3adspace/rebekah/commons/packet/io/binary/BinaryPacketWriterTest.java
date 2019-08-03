@@ -1,5 +1,7 @@
 package de.d3adspace.rebekah.commons.packet.io.binary;
 
+import static org.mockito.Mockito.verify;
+
 import io.netty.buffer.ByteBuf;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,63 +9,61 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.mockito.Mockito.verify;
-
 /**
  * @author Felix Klauke <info@felix-klauke.de>
  */
 @ExtendWith(MockitoExtension.class)
 class BinaryPacketWriterTest {
 
-    @Mock
-    ByteBuf byteBuf;
+  @Mock
+  ByteBuf byteBuf;
 
-    private BinaryPacketWriter packetWriter;
+  private BinaryPacketWriter packetWriter;
 
-    @BeforeEach
-    void setUp() {
+  @BeforeEach
+  void setUp() {
 
-        packetWriter = new BinaryPacketWriter(byteBuf);
-    }
+    packetWriter = new BinaryPacketWriter(byteBuf);
+  }
 
-    @Test
-    void testWriteString() {
+  @Test
+  void testWriteString() {
 
-        String testString = "afwafagfwawwfgagawga";
+    String testString = "afwafagfwawwfgagawga";
 
-        packetWriter.writeString(testString);
+    packetWriter.writeString(testString);
 
-        verify(byteBuf).writeInt(testString.getBytes().length);
-        verify(byteBuf).writeBytes(testString.getBytes());
-    }
+    verify(byteBuf).writeInt(testString.getBytes().length);
+    verify(byteBuf).writeBytes(testString.getBytes());
+  }
 
-    @Test
-    void testWriteInt() {
+  @Test
+  void testWriteInt() {
 
-        int testInteger = 10;
+    int testInteger = 10;
 
-        packetWriter.writeInt(testInteger);
+    packetWriter.writeInt(testInteger);
 
-        verify(byteBuf).writeInt(testInteger);
-    }
+    verify(byteBuf).writeInt(testInteger);
+  }
 
-    @Test
-    void testWriteFloat() {
+  @Test
+  void testWriteFloat() {
 
-        float testFloat = 10.1F;
+    float testFloat = 10.1F;
 
-        packetWriter.writeFloat(testFloat);
-        
-        verify(byteBuf).writeFloat(testFloat);
-    }
+    packetWriter.writeFloat(testFloat);
 
-    @Test
-    void testWriteDouble() {
+    verify(byteBuf).writeFloat(testFloat);
+  }
 
-        double testDouble = 10.2D;
+  @Test
+  void testWriteDouble() {
 
-        packetWriter.writeDouble(testDouble);
+    double testDouble = 10.2D;
 
-        verify(byteBuf).writeDouble(testDouble);
-    }
+    packetWriter.writeDouble(testDouble);
+
+    verify(byteBuf).writeDouble(testDouble);
+  }
 }
