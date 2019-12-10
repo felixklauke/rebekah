@@ -10,8 +10,9 @@ import java.util.logging.Logger;
 import javax.inject.Inject;
 
 /**
- * Default implementation of the transport layer represented by the {@link TransportServer} based on
- * netty. For netty usage the Wrapper {@link RxNetty} is used.
+ * Default implementation of the transport layer represented by the {@link
+ * TransportServer} based on netty. For netty usage the Wrapper {@link RxNetty}
+ * is used.
  *
  * @author Felix Klauke <info@felix-klauke.de>
  */
@@ -20,7 +21,8 @@ public class NettyServerImpl implements TransportServer {
   /**
    * The logger that will log all actions.
    */
-  private static final Logger LOGGER = Logger.getLogger(NettyServerImpl.class.getName());
+  private static final Logger LOGGER = Logger
+    .getLogger(NettyServerImpl.class.getName());
 
   /**
    * The underlying rx server.

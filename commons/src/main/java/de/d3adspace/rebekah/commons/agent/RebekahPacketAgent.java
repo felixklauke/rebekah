@@ -25,7 +25,7 @@ public class RebekahPacketAgent implements PacketAgent {
    * @param packetRegistry The packet registry.
    */
   public RebekahPacketAgent(PacketRegistry packetRegistry,
-      IncomingMessageHandlerManager incomingMessageHandlerManager) {
+    IncomingMessageHandlerManager incomingMessageHandlerManager) {
     this.packetRegistry = packetRegistry;
     this.incomingMessageHandlerManager = incomingMessageHandlerManager;
   }
@@ -50,17 +50,23 @@ public class RebekahPacketAgent implements PacketAgent {
   }
 
   @Override
-  public void registerMessageHandler(IncomingMessageHandler incomingMessageHandler) {
-    incomingMessageHandlerManager.registerMessageHandler(incomingMessageHandler);
+  public void registerMessageHandler(
+    IncomingMessageHandler incomingMessageHandler) {
+    incomingMessageHandlerManager
+      .registerMessageHandler(incomingMessageHandler);
   }
 
   @Override
-  public void unregisterMessageHandler(IncomingMessageHandler incomingMessageHandler) {
-    incomingMessageHandlerManager.unregisterMessageHandler(incomingMessageHandler);
+  public void unregisterMessageHandler(
+    IncomingMessageHandler incomingMessageHandler) {
+    incomingMessageHandlerManager
+      .unregisterMessageHandler(incomingMessageHandler);
   }
 
   @Override
-  public boolean isMessageHandlerRegistered(IncomingMessageHandler incomingMessageHandler) {
-    return incomingMessageHandlerManager.isMessageHandlerRegistered(incomingMessageHandler);
+  public boolean isMessageHandlerRegistered(
+    IncomingMessageHandler incomingMessageHandler) {
+    return incomingMessageHandlerManager
+      .isMessageHandlerRegistered(incomingMessageHandler);
   }
 }

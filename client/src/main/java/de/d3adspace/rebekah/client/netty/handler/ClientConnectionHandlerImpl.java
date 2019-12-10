@@ -26,8 +26,9 @@ public class ClientConnectionHandlerImpl implements ClientConnectionHandler {
 
   @Override
   public void handleConnection(
-      ObservableConnection<IncomingMessage, OutgoingMessage> observableConnection) {
-    Observable<IncomingMessage> incomingMessageObservable = observableConnection.getInput();
+    ObservableConnection<IncomingMessage, OutgoingMessage> observableConnection) {
+    Observable<IncomingMessage> incomingMessageObservable = observableConnection
+      .getInput();
 
     handleIncomingMessages(observableConnection, incomingMessageObservable);
   }
@@ -35,26 +36,28 @@ public class ClientConnectionHandlerImpl implements ClientConnectionHandler {
   /**
    * Handle the incoming messages delivered by the given observable.
    *
-   * @param observableConnection The connection.
+   * @param observableConnection      The connection.
    * @param incomingMessageObservable The observable.
    */
   private void handleIncomingMessages(
-      ObservableConnection<IncomingMessage, OutgoingMessage> observableConnection,
-      Observable<IncomingMessage> incomingMessageObservable) {
+    ObservableConnection<IncomingMessage, OutgoingMessage> observableConnection,
+    Observable<IncomingMessage> incomingMessageObservable) {
     incomingMessageObservable
-        .subscribe(incomingMessage -> handleIncomingMessage(observableConnection, incomingMessage));
+      .subscribe(incomingMessage -> handleIncomingMessage(observableConnection,
+        incomingMessage));
   }
 
   /**
    * Handle that a new message arrived.
    *
    * @param observableConnection The connection.
-   * @param incomingMessage The message.
+   * @param incomingMessage      The message.
    */
   private void handleIncomingMessage(
-      ObservableConnection<IncomingMessage, OutgoingMessage> observableConnection,
-      IncomingMessage incomingMessage) {
-    MessageContext messageContext = new NettyMessageContext(observableConnection, incomingMessage);
+    ObservableConnection<IncomingMessage, OutgoingMessage> observableConnection,
+    IncomingMessage incomingMessage) {
+    MessageContext messageContext = new NettyMessageContext(
+      observableConnection, incomingMessage);
     kernel.handleMessage(messageContext, incomingMessage);
   }
 }

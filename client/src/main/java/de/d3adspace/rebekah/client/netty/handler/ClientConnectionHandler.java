@@ -17,5 +17,5 @@ public interface ClientConnectionHandler {
    * @param observableConnection The connection.
    */
   void handleConnection(
-      ObservableConnection<IncomingMessage, OutgoingMessage> observableConnection);
+    ObservableConnection<IncomingMessage, OutgoingMessage> observableConnection);
 }

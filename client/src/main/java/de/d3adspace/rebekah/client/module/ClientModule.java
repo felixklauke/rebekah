@@ -26,7 +26,8 @@ public class ClientModule extends AbstractModule {
 
   @Override
   protected void configure() {
-    bind(String.class).annotatedWith(Names.named("serverHost")).toInstance("localhost");
+    bind(String.class).annotatedWith(Names.named("serverHost"))
+      .toInstance("localhost");
     bindConstant().annotatedWith(Names.named("serverPort")).to(8083);
 
     bind(RebekahClient.class).to(RebekahClientImpl.class).asEagerSingleton();
@@ -36,8 +37,9 @@ public class ClientModule extends AbstractModule {
 
     bind(Kernel.class).to(ClientKernel.class).asEagerSingleton();
 
-    bind(new TypeLiteral<PipelineConfigurator<IncomingMessage, OutgoingMessage>>() {
-    }).to(NettyPipelineConfigurator.class);
+    bind(
+      new TypeLiteral<PipelineConfigurator<IncomingMessage, OutgoingMessage>>() {
+      }).to(NettyPipelineConfigurator.class);
     bind(new TypeLiteral<RxClient<OutgoingMessage, IncomingMessage>>() {
     }).toProvider(RxClientProvider.class);
 

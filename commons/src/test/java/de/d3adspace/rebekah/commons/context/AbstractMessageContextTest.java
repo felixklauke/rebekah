@@ -28,7 +28,8 @@ class AbstractMessageContextTest {
 
   @BeforeEach
   void setUp() {
-    abstractRequestContext = new AbstractMessageContext<IncomingMessage>(testRequest) {
+    abstractRequestContext = new AbstractMessageContext<IncomingMessage>(
+      testRequest) {
       @Override
       public void resume(OutgoingMessage response) {
       }
@@ -39,6 +40,6 @@ class AbstractMessageContextTest {
   void testGetRequest() {
     IncomingMessage request = abstractRequestContext.getRequest();
     assertEquals(testRequest, request,
-        "The test request doesn't equal the one got from the context.");
+      "The test request doesn't equal the one got from the context.");
   }
 }

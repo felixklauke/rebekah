@@ -36,7 +36,7 @@ class NettyClientTest {
   ClientConnectionHandler clientConnectionHandler;
 
   private BehaviorSubject<ObservableConnection<IncomingMessage, OutgoingMessage>> observableConnectionObservable = BehaviorSubject
-      .create();
+    .create();
 
   private NettyClient nettyClient;
 

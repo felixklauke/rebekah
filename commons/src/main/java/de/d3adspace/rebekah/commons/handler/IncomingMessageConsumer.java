@@ -9,7 +9,8 @@ import java.util.function.BiConsumer;
 /**
  * @author Felix Klauke <info@felix-klauke.de>
  */
-class IncomingMessageConsumer implements BiConsumer<MessageContext, IncomingMessage> {
+class IncomingMessageConsumer implements
+  BiConsumer<MessageContext, IncomingMessage> {
 
   /**
    * The corresponding packet handler.
@@ -25,9 +26,10 @@ class IncomingMessageConsumer implements BiConsumer<MessageContext, IncomingMess
    * Create a new packet consumer based on its underlying method.
    *
    * @param incomingMessageHandler The packet handler.
-   * @param method The method.
+   * @param method                 The method.
    */
-  IncomingMessageConsumer(IncomingMessageHandler incomingMessageHandler, Method method) {
+  IncomingMessageConsumer(IncomingMessageHandler incomingMessageHandler,
+    Method method) {
     this.incomingMessageHandler = incomingMessageHandler;
     this.method = method;
   }
@@ -38,7 +40,7 @@ class IncomingMessageConsumer implements BiConsumer<MessageContext, IncomingMess
       method.invoke(incomingMessageHandler, messageContext, request);
     } catch (IllegalAccessException | InvocationTargetException e) {
       throw new IllegalStateException(
-          "Error handling request while executing handler method: " + method, e);
+        "Error handling request while executing handler method: " + method, e);
     }
   }
 }

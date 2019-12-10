@@ -35,7 +35,8 @@ class IncomingMessageConsumerTest {
 
   @BeforeEach
   void setUp() {
-    incomingMessageConsumer = new IncomingMessageConsumer(incomingMessageHandler, method);
+    incomingMessageConsumer = new IncomingMessageConsumer(
+      incomingMessageHandler, method);
   }
 
   @Test
@@ -43,7 +44,8 @@ class IncomingMessageConsumerTest {
     incomingMessageConsumer.accept(messageContext, incomingMessage);
 
     try {
-      verify(method).invoke(incomingMessageHandler, messageContext, incomingMessage);
+      verify(method)
+        .invoke(incomingMessageHandler, messageContext, incomingMessage);
     } catch (IllegalAccessException | InvocationTargetException e) {
       fail(e);
     }
@@ -52,13 +54,15 @@ class IncomingMessageConsumerTest {
   @Test
   void testAcceptWithException() {
     try {
-      when(method.invoke(incomingMessageHandler, messageContext, incomingMessage))
-          .thenThrow(new IllegalAccessException());
+      when(
+        method.invoke(incomingMessageHandler, messageContext, incomingMessage))
+        .thenThrow(new IllegalAccessException());
     } catch (IllegalAccessException | InvocationTargetException e) {
       fail(e);
     }
 
-    Executable executable = () -> incomingMessageConsumer.accept(messageContext, incomingMessage);
+    Executable executable = () -> incomingMessageConsumer
+      .accept(messageContext, incomingMessage);
 
     assertThrows(IllegalStateException.class, executable);
   }

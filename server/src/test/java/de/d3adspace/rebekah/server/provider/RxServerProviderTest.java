@@ -30,12 +30,14 @@ class RxServerProviderTest {
 
   @BeforeEach
   void setUp() {
-    rxServerProvider = new RxServerProvider(TEST_PORT, pipelineConfigurator, connectionHandler);
+    rxServerProvider = new RxServerProvider(TEST_PORT, pipelineConfigurator,
+      connectionHandler);
   }
 
   @Test
   void testGet() {
-    RxServer<IncomingMessage, OutgoingMessage> rxServer = rxServerProvider.get();
+    RxServer<IncomingMessage, OutgoingMessage> rxServer = rxServerProvider
+      .get();
 
     assertNotNull(rxServer, "Server should not be null.");
     assertEquals(TEST_PORT, rxServer.getServerPort());

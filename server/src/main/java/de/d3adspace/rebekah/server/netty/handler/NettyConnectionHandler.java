@@ -15,7 +15,8 @@ import rx.Observable;
  *
  * @author Felix Klauke <info@felix-klauke.de>
  */
-public class NettyConnectionHandler implements ConnectionHandler<IncomingMessage, OutgoingMessage> {
+public class NettyConnectionHandler implements
+  ConnectionHandler<IncomingMessage, OutgoingMessage> {
 
   /**
    * The kernel that will process the request in its context.
@@ -29,11 +30,12 @@ public class NettyConnectionHandler implements ConnectionHandler<IncomingMessage
 
   @Override
   public Observable<Void> handle(
-      ObservableConnection<IncomingMessage, OutgoingMessage> newConnection) {
+    ObservableConnection<IncomingMessage, OutgoingMessage> newConnection) {
     Observable<IncomingMessage> connectionInput = newConnection.getInput();
 
     connectionInput.subscribe(request -> {
-      MessageContext messageContext = new NettyMessageContext(newConnection, request);
+      MessageContext messageContext = new NettyMessageContext(newConnection,
+        request);
       kernel.handleMessage(messageContext, request);
     });
 

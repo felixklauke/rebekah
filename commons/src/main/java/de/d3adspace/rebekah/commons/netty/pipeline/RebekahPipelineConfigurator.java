@@ -26,7 +26,7 @@ public class RebekahPipelineConfigurator {
 
   public void configureNewPipeline(ChannelPipeline pipeline) {
     pipeline.addLast("lengthFieldBasedFrameDecoder",
-        new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4));
+      new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4));
     pipeline.addLast("packetCodec", packetCodec);
     pipeline.addLast("lengthFieldPrepender", new LengthFieldPrepender(4));
   }

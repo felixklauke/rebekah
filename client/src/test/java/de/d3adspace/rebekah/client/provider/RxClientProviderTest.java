@@ -29,12 +29,13 @@ class RxClientProviderTest {
   @BeforeEach
   void setUp() {
     rxClientProvider = new RxClientProvider(TEST_SERVER_HOST, TEST_SERVER_PORT,
-        pipelineConfigurator);
+      pipelineConfigurator);
   }
 
   @Test
   void testGet() {
-    RxClient<OutgoingMessage, IncomingMessage> rxClient = rxClientProvider.get();
+    RxClient<OutgoingMessage, IncomingMessage> rxClient = rxClientProvider
+      .get();
 
     assertNotNull(rxClient, "Client should not be null.");
   }

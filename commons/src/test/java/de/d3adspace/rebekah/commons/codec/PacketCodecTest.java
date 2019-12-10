@@ -68,13 +68,16 @@ class PacketCodecTest {
     ArrayList<Object> objects = Lists.newArrayList();
 
     when(byteBuf.readInt()).thenReturn(TEST_PACKET_ID);
-    when(packetRegistry.getPacketDescriptionById(TEST_PACKET_ID)).thenReturn(packetDescription);
-    when(packetFactory.createPacket(packetDescription.getPacketClass())).thenReturn(packet);
+    when(packetRegistry.getPacketDescriptionById(TEST_PACKET_ID))
+      .thenReturn(packetDescription);
+    when(packetFactory.createPacket(packetDescription.getPacketClass()))
+      .thenReturn(packet);
 
     packetCodec.decode(channelHandlerContext, byteBuf, objects);
 
     verify(packet).decode(Mockito.any(PacketReader.class));
-    assertTrue(objects.contains(packet), "Packet should be added to outgoing objects.");
+    assertTrue(objects.contains(packet),
+      "Packet should be added to outgoing objects.");
   }
 
   @Test
@@ -82,9 +85,11 @@ class PacketCodecTest {
     ArrayList<Object> objects = Lists.newArrayList();
 
     when(byteBuf.readInt()).thenReturn(TEST_PACKET_ID);
-    when(packetRegistry.getPacketDescriptionById(TEST_PACKET_ID)).thenReturn(null);
+    when(packetRegistry.getPacketDescriptionById(TEST_PACKET_ID))
+      .thenReturn(null);
 
-    Executable executable = () -> packetCodec.decode(channelHandlerContext, byteBuf, objects);
+    Executable executable = () -> packetCodec
+      .decode(channelHandlerContext, byteBuf, objects);
     assertThrows(IllegalStateException.class, executable);
   }
 }

@@ -11,7 +11,8 @@ import javax.inject.Inject;
  *
  * @author Felix Klauke <info@felix-klauke.de>
  */
-public class RebekahServerImpl extends RebekahPacketAgent implements RebekahServer {
+public class RebekahServerImpl extends RebekahPacketAgent implements
+  RebekahServer {
 
   /**
    * The underlying transporting server.
@@ -21,13 +22,14 @@ public class RebekahServerImpl extends RebekahPacketAgent implements RebekahServ
   /**
    * Create a new rebekah server instance by its underlying transport layer.
    *
-   * @param transportServer The transport layer.
-   * @param packetRegistry The packet registry.
+   * @param transportServer               The transport layer.
+   * @param packetRegistry                The packet registry.
    * @param incomingMessageHandlerManager The request handler manager.
    */
   @Inject
-  public RebekahServerImpl(TransportServer transportServer, PacketRegistry packetRegistry,
-      IncomingMessageHandlerManager incomingMessageHandlerManager) {
+  public RebekahServerImpl(TransportServer transportServer,
+    PacketRegistry packetRegistry,
+    IncomingMessageHandlerManager incomingMessageHandlerManager) {
     super(packetRegistry, incomingMessageHandlerManager);
     this.transportServer = transportServer;
   }

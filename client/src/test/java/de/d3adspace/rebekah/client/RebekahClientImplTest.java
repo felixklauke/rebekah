@@ -39,7 +39,7 @@ class RebekahClientImplTest {
   @BeforeEach
   void setUp() {
     rebekahClient = new RebekahClientImpl(packetRegistry, transportClient,
-        incomingMessageHandlerManager);
+      incomingMessageHandlerManager);
   }
 
   @Test
@@ -68,7 +68,6 @@ class RebekahClientImplTest {
     verify(transportClient).disconnect();
   }
 
-
   @Test
   void testRegisterPacket() {
     rebekahClient.registerPacket(packetClass);
@@ -87,12 +86,14 @@ class RebekahClientImplTest {
   void testIsPacketRegistered() {
     boolean shouldBeRegistered = true;
 
-    when(this.packetRegistry.isPacketRegistered(packetClass)).thenReturn(shouldBeRegistered);
+    when(this.packetRegistry.isPacketRegistered(packetClass))
+      .thenReturn(shouldBeRegistered);
 
     boolean packetRegistered = rebekahClient.isPacketRegistered(packetClass);
 
     verify(this.packetRegistry).isPacketRegistered(packetClass);
-    assertEquals(shouldBeRegistered, packetRegistered, "Packet registered state differs :(");
+    assertEquals(shouldBeRegistered, packetRegistered,
+      "Packet registered state differs :(");
   }
 
   @Test

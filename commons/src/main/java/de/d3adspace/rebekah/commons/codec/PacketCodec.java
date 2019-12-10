@@ -33,26 +33,29 @@ public class PacketCodec extends ByteToMessageCodec<Packet> {
    * Create a new codec by its registry.
    *
    * @param packetRegistry The registry.
-   * @param packetFactory The packet factory.
+   * @param packetFactory  The packet factory.
    */
   @Inject
-  public PacketCodec(PacketRegistry packetRegistry, PacketFactory packetFactory) {
+  public PacketCodec(PacketRegistry packetRegistry,
+    PacketFactory packetFactory) {
     this.packetRegistry = packetRegistry;
     this.packetFactory = packetFactory;
   }
 
   @Override
-  protected void encode(ChannelHandlerContext ctx, Packet packet, ByteBuf outgoingByteBuf) {
+  protected void encode(ChannelHandlerContext ctx, Packet packet,
+    ByteBuf outgoingByteBuf) {
     PacketWriter packetWriter = new BinaryPacketWriter(outgoingByteBuf);
     packet.encode(packetWriter);
   }
 
   @Override
   protected void decode(ChannelHandlerContext ctx, ByteBuf incomingByteBuf,
-      List<Object> outgoingObjects) {
+    List<Object> outgoingObjects) {
     int packetId = incomingByteBuf.readInt();
 
-    PacketDescription packetDescription = packetRegistry.getPacketDescriptionById(packetId);
+    PacketDescription packetDescription = packetRegistry
+      .getPacketDescriptionById(packetId);
 
     if (packetDescription == null) {
       throw new IllegalStateException("Unknown packet id: " + packetId);

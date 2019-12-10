@@ -22,12 +22,14 @@ public class ServerKernel implements Kernel {
    * @param incomingMessageHandlerManager The packet handler manager.
    */
   @Inject
-  public ServerKernel(IncomingMessageHandlerManager incomingMessageHandlerManager) {
+  public ServerKernel(
+    IncomingMessageHandlerManager incomingMessageHandlerManager) {
     this.incomingMessageHandlerManager = incomingMessageHandlerManager;
   }
 
   @Override
-  public void handleMessage(MessageContext messageContext, IncomingMessage request) {
+  public void handleMessage(MessageContext messageContext,
+    IncomingMessage request) {
     incomingMessageHandlerManager.process(messageContext, request);
   }
 }

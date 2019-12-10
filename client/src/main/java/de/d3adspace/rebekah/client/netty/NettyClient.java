@@ -26,7 +26,7 @@ public class NettyClient implements TransportClient {
 
   @Inject
   public NettyClient(RxClient<OutgoingMessage, IncomingMessage> rxClient,
-      ClientConnectionHandler clientConnectionHandler) {
+    ClientConnectionHandler clientConnectionHandler) {
     this.rxClient = rxClient;
     this.clientConnectionHandler = clientConnectionHandler;
   }
@@ -35,11 +35,12 @@ public class NettyClient implements TransportClient {
   public void connect() {
     observableConnectionObservable = rxClient.connect();
     observableConnectionSubscription = observableConnectionObservable
-        .subscribe(responseRequestObservableConnection -> {
-          connected = true;
+      .subscribe(responseRequestObservableConnection -> {
+        connected = true;
 
-          clientConnectionHandler.handleConnection(responseRequestObservableConnection);
-        });
+        clientConnectionHandler
+          .handleConnection(responseRequestObservableConnection);
+      });
   }
 
   @Override
@@ -54,7 +55,8 @@ public class NettyClient implements TransportClient {
   @Override
   public void disconnect() {
     if (!isConnected()) {
-      throw new IllegalStateException("You can't disconnect while not being connected.");
+      throw new IllegalStateException(
+        "You can't disconnect while not being connected.");
     }
 
     rxClient.shutdown();
@@ -64,7 +66,8 @@ public class NettyClient implements TransportClient {
 
   @Override
   public void sendRequest(OutgoingMessage request) {
-    observableConnectionObservable.subscribe(responseRequestObservableConnection ->
+    observableConnectionObservable
+      .subscribe(responseRequestObservableConnection ->
         responseRequestObservableConnection.writeAndFlush(request));
   }
 }

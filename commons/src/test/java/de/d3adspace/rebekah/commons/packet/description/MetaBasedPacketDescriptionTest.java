@@ -33,7 +33,8 @@ class MetaBasedPacketDescriptionTest {
   @BeforeEach
   void setUp() {
 
-    metaBasedPacketDescription = new MetaBasedPacketDescription(packetMeta, TEST_PACKET_CLASS);
+    metaBasedPacketDescription = new MetaBasedPacketDescription(packetMeta,
+      TEST_PACKET_CLASS);
   }
 
   @Test
@@ -41,23 +42,24 @@ class MetaBasedPacketDescriptionTest {
     when(packetMeta.id()).thenReturn(TEST_PACKET_ID);
 
     PacketDescription packetDescription = MetaBasedPacketDescription
-        .createPacketDescription(TEST_PACKET_CLASS);
+      .createPacketDescription(TEST_PACKET_CLASS);
 
     assertEquals(metaBasedPacketDescription.getId(), packetDescription.getId());
-    assertEquals(metaBasedPacketDescription.getPacketClass(), packetDescription.getPacketClass());
+    assertEquals(metaBasedPacketDescription.getPacketClass(),
+      packetDescription.getPacketClass());
   }
 
   @Test
   void testCreatePacketDescriptionWithInvalidClass() {
     Executable executable = () -> MetaBasedPacketDescription
-        .createPacketDescription(TEST_PACKET_CLASS_WITHOUT_META);
+      .createPacketDescription(TEST_PACKET_CLASS_WITHOUT_META);
     assertThrows(IllegalStateException.class, executable);
   }
 
   @Test
   void testCreatePacketDescriptionWithInvalidConstructor() {
     Executable executable = () -> MetaBasedPacketDescription
-        .createPacketDescription(TEST_PACKET_CLASS_INVALID_CONSTRUCTOR);
+      .createPacketDescription(TEST_PACKET_CLASS_INVALID_CONSTRUCTOR);
     assertThrows(IllegalStateException.class, executable);
   }
 
@@ -70,7 +72,8 @@ class MetaBasedPacketDescriptionTest {
 
   @Test
   void testGetPacketClass() {
-    assertEquals(TEST_PACKET_CLASS, metaBasedPacketDescription.getPacketClass());
+    assertEquals(TEST_PACKET_CLASS,
+      metaBasedPacketDescription.getPacketClass());
   }
 
   @PacketMeta(id = TEST_PACKET_ID)
