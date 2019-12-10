@@ -28,8 +28,10 @@ class IncomingMessageConsumer implements
    * @param incomingMessageHandler The packet handler.
    * @param method                 The method.
    */
-  IncomingMessageConsumer(IncomingMessageHandler incomingMessageHandler,
-    Method method) {
+  IncomingMessageConsumer(
+    IncomingMessageHandler incomingMessageHandler,
+    Method method
+  ) {
     this.incomingMessageHandler = incomingMessageHandler;
     this.method = method;
   }

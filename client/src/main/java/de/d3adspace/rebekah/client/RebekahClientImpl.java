@@ -19,9 +19,11 @@ public class RebekahClientImpl extends RebekahPacketAgent implements
   private final TransportClient transportClient;
 
   @Inject
-  public RebekahClientImpl(PacketRegistry packetRegistry,
+  public RebekahClientImpl(
+    PacketRegistry packetRegistry,
     TransportClient transportClient,
-    IncomingMessageHandlerManager incomingMessageHandlerManager) {
+    IncomingMessageHandlerManager incomingMessageHandlerManager
+  ) {
     super(packetRegistry, incomingMessageHandlerManager);
     this.transportClient = transportClient;
   }

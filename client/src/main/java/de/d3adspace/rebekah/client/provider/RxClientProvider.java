@@ -31,9 +31,11 @@ public class RxClientProvider implements
   private final PipelineConfigurator<IncomingMessage, OutgoingMessage> pipelineConfigurator;
 
   @Inject
-  public RxClientProvider(@Named("serverHost") String serverHost,
+  public RxClientProvider(
+    @Named("serverHost") String serverHost,
     @Named("serverPort") int serverPort,
-    PipelineConfigurator<IncomingMessage, OutgoingMessage> pipelineConfigurator) {
+    PipelineConfigurator<IncomingMessage, OutgoingMessage> pipelineConfigurator
+  ) {
     this.serverHost = serverHost;
     this.serverPort = serverPort;
     this.pipelineConfigurator = pipelineConfigurator;

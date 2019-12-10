@@ -27,9 +27,11 @@ public class RebekahServerImpl extends RebekahPacketAgent implements
    * @param incomingMessageHandlerManager The request handler manager.
    */
   @Inject
-  public RebekahServerImpl(TransportServer transportServer,
+  public RebekahServerImpl(
+    TransportServer transportServer,
     PacketRegistry packetRegistry,
-    IncomingMessageHandlerManager incomingMessageHandlerManager) {
+    IncomingMessageHandlerManager incomingMessageHandlerManager
+  ) {
     super(packetRegistry, incomingMessageHandlerManager);
     this.transportServer = transportServer;
   }

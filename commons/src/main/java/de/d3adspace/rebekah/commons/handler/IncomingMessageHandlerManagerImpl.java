@@ -28,7 +28,8 @@ public class IncomingMessageHandlerManagerImpl implements
 
   @Override
   public void registerMessageHandler(
-    IncomingMessageHandler incomingMessageHandler) {
+    IncomingMessageHandler incomingMessageHandler
+  ) {
     if (requestHandlers.containsKey(incomingMessageHandler)) {
       throw new IllegalStateException(
         "Packet handler " + incomingMessageHandler + " already registered.");
@@ -41,19 +42,23 @@ public class IncomingMessageHandlerManagerImpl implements
 
   @Override
   public void unregisterMessageHandler(
-    IncomingMessageHandler incomingMessageHandler) {
+    IncomingMessageHandler incomingMessageHandler
+  ) {
     requestHandlers.remove(incomingMessageHandler);
   }
 
   @Override
   public boolean isMessageHandlerRegistered(
-    IncomingMessageHandler incomingMessageHandler) {
+    IncomingMessageHandler incomingMessageHandler
+  ) {
     return requestHandlers.containsKey(incomingMessageHandler);
   }
 
   @Override
-  public void process(MessageContext messageContext,
-    IncomingMessage incomingMessage) {
+  public void process(
+    MessageContext messageContext,
+    IncomingMessage incomingMessage
+  ) {
     for (Map<Class<? extends Packet>, List<IncomingMessageConsumer>> packetConsumers : requestHandlers
       .values()) {
       List<IncomingMessageConsumer> consumers = packetConsumers
@@ -66,7 +71,8 @@ public class IncomingMessageHandlerManagerImpl implements
   }
 
   private Map<Class<? extends Packet>, List<IncomingMessageConsumer>> assemblePacketConsumers(
-    IncomingMessageHandler incomingMessageHandler) {
+    IncomingMessageHandler incomingMessageHandler
+  ) {
     Class<? extends IncomingMessageHandler> packetHandlerClass = incomingMessageHandler
       .getClass();
     Method[] packetHandlerClassDeclaredMethods = packetHandlerClass
@@ -107,7 +113,8 @@ public class IncomingMessageHandlerManagerImpl implements
   }
 
   private IncomingMessageConsumer assembleRequestConsumer(
-    IncomingMessageHandler incomingMessageHandler, Method method) {
+    IncomingMessageHandler incomingMessageHandler, Method method
+  ) {
     return new IncomingMessageConsumer(incomingMessageHandler, method);
   }
 }

@@ -26,7 +26,9 @@ public class ClientConnectionHandlerImpl implements ClientConnectionHandler {
 
   @Override
   public void handleConnection(
-    ObservableConnection<IncomingMessage, OutgoingMessage> observableConnection) {
+    ObservableConnection<IncomingMessage,
+      OutgoingMessage> observableConnection
+  ) {
     Observable<IncomingMessage> incomingMessageObservable = observableConnection
       .getInput();
 
@@ -41,7 +43,8 @@ public class ClientConnectionHandlerImpl implements ClientConnectionHandler {
    */
   private void handleIncomingMessages(
     ObservableConnection<IncomingMessage, OutgoingMessage> observableConnection,
-    Observable<IncomingMessage> incomingMessageObservable) {
+    Observable<IncomingMessage> incomingMessageObservable
+  ) {
     incomingMessageObservable
       .subscribe(incomingMessage -> handleIncomingMessage(observableConnection,
         incomingMessage));
@@ -55,7 +58,8 @@ public class ClientConnectionHandlerImpl implements ClientConnectionHandler {
    */
   private void handleIncomingMessage(
     ObservableConnection<IncomingMessage, OutgoingMessage> observableConnection,
-    IncomingMessage incomingMessage) {
+    IncomingMessage incomingMessage
+  ) {
     MessageContext messageContext = new NettyMessageContext(
       observableConnection, incomingMessage);
     kernel.handleMessage(messageContext, incomingMessage);

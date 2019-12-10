@@ -42,7 +42,8 @@ public class MetaBasedPacketDescription implements PacketDescription {
    * @return The packet description.
    */
   public static PacketDescription createPacketDescription(
-    Class<? extends Packet> packetClass) {
+    Class<? extends Packet> packetClass
+  ) {
     PacketMeta packetMeta = packetClass.getAnnotation(PacketMeta.class);
 
     if (packetMeta == null) {

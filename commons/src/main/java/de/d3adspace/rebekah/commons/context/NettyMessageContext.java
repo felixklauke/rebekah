@@ -23,7 +23,8 @@ public class NettyMessageContext extends
    */
   public NettyMessageContext(
     ObservableConnection<IncomingMessage, OutgoingMessage> connection,
-    IncomingMessage request) {
+    IncomingMessage request
+  ) {
     super(request);
     this.connection = connection;
   }
