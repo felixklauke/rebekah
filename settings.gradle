@@ -1,19 +1,8 @@
 rootProject.name = 'rebekah'
 
-/**
- * The commons module containing shared code and library functions.
- */
 include 'commons'
 findProject(':commons')?.name = 'rebekah-commons'
-
-/**
- * The client module containing support for connectivity to servers.
- */
 include 'client'
 findProject(':client')?.name = 'rebekah-client'
-
-/**
- * The server module containing the main communication point.
- */
 include 'server'
 findProject(':server')?.name = 'rebekah-server'
