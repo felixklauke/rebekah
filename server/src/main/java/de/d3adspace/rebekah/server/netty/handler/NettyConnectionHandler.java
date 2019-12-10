@@ -30,7 +30,8 @@ public class NettyConnectionHandler implements
 
   @Override
   public Observable<Void> handle(
-    ObservableConnection<IncomingMessage, OutgoingMessage> newConnection) {
+    ObservableConnection<IncomingMessage, OutgoingMessage> newConnection
+  ) {
     Observable<IncomingMessage> connectionInput = newConnection.getInput();
 
     connectionInput.subscribe(request -> {

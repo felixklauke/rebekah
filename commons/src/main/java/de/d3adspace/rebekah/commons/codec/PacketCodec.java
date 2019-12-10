@@ -36,22 +36,30 @@ public class PacketCodec extends ByteToMessageCodec<Packet> {
    * @param packetFactory  The packet factory.
    */
   @Inject
-  public PacketCodec(PacketRegistry packetRegistry,
-    PacketFactory packetFactory) {
+  public PacketCodec(
+    PacketRegistry packetRegistry,
+    PacketFactory packetFactory
+  ) {
     this.packetRegistry = packetRegistry;
     this.packetFactory = packetFactory;
   }
 
   @Override
-  protected void encode(ChannelHandlerContext ctx, Packet packet,
-    ByteBuf outgoingByteBuf) {
+  protected void encode(
+    ChannelHandlerContext ctx,
+    Packet packet,
+    ByteBuf outgoingByteBuf
+  ) {
     PacketWriter packetWriter = new BinaryPacketWriter(outgoingByteBuf);
     packet.encode(packetWriter);
   }
 
   @Override
-  protected void decode(ChannelHandlerContext ctx, ByteBuf incomingByteBuf,
-    List<Object> outgoingObjects) {
+  protected void decode(
+    ChannelHandlerContext ctx,
+    ByteBuf incomingByteBuf,
+    List<Object> outgoingObjects
+  ) {
     int packetId = incomingByteBuf.readInt();
 
     PacketDescription packetDescription = packetRegistry

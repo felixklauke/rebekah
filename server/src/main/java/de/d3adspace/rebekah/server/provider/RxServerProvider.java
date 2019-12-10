@@ -34,9 +34,11 @@ public class RxServerProvider implements
   private final ConnectionHandler<IncomingMessage, OutgoingMessage> connectionHandler;
 
   @Inject
-  public RxServerProvider(@Named("serverPort") int serverPort,
+  public RxServerProvider(
+    @Named("serverPort") int serverPort,
     PipelineConfigurator<IncomingMessage, OutgoingMessage> pipelineConfigurator,
-    ConnectionHandler<IncomingMessage, OutgoingMessage> connectionHandler) {
+    ConnectionHandler<IncomingMessage, OutgoingMessage> connectionHandler
+  ) {
     this.serverPort = serverPort;
     this.pipelineConfigurator = pipelineConfigurator;
     this.connectionHandler = connectionHandler;

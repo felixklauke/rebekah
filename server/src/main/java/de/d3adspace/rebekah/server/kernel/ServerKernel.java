@@ -23,13 +23,16 @@ public class ServerKernel implements Kernel {
    */
   @Inject
   public ServerKernel(
-    IncomingMessageHandlerManager incomingMessageHandlerManager) {
+    IncomingMessageHandlerManager incomingMessageHandlerManager
+  ) {
     this.incomingMessageHandlerManager = incomingMessageHandlerManager;
   }
 
   @Override
-  public void handleMessage(MessageContext messageContext,
-    IncomingMessage request) {
+  public void handleMessage(
+    MessageContext messageContext,
+    IncomingMessage request
+  ) {
     incomingMessageHandlerManager.process(messageContext, request);
   }
 }

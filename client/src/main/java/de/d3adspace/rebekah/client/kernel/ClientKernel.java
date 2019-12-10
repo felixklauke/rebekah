@@ -15,13 +15,16 @@ public class ClientKernel implements Kernel {
 
   @Inject
   public ClientKernel(
-    IncomingMessageHandlerManager incomingMessageHandlerManager) {
+    IncomingMessageHandlerManager incomingMessageHandlerManager
+  ) {
     this.incomingMessageHandlerManager = incomingMessageHandlerManager;
   }
 
   @Override
-  public void handleMessage(MessageContext messageContext,
-    IncomingMessage message) {
+  public void handleMessage(
+    MessageContext messageContext,
+    IncomingMessage message
+  ) {
     incomingMessageHandlerManager.process(messageContext, message);
   }
 }
