@@ -37,9 +37,10 @@ class NettyPipelineConfiguratorTest {
     nettyPipelineConfigurator.configureNewPipeline(channelPipeline);
 
     verify(channelPipeline).addLast(eq("lengthFieldBasedFrameDecoder"),
-        Mockito.any(LengthFieldBasedFrameDecoder.class));
+      Mockito.any(LengthFieldBasedFrameDecoder.class));
     verify(channelPipeline).addLast("packetCodec", packetCodec);
     verify(channelPipeline)
-        .addLast(eq("lengthFieldPrepender"), Mockito.any(LengthFieldPrepender.class));
+      .addLast(eq("lengthFieldPrepender"),
+        Mockito.any(LengthFieldPrepender.class));
   }
 }

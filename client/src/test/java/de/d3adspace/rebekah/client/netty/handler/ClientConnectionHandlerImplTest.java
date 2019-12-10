@@ -30,7 +30,8 @@ class ClientConnectionHandlerImplTest {
   @Mock
   IncomingMessage incomingMessage;
 
-  private BehaviorSubject<IncomingMessage> incomingMessageObservable = BehaviorSubject.create();
+  private BehaviorSubject<IncomingMessage> incomingMessageObservable = BehaviorSubject
+    .create();
   private ClientConnectionHandler clientConnectionHandler;
 
   @BeforeEach
@@ -40,12 +41,14 @@ class ClientConnectionHandlerImplTest {
 
   @Test
   void testHandleConnection() {
-    Mockito.when(observableConnection.getInput()).thenReturn(incomingMessageObservable);
+    Mockito.when(observableConnection.getInput())
+      .thenReturn(incomingMessageObservable);
 
     clientConnectionHandler.handleConnection(observableConnection);
 
     incomingMessageObservable.onNext(incomingMessage);
 
-    verify(kernel).handleMessage(any(MessageContext.class), eq(incomingMessage));
+    verify(kernel)
+      .handleMessage(any(MessageContext.class), eq(incomingMessage));
   }
 }

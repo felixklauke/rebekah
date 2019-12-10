@@ -44,10 +44,13 @@ class NettyConnectionHandlerTest {
 
     when(observableConnection.getInput()).thenReturn(requestObservable);
 
-    Observable<Void> handle = nettyConnectionHandler.handle(observableConnection);
+    Observable<Void> handle = nettyConnectionHandler
+      .handle(observableConnection);
 
-    verify(kernel).handleMessage(Mockito.any(MessageContext.class), eq(request));
+    verify(kernel)
+      .handleMessage(Mockito.any(MessageContext.class), eq(request));
 
-    assertNotNull(handle, "Observable of handled connection should not be null.");
+    assertNotNull(handle,
+      "Observable of handled connection should not be null.");
   }
 }

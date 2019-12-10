@@ -29,7 +29,8 @@ class NettyMessageContextTest {
 
   @BeforeEach
   void setUp() {
-    nettyRequestContext = new NettyMessageContext(observableConnection, request);
+    nettyRequestContext = new NettyMessageContext(observableConnection,
+      request);
   }
 
   @Test

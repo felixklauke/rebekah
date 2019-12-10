@@ -12,7 +12,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 /**
  * @author Felix Klauke <info@felix-klauke.de>
  */
-public class IncomingMessageHandlerManagerImpl implements IncomingMessageHandlerManager {
+public class IncomingMessageHandlerManagerImpl implements
+  IncomingMessageHandlerManager {
 
   /**
    * How many parameters a parameter method can have.
@@ -23,48 +24,56 @@ public class IncomingMessageHandlerManagerImpl implements IncomingMessageHandler
    * All packet handlers.
    */
   private final Map<IncomingMessageHandler, Map<Class<? extends Packet>, List<IncomingMessageConsumer>>> requestHandlers = Maps
-      .newConcurrentMap();
+    .newConcurrentMap();
 
   @Override
-  public void registerMessageHandler(IncomingMessageHandler incomingMessageHandler) {
+  public void registerMessageHandler(
+    IncomingMessageHandler incomingMessageHandler) {
     if (requestHandlers.containsKey(incomingMessageHandler)) {
       throw new IllegalStateException(
-          "Packet handler " + incomingMessageHandler + " already registered.");
+        "Packet handler " + incomingMessageHandler + " already registered.");
     }
 
     Map<Class<? extends Packet>, List<IncomingMessageConsumer>> packetConsumers = assemblePacketConsumers(
-        incomingMessageHandler);
+      incomingMessageHandler);
     requestHandlers.put(incomingMessageHandler, packetConsumers);
   }
 
   @Override
-  public void unregisterMessageHandler(IncomingMessageHandler incomingMessageHandler) {
+  public void unregisterMessageHandler(
+    IncomingMessageHandler incomingMessageHandler) {
     requestHandlers.remove(incomingMessageHandler);
   }
 
   @Override
-  public boolean isMessageHandlerRegistered(IncomingMessageHandler incomingMessageHandler) {
+  public boolean isMessageHandlerRegistered(
+    IncomingMessageHandler incomingMessageHandler) {
     return requestHandlers.containsKey(incomingMessageHandler);
   }
 
   @Override
-  public void process(MessageContext messageContext, IncomingMessage incomingMessage) {
+  public void process(MessageContext messageContext,
+    IncomingMessage incomingMessage) {
     for (Map<Class<? extends Packet>, List<IncomingMessageConsumer>> packetConsumers : requestHandlers
-        .values()) {
-      List<IncomingMessageConsumer> consumers = packetConsumers.get(incomingMessage.getClass());
+      .values()) {
+      List<IncomingMessageConsumer> consumers = packetConsumers
+        .get(incomingMessage.getClass());
       if (consumers != null) {
-        consumers.forEach(consumer -> consumer.accept(messageContext, incomingMessage));
+        consumers.forEach(
+          consumer -> consumer.accept(messageContext, incomingMessage));
       }
     }
   }
 
   private Map<Class<? extends Packet>, List<IncomingMessageConsumer>> assemblePacketConsumers(
-      IncomingMessageHandler incomingMessageHandler) {
-    Class<? extends IncomingMessageHandler> packetHandlerClass = incomingMessageHandler.getClass();
-    Method[] packetHandlerClassDeclaredMethods = packetHandlerClass.getDeclaredMethods();
+    IncomingMessageHandler incomingMessageHandler) {
+    Class<? extends IncomingMessageHandler> packetHandlerClass = incomingMessageHandler
+      .getClass();
+    Method[] packetHandlerClassDeclaredMethods = packetHandlerClass
+      .getDeclaredMethods();
 
     Map<Class<? extends Packet>, List<IncomingMessageConsumer>> requestConsumers = Maps
-        .newConcurrentMap();
+      .newConcurrentMap();
 
     for (Method packetHandlerClassDeclaredMethod : packetHandlerClassDeclaredMethods) {
       int parameterCount = packetHandlerClassDeclaredMethod.getParameterCount();
@@ -72,17 +81,20 @@ public class IncomingMessageHandlerManagerImpl implements IncomingMessageHandler
         continue;
       }
 
-      Class<?>[] parameterTypes = packetHandlerClassDeclaredMethod.getParameterTypes();
-      if (!parameterTypes[0].isAssignableFrom(MessageContext.class) || !Packet.class
-          .isAssignableFrom(parameterTypes[1])) {
+      Class<?>[] parameterTypes = packetHandlerClassDeclaredMethod
+        .getParameterTypes();
+      if (!parameterTypes[0].isAssignableFrom(MessageContext.class)
+        || !Packet.class
+        .isAssignableFrom(parameterTypes[1])) {
         continue;
       }
 
       IncomingMessageConsumer incomingMessageConsumer = assembleRequestConsumer(
-          incomingMessageHandler, packetHandlerClassDeclaredMethod);
+        incomingMessageHandler, packetHandlerClassDeclaredMethod);
 
       Class<? extends Packet> parameterType = (Class<? extends Packet>) parameterTypes[1];
-      List<IncomingMessageConsumer> consumers = requestConsumers.get(parameterType);
+      List<IncomingMessageConsumer> consumers = requestConsumers
+        .get(parameterType);
       if (consumers == null) {
         consumers = new CopyOnWriteArrayList<>();
         requestConsumers.put(parameterType, new CopyOnWriteArrayList<>());
@@ -95,7 +107,7 @@ public class IncomingMessageHandlerManagerImpl implements IncomingMessageHandler
   }
 
   private IncomingMessageConsumer assembleRequestConsumer(
-      IncomingMessageHandler incomingMessageHandler, Method method) {
+    IncomingMessageHandler incomingMessageHandler, Method method) {
     return new IncomingMessageConsumer(incomingMessageHandler, method);
   }
 }

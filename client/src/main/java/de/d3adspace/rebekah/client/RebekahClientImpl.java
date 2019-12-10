@@ -10,7 +10,8 @@ import javax.inject.Inject;
 /**
  * @author Felix Klauke <info@felix-klauke.de>
  */
-public class RebekahClientImpl extends RebekahPacketAgent implements RebekahClient {
+public class RebekahClientImpl extends RebekahPacketAgent implements
+  RebekahClient {
 
   /**
    * The underlying transport client.
@@ -18,8 +19,9 @@ public class RebekahClientImpl extends RebekahPacketAgent implements RebekahClie
   private final TransportClient transportClient;
 
   @Inject
-  public RebekahClientImpl(PacketRegistry packetRegistry, TransportClient transportClient,
-      IncomingMessageHandlerManager incomingMessageHandlerManager) {
+  public RebekahClientImpl(PacketRegistry packetRegistry,
+    TransportClient transportClient,
+    IncomingMessageHandlerManager incomingMessageHandlerManager) {
     super(packetRegistry, incomingMessageHandlerManager);
     this.transportClient = transportClient;
   }

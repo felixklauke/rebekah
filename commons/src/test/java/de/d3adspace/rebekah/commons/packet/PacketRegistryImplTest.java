@@ -36,12 +36,13 @@ class PacketRegistryImplTest {
   @Test
   void testGetPacketDescriptionById() {
     PacketDescription packetDescriptionById = packetRegistry
-        .getPacketDescriptionById(TEST_PACKET_ID);
+      .getPacketDescriptionById(TEST_PACKET_ID);
 
     assertNotNull(packetDescriptionById, "Description should not be null");
-    assertEquals(TEST_PACKET_ID, packetDescriptionById.getId(), "Packet id differs");
+    assertEquals(TEST_PACKET_ID, packetDescriptionById.getId(),
+      "Packet id differs");
     assertEquals(TEST_PACKET_CLASS, packetDescriptionById.getPacketClass(),
-        "Packet class differs.");
+      "Packet class differs.");
   }
 
   @Test
@@ -50,14 +51,16 @@ class PacketRegistryImplTest {
 
   @Test
   void testRegisterPacketTwice() {
-    Executable executable = () -> packetRegistry.registerPacket(TEST_PACKET_CLASS);
+    Executable executable = () -> packetRegistry
+      .registerPacket(TEST_PACKET_CLASS);
 
     assertThrows(IllegalStateException.class, executable);
   }
 
   @Test
   void testRegisterPacketDuplicateId() {
-    Executable executable = () -> packetRegistry.registerPacket(TEST_PACKET_CLASS_DUPLICATE_ID);
+    Executable executable = () -> packetRegistry
+      .registerPacket(TEST_PACKET_CLASS_DUPLICATE_ID);
 
     assertThrows(IllegalStateException.class, executable);
   }
@@ -67,15 +70,16 @@ class PacketRegistryImplTest {
     packetRegistry.unregisterPacket(TEST_PACKET_CLASS);
 
     assertFalse(packetRegistry.isPacketRegistered(TEST_PACKET_CLASS),
-        "Packet shouldn't be registered");
+      "Packet shouldn't be registered");
   }
 
   @Test
   void testIsPacketRegistered() {
     assertTrue(packetRegistry.isPacketRegistered(TEST_PACKET_CLASS),
-        "Packet should be registered.");
-    assertFalse(packetRegistry.isPacketRegistered(TEST_PACKET_CLASS_DUPLICATE_ID),
-        "Packet should not be registered.");
+      "Packet should be registered.");
+    assertFalse(
+      packetRegistry.isPacketRegistered(TEST_PACKET_CLASS_DUPLICATE_ID),
+      "Packet should not be registered.");
   }
 
   @PacketMeta(id = TEST_PACKET_ID)

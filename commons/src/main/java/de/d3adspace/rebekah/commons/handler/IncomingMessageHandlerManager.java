@@ -30,13 +30,15 @@ public interface IncomingMessageHandlerManager {
    * @param incomingMessageHandler The message handler.
    * @return If the given message handler is already registered.
    */
-  boolean isMessageHandlerRegistered(IncomingMessageHandler incomingMessageHandler);
+  boolean isMessageHandlerRegistered(
+    IncomingMessageHandler incomingMessageHandler);
 
   /**
-   * Process the given message in the given message by let it be handled by all eligible handlers.
+   * Process the given message in the given message by let it be handled by all
+   * eligible handlers.
    *
    * @param messageContext The context of the message.
-   * @param message The message.
+   * @param message        The message.
    */
   void process(MessageContext messageContext, IncomingMessage message);
 }

@@ -38,7 +38,7 @@ class RebekahServerImplTest {
   void setUp() {
     transportServer = mock(TransportServer.class);
     rebekahServer = new RebekahServerImpl(transportServer, packetRegistry,
-        incomingMessageHandlerManager);
+      incomingMessageHandlerManager);
   }
 
   @Test
@@ -86,12 +86,14 @@ class RebekahServerImplTest {
   @Test
   void testIsPacketRegistered() {
     boolean shouldBeRegistered = true;
-    when(packetRegistry.isPacketRegistered(packetClass)).thenReturn(shouldBeRegistered);
+    when(packetRegistry.isPacketRegistered(packetClass))
+      .thenReturn(shouldBeRegistered);
 
     boolean packetRegistered = rebekahServer.isPacketRegistered(packetClass);
 
     verify(packetRegistry).isPacketRegistered(packetClass);
-    assertEquals(shouldBeRegistered, packetRegistered, "Packet registered state differs.");
+    assertEquals(shouldBeRegistered, packetRegistered,
+      "Packet registered state differs.");
   }
 
   public static class TestPacket implements Packet {

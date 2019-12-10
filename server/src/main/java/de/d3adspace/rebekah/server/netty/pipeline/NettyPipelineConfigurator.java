@@ -11,8 +11,9 @@ import javax.inject.Inject;
 /**
  * @author Felix Klauke <info@felix-klauke.de>
  */
-public class NettyPipelineConfigurator extends RebekahPipelineConfigurator implements
-    PipelineConfigurator<IncomingMessage, OutgoingMessage> {
+public class NettyPipelineConfigurator extends
+  RebekahPipelineConfigurator implements
+  PipelineConfigurator<IncomingMessage, OutgoingMessage> {
 
   @Inject
   public NettyPipelineConfigurator(PacketCodec packetCodec) {

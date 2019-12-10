@@ -12,7 +12,7 @@ public interface Kernel {
    * Handle the given message in the given context.
    *
    * @param messageContext The context of the message.
-   * @param message The request.
+   * @param message        The request.
    */
   void handleMessage(MessageContext messageContext, IncomingMessage message);
 }

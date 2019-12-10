@@ -32,7 +32,8 @@ public interface PacketRegistry {
   void unregisterPacket(Class<? extends Packet> packetClass);
 
   /**
-   * Check if there is a packet registered that would be represented by the given class.
+   * Check if there is a packet registered that would be represented by the
+   * given class.
    *
    * @param packetClass The class that would represent the packet.
    * @return If the packet is registered.

@@ -30,7 +30,8 @@ class RebekahPacketAgentTest {
 
   @BeforeEach
   void setUp() {
-    rebekahPacketAgent = new RebekahPacketAgent(packetRegistry, incomingMessageHandlerManager);
+    rebekahPacketAgent = new RebekahPacketAgent(packetRegistry,
+      incomingMessageHandlerManager);
   }
 
   @Test
@@ -38,32 +39,35 @@ class RebekahPacketAgentTest {
     assertEquals(packetRegistry, rebekahPacketAgent.getPacketRegistry());
   }
 
-
   @Test
   void testRegisterRequestHandler() {
     rebekahPacketAgent.registerMessageHandler(incomingMessageHandler);
 
-    verify(incomingMessageHandlerManager).registerMessageHandler(incomingMessageHandler);
+    verify(incomingMessageHandlerManager)
+      .registerMessageHandler(incomingMessageHandler);
   }
 
   @Test
   void testUnregisterRequestHandler() {
     rebekahPacketAgent.unregisterMessageHandler(incomingMessageHandler);
 
-    verify(incomingMessageHandlerManager).unregisterMessageHandler(incomingMessageHandler);
+    verify(incomingMessageHandlerManager)
+      .unregisterMessageHandler(incomingMessageHandler);
   }
 
   @Test
   void testIsRequestHandlerRegistered() {
     boolean shouldBeRegistered = true;
-    when(incomingMessageHandlerManager.isMessageHandlerRegistered(incomingMessageHandler))
-        .thenReturn(shouldBeRegistered);
+    when(incomingMessageHandlerManager
+      .isMessageHandlerRegistered(incomingMessageHandler))
+      .thenReturn(shouldBeRegistered);
 
     boolean requestHandlerRegistered = rebekahPacketAgent
-        .isMessageHandlerRegistered(incomingMessageHandler);
+      .isMessageHandlerRegistered(incomingMessageHandler);
 
-    verify(incomingMessageHandlerManager).isMessageHandlerRegistered(incomingMessageHandler);
+    verify(incomingMessageHandlerManager)
+      .isMessageHandlerRegistered(incomingMessageHandler);
     assertEquals(shouldBeRegistered, requestHandlerRegistered,
-        "Request handler registered state differs.");
+      "Request handler registered state differs.");
   }
 }

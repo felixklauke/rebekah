@@ -37,7 +37,8 @@ class IncomingMessageHandlerManagerImplTest {
     incomingMessage = new TestPacket();
     incomingMessageHandlerManager = new IncomingMessageHandlerManagerImpl();
     incomingMessageHandlerManager.registerMessageHandler(TEST_REQUEST_HANDLER);
-    incomingMessageHandlerManager.registerMessageHandler(TEST_EMPTY_REQUEST_HANDLER);
+    incomingMessageHandlerManager
+      .registerMessageHandler(TEST_EMPTY_REQUEST_HANDLER);
   }
 
   @Test
@@ -46,8 +47,9 @@ class IncomingMessageHandlerManagerImplTest {
 
     incomingMessageHandlerManager.registerMessageHandler(testRequestHandler);
 
-    assertTrue(incomingMessageHandlerManager.isMessageHandlerRegistered(testRequestHandler),
-        "Packet handler should be registered.");
+    assertTrue(incomingMessageHandlerManager
+        .isMessageHandlerRegistered(testRequestHandler),
+      "Packet handler should be registered.");
   }
 
   @Test
@@ -56,22 +58,25 @@ class IncomingMessageHandlerManagerImplTest {
     incomingMessageHandlerManager.registerMessageHandler(testPacketHandler);
 
     Executable executable = () -> incomingMessageHandlerManager
-        .registerMessageHandler(testPacketHandler);
+      .registerMessageHandler(testPacketHandler);
     assertThrows(IllegalStateException.class, executable);
   }
 
   @Test
   void testUnregisterRequestHandler() {
-    incomingMessageHandlerManager.unregisterMessageHandler(TEST_REQUEST_HANDLER);
+    incomingMessageHandlerManager
+      .unregisterMessageHandler(TEST_REQUEST_HANDLER);
 
-    assertFalse(incomingMessageHandlerManager.isMessageHandlerRegistered(TEST_REQUEST_HANDLER),
-        "Packet handler should not be registered.");
+    assertFalse(incomingMessageHandlerManager
+        .isMessageHandlerRegistered(TEST_REQUEST_HANDLER),
+      "Packet handler should not be registered.");
   }
 
   @Test
   void testIsRequestHandlerRegistered() {
-    assertTrue(incomingMessageHandlerManager.isMessageHandlerRegistered(TEST_REQUEST_HANDLER),
-        "Packet handler should be registered.");
+    assertTrue(incomingMessageHandlerManager
+        .isMessageHandlerRegistered(TEST_REQUEST_HANDLER),
+      "Packet handler should be registered.");
   }
 
   @Test
@@ -79,17 +84,21 @@ class IncomingMessageHandlerManagerImplTest {
     incomingMessageHandlerManager.process(messageContext, incomingMessage);
   }
 
-  public static class EmptyTestIncomingMessageHandler implements IncomingMessageHandler {
+  public static class EmptyTestIncomingMessageHandler implements
+    IncomingMessageHandler {
 
   }
 
-  public static class TestIncomingMessageHandler implements IncomingMessageHandler {
+  public static class TestIncomingMessageHandler implements
+    IncomingMessageHandler {
 
-    public void handleRequest(MessageContext messageContext, TestPacket testPacket) {
+    public void handleRequest(MessageContext messageContext,
+      TestPacket testPacket) {
 
     }
 
-    public void handleRequest2(MessageContext messageContext, TestPacket testPacket) {
+    public void handleRequest2(MessageContext messageContext,
+      TestPacket testPacket) {
 
     }
 
@@ -105,19 +114,23 @@ class IncomingMessageHandlerManagerImplTest {
       throw new IllegalStateException();
     }
 
-    public void handleRequestNot3(TestPacket testPacket, MessageContext messageContext) {
+    public void handleRequestNot3(TestPacket testPacket,
+      MessageContext messageContext) {
       throw new IllegalStateException();
     }
 
-    public void handleRequestNot4(MessageContext messageContext, MessageContext messageContext1) {
+    public void handleRequestNot4(MessageContext messageContext,
+      MessageContext messageContext1) {
       throw new IllegalStateException();
     }
 
   }
 
-  public static class TestIncomingMessageHandler0 implements IncomingMessageHandler {
+  public static class TestIncomingMessageHandler0 implements
+    IncomingMessageHandler {
 
-    public void handleRequest(MessageContext messageContext, TestPacket testPacket) {
+    public void handleRequest(MessageContext messageContext,
+      TestPacket testPacket) {
 
     }
   }

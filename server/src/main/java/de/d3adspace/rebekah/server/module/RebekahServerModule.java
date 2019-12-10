@@ -38,10 +38,12 @@ public class RebekahServerModule extends AbstractModule {
     bind(Kernel.class).to(ServerKernel.class).asEagerSingleton();
 
     // Rx Server
-    bind(new TypeLiteral<PipelineConfigurator<IncomingMessage, OutgoingMessage>>() {
-    }).to(NettyPipelineConfigurator.class);
-    bind(new TypeLiteral<ConnectionHandler<IncomingMessage, OutgoingMessage>>() {
-    }).to(NettyConnectionHandler.class);
+    bind(
+      new TypeLiteral<PipelineConfigurator<IncomingMessage, OutgoingMessage>>() {
+      }).to(NettyPipelineConfigurator.class);
+    bind(
+      new TypeLiteral<ConnectionHandler<IncomingMessage, OutgoingMessage>>() {
+      }).to(NettyConnectionHandler.class);
     bind(new TypeLiteral<RxServer<IncomingMessage, OutgoingMessage>>() {
     }).toProvider(RxServerProvider.class);
 

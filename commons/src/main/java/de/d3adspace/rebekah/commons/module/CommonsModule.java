@@ -16,8 +16,9 @@ public class CommonsModule extends AbstractModule {
   @Override
   protected void configure() {
     bind(PacketRegistry.class).to(PacketRegistryImpl.class).asEagerSingleton();
-    bind(IncomingMessageHandlerManager.class).to(IncomingMessageHandlerManagerImpl.class)
-        .asEagerSingleton();
+    bind(IncomingMessageHandlerManager.class)
+      .to(IncomingMessageHandlerManagerImpl.class)
+      .asEagerSingleton();
 
     bind(PacketFactory.class).to(GuicePacketFactory.class);
   }

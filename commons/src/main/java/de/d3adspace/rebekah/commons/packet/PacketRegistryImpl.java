@@ -13,7 +13,8 @@ public class PacketRegistryImpl implements PacketRegistry {
   /**
    * All known packet descriptions keyed by their packet ids.
    */
-  private final Map<Integer, PacketDescription> packetDescriptions = Maps.newConcurrentMap();
+  private final Map<Integer, PacketDescription> packetDescriptions = Maps
+    .newConcurrentMap();
 
   @Override
   public PacketDescription getPacketDescriptionById(int packetId) {
@@ -23,14 +24,16 @@ public class PacketRegistryImpl implements PacketRegistry {
   @Override
   public void registerPacket(Class<? extends Packet> packetClass) {
     if (isPacketRegistered(packetClass)) {
-      throw new IllegalStateException("There is already a packet with the class " + packetClass);
+      throw new IllegalStateException(
+        "There is already a packet with the class " + packetClass);
     }
 
     PacketDescription packetDescription = MetaBasedPacketDescription
-        .createPacketDescription(packetClass);
+      .createPacketDescription(packetClass);
 
     if (packetDescriptions.containsKey(packetDescription.getId())) {
-      throw new IllegalStateException("Duplicate packet id: " + packetDescription.getId());
+      throw new IllegalStateException(
+        "Duplicate packet id: " + packetDescription.getId());
     }
 
     packetDescriptions.put(packetDescription.getId(), packetDescription);
@@ -38,7 +41,8 @@ public class PacketRegistryImpl implements PacketRegistry {
 
   @Override
   public void unregisterPacket(Class<? extends Packet> packetClass) {
-    for (Map.Entry<Integer, PacketDescription> descriptionEntry : packetDescriptions.entrySet()) {
+    for (Map.Entry<Integer, PacketDescription> descriptionEntry : packetDescriptions
+      .entrySet()) {
       PacketDescription value = descriptionEntry.getValue();
 
       if (!value.getPacketClass().isAssignableFrom(packetClass)) {
@@ -52,6 +56,7 @@ public class PacketRegistryImpl implements PacketRegistry {
   @Override
   public boolean isPacketRegistered(Class<? extends Packet> packetClass) {
     return packetDescriptions.values().stream().anyMatch(
-        packetDescription -> packetDescription.getPacketClass().isAssignableFrom(packetClass));
+      packetDescription -> packetDescription.getPacketClass()
+        .isAssignableFrom(packetClass));
   }
 }

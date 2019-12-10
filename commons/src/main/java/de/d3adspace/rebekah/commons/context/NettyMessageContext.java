@@ -7,7 +7,8 @@ import io.reactivex.netty.channel.ObservableConnection;
 /**
  * @author Felix Klauke <info@felix-klauke.de>
  */
-public class NettyMessageContext extends AbstractMessageContext<IncomingMessage> {
+public class NettyMessageContext extends
+  AbstractMessageContext<IncomingMessage> {
 
   /**
    * The connection of the context where the request comes from.
@@ -18,10 +19,11 @@ public class NettyMessageContext extends AbstractMessageContext<IncomingMessage>
    * Create a new request context by its underlying request.
    *
    * @param connection The connection needed for sending back the response.
-   * @param request The request.
+   * @param request    The request.
    */
-  public NettyMessageContext(ObservableConnection<IncomingMessage, OutgoingMessage> connection,
-      IncomingMessage request) {
+  public NettyMessageContext(
+    ObservableConnection<IncomingMessage, OutgoingMessage> connection,
+    IncomingMessage request) {
     super(request);
     this.connection = connection;
   }

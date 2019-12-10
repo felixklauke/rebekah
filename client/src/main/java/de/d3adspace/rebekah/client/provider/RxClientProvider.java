@@ -12,7 +12,8 @@ import javax.inject.Provider;
 /**
  * @author Felix Klauke <info@felix-klauke.de>
  */
-public class RxClientProvider implements Provider<RxClient<OutgoingMessage, IncomingMessage>> {
+public class RxClientProvider implements
+  Provider<RxClient<OutgoingMessage, IncomingMessage>> {
 
   /**
    * The host of the server to connect to.
@@ -31,8 +32,8 @@ public class RxClientProvider implements Provider<RxClient<OutgoingMessage, Inco
 
   @Inject
   public RxClientProvider(@Named("serverHost") String serverHost,
-      @Named("serverPort") int serverPort,
-      PipelineConfigurator<IncomingMessage, OutgoingMessage> pipelineConfigurator) {
+    @Named("serverPort") int serverPort,
+    PipelineConfigurator<IncomingMessage, OutgoingMessage> pipelineConfigurator) {
     this.serverHost = serverHost;
     this.serverPort = serverPort;
     this.pipelineConfigurator = pipelineConfigurator;
@@ -40,6 +41,7 @@ public class RxClientProvider implements Provider<RxClient<OutgoingMessage, Inco
 
   @Override
   public RxClient<OutgoingMessage, IncomingMessage> get() {
-    return RxNetty.createTcpClient(serverHost, serverPort, pipelineConfigurator);
+    return RxNetty
+      .createTcpClient(serverHost, serverPort, pipelineConfigurator);
   }
 }

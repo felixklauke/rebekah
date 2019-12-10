@@ -8,5 +8,4 @@ import de.d3adspace.rebekah.commons.message.OutgoingMessage;
  */
 public interface Packet extends IncomingMessage, OutgoingMessage {
 
-
 }
