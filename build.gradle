@@ -55,7 +55,7 @@ allprojects {
         compile group: 'com.google.inject', name: 'guice', version: '4.2.2'
 
         testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.5.2'
-        testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.4.2'
+        testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.5.2'
         testCompile group: 'org.mockito', name: 'mockito-junit-jupiter', version: '3.2.0'
     }
 
