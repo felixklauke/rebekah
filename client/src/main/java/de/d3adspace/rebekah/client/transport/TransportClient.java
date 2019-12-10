@@ -7,27 +7,27 @@ import de.d3adspace.rebekah.commons.message.OutgoingMessage;
  */
 public interface TransportClient {
 
-    /**
-     * Connect to the server.
-     */
-    void connect();
+  /**
+   * Connect to the server.
+   */
+  void connect();
 
-    /**
-     * Check if the client is connected to the server.
-     *
-     * @return If the client is connected,
-     */
-    boolean isConnected();
+  /**
+   * Check if the client is connected to the server.
+   *
+   * @return If the client is connected,
+   */
+  boolean isConnected();
 
-    /**
-     * Disconnect from the server.
-     */
-    void disconnect();
+  /**
+   * Disconnect from the server.
+   */
+  void disconnect();
 
-    /**
-     * Send the given request.
-     *
-     * @param request The request.
-     */
-    void sendRequest(OutgoingMessage request);
+  /**
+   * Send the given request.
+   *
+   * @param request The request.
+   */
+  void sendRequest(OutgoingMessage request);
 }

@@ -11,10 +11,11 @@ import io.reactivex.netty.channel.ObservableConnection;
  */
 public interface ClientConnectionHandler {
 
-    /**
-     * Handle the establishment of the given connection.
-     *
-     * @param observableConnection The connection.
-     */
-    void handleConnection(ObservableConnection<IncomingMessage, OutgoingMessage> observableConnection);
+  /**
+   * Handle the establishment of the given connection.
+   *
+   * @param observableConnection The connection.
+   */
+  void handleConnection(
+    ObservableConnection<IncomingMessage, OutgoingMessage> observableConnection);
 }

@@ -10,23 +10,24 @@ import io.netty.handler.codec.LengthFieldPrepender;
  */
 public class RebekahPipelineConfigurator {
 
-    /**
-     * The packet codec responsible for encoding and decoding packets.
-     */
-    private final PacketCodec packetCodec;
+  /**
+   * The packet codec responsible for encoding and decoding packets.
+   */
+  private final PacketCodec packetCodec;
 
-    /**
-     * Create a new pipeline configurator based of the internal packet codec.
-     *
-     * @param packetCodec The packet codec.
-     */
-    public RebekahPipelineConfigurator(PacketCodec packetCodec) {
-        this.packetCodec = packetCodec;
-    }
+  /**
+   * Create a new pipeline configurator based of the internal packet codec.
+   *
+   * @param packetCodec The packet codec.
+   */
+  public RebekahPipelineConfigurator(PacketCodec packetCodec) {
+    this.packetCodec = packetCodec;
+  }
 
-    public void configureNewPipeline(ChannelPipeline pipeline) {
-        pipeline.addLast("lengthFieldBasedFrameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4));
-        pipeline.addLast("packetCodec", packetCodec);
-        pipeline.addLast("lengthFieldPrepender", new LengthFieldPrepender(4));
-    }
+  public void configureNewPipeline(ChannelPipeline pipeline) {
+    pipeline.addLast("lengthFieldBasedFrameDecoder",
+      new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4));
+    pipeline.addLast("packetCodec", packetCodec);
+    pipeline.addLast("lengthFieldPrepender", new LengthFieldPrepender(4));
+  }
 }

@@ -1,5 +1,11 @@
 package de.d3adspace.rebekah.server.netty;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.verify;
+
 import de.d3adspace.rebekah.commons.message.IncomingMessage;
 import de.d3adspace.rebekah.commons.message.OutgoingMessage;
 import io.reactivex.netty.server.RxServer;
@@ -9,65 +15,61 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.verify;
-
 /**
  * @author Felix Klauke <info@felix-klauke.de>
  */
 @ExtendWith(MockitoExtension.class)
 class NettyServerImplTest {
 
-    @Mock
-    private RxServer<IncomingMessage, OutgoingMessage> rxServer;
+  @Mock
+  private RxServer<IncomingMessage, OutgoingMessage> rxServer;
 
-    private NettyServerImpl nettyServer;
+  private NettyServerImpl nettyServer;
 
-    @BeforeEach
-    void setUp() {
-        nettyServer = new NettyServerImpl(rxServer);
+  @BeforeEach
+  void setUp() {
+    nettyServer = new NettyServerImpl(rxServer);
+  }
+
+  @Test
+  void testStart() {
+    nettyServer.start();
+
+    verify(rxServer).start();
+  }
+
+  @Test
+  void testStop() throws InterruptedException {
+    nettyServer.stop();
+
+    verify(rxServer).shutdown();
+  }
+
+  @Test
+  void testStopWithInterrupt() {
+    // Given
+    InterruptedException test = new InterruptedException("Test");
+
+    // When
+    try {
+      doThrow(test).when(rxServer).shutdown();
+    } catch (InterruptedException e) {
+      fail();
     }
 
-    @Test
-    void testStart() {
-        nettyServer.start();
+    nettyServer.stop();
+  }
 
-        verify(rxServer).start();
-    }
+  @Test
+  void testIsRunnijg() {
+    boolean running = nettyServer.isRunning();
 
-    @Test
-    void testStop() throws InterruptedException {
-        nettyServer.stop();
+    assertFalse(running, "Server shouldn't have been running.");
 
-        verify(rxServer).shutdown();
-    }
+    nettyServer.start();
 
-    @Test
-    void testStopWithInterrupt() {
-        // Given
-        InterruptedException test = new InterruptedException("Test");
+    running = nettyServer.isRunning();
 
-        // When
-        try {
-            doThrow(test).when(rxServer).shutdown();
-        } catch (InterruptedException e) {
-            fail();
-        }
-
-        nettyServer.stop();
-    }
-
-    @Test
-    void testIsRunnijg() {
-        boolean running = nettyServer.isRunning();
-
-        assertFalse(running, "Server shouldn't have been running.");
-
-        nettyServer.start();
-
-        running = nettyServer.isRunning();
-
-        assertTrue(running, "Server should have been running.");
-    }
+    assertTrue(running, "Server should have been running.");
+  }
 }

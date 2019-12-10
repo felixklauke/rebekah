@@ -1,5 +1,4 @@
 plugins {
-    id 'org.sonarqube' version "2.7"
     id 'java'
 }
 
@@ -12,8 +11,8 @@ allprojects {
     apply plugin: 'maven'
     apply plugin: 'maven-publish'
 
-    sourceCompatibility = 1.11
-    targetCompatibility = 1.11
+    sourceCompatibility = 1.13
+    targetCompatibility = 1.13
 
     repositories {
 
@@ -52,11 +51,11 @@ allprojects {
         /**
          * Google Guice for dependency injection.
          */
-        compile group: 'com.google.inject', name: 'guice', version: '4.2.0'
+        compile group: 'com.google.inject', name: 'guice', version: '4.2.2'
 
-        testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.4.2'
-        testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.4.2'
-        testCompile group: 'org.mockito', name: 'mockito-junit-jupiter', version: '2.28.2'
+        testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.5.2'
+        testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.5.2'
+        testCompile group: 'org.mockito', name: 'mockito-junit-jupiter', version: '3.2.0'
     }
 
     test {

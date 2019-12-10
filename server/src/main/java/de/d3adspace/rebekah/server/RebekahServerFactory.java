@@ -9,20 +9,20 @@ import de.d3adspace.rebekah.server.module.RebekahServerModule;
  */
 public class RebekahServerFactory {
 
-    /**
-     * Package local constructor that will never be called.
-     */
-    RebekahServerFactory() {
-        throw new AssertionError("Can't instantiate factories.");
-    }
+  /**
+   * Package local constructor that will never be called.
+   */
+  RebekahServerFactory() {
+    throw new AssertionError("Can't instantiate factories.");
+  }
 
-    /**
-     * Create a new rebekah server instance.
-     *
-     * @return The rebekah server.
-     */
-    public static RebekahServer createServer() {
-        Injector injector = Guice.createInjector(new RebekahServerModule());
-        return injector.getInstance(RebekahServer.class);
-    }
+  /**
+   * Create a new rebekah server instance.
+   *
+   * @return The rebekah server.
+   */
+  public static RebekahServer createServer() {
+    Injector injector = Guice.createInjector(new RebekahServerModule());
+    return injector.getInstance(RebekahServer.class);
+  }
 }

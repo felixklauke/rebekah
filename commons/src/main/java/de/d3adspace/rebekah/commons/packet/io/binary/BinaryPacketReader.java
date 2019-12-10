@@ -8,39 +8,39 @@ import io.netty.buffer.ByteBuf;
  */
 public class BinaryPacketReader extends BinaryHolder implements PacketReader {
 
-    public BinaryPacketReader(ByteBuf byteBuf) {
-        super(byteBuf);
-    }
+  public BinaryPacketReader(ByteBuf byteBuf) {
+    super(byteBuf);
+  }
 
-    @Override
-    public String readString() {
+  @Override
+  public String readString() {
 
-        // Read string length
-        int length = getByteBuf().readInt();
-        byte[] bytes = new byte[length];
+    // Read string length
+    int length = getByteBuf().readInt();
+    byte[] bytes = new byte[length];
 
-        // Read bytes according to string length
-        getByteBuf().readBytes(bytes);
+    // Read bytes according to string length
+    getByteBuf().readBytes(bytes);
 
-        // Create string from bytes
-        return new String(bytes);
-    }
+    // Create string from bytes
+    return new String(bytes);
+  }
 
-    @Override
-    public int readInt() {
+  @Override
+  public int readInt() {
 
-        return getByteBuf().readInt();
-    }
+    return getByteBuf().readInt();
+  }
 
-    @Override
-    public float readFloat() {
+  @Override
+  public float readFloat() {
 
-        return getByteBuf().readFloat();
-    }
+    return getByteBuf().readFloat();
+  }
 
-    @Override
-    public double readDouble() {
+  @Override
+  public double readDouble() {
 
-        return getByteBuf().readDouble();
-    }
+    return getByteBuf().readDouble();
+  }
 }

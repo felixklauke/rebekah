@@ -7,10 +7,10 @@ import de.d3adspace.rebekah.commons.packet.io.PacketWriter;
  */
 public interface OutgoingMessage {
 
-    /**
-     * Write the packet using the given writer.
-     *
-     * @param packetWriter The packet writer.
-     */
-    void encode(PacketWriter packetWriter);
+  /**
+   * Write the packet using the given writer.
+   *
+   * @param packetWriter The packet writer.
+   */
+  void encode(PacketWriter packetWriter);
 }

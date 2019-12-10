@@ -9,12 +9,12 @@ import de.d3adspace.rebekah.client.module.ClientModule;
  */
 public class RebekahClientFactory {
 
-    RebekahClientFactory() {
-        throw new AssertionError("Can't instantiate factories.");
-    }
+  RebekahClientFactory() {
+    throw new AssertionError("Can't instantiate factories.");
+  }
 
-    public static RebekahClient createClient() {
-        Injector injector = Guice.createInjector(new ClientModule());
-        return injector.getInstance(RebekahClient.class);
-    }
+  public static RebekahClient createClient() {
+    Injector injector = Guice.createInjector(new ClientModule());
+    return injector.getInstance(RebekahClient.class);
+  }
 }

@@ -9,37 +9,37 @@ import io.netty.buffer.ByteBuf;
  */
 public class BinaryPacketWriter extends BinaryHolder implements PacketWriter {
 
-    public BinaryPacketWriter(ByteBuf byteBuf) {
-        super(byteBuf);
-    }
+  public BinaryPacketWriter(ByteBuf byteBuf) {
+    super(byteBuf);
+  }
 
-    @Override
-    public void writeString(String string) {
+  @Override
+  public void writeString(String string) {
 
-        byte[] bytes = string.getBytes(Charsets.UTF_8);
+    byte[] bytes = string.getBytes(Charsets.UTF_8);
 
-        // Write string length
-        getByteBuf().writeInt(bytes.length);
+    // Write string length
+    getByteBuf().writeInt(bytes.length);
 
-        // Write content
-        getByteBuf().writeBytes(bytes);
-    }
+    // Write content
+    getByteBuf().writeBytes(bytes);
+  }
 
-    @Override
-    public void writeInt(int integer) {
+  @Override
+  public void writeInt(int integer) {
 
-        getByteBuf().writeInt(integer);
-    }
+    getByteBuf().writeInt(integer);
+  }
 
-    @Override
-    public void writeFloat(float floatValue) {
+  @Override
+  public void writeFloat(float floatValue) {
 
-        getByteBuf().writeFloat(floatValue);
-    }
+    getByteBuf().writeFloat(floatValue);
+  }
 
-    @Override
-    public void writeDouble(double doubleValue) {
+  @Override
+  public void writeDouble(double doubleValue) {
 
-        getByteBuf().writeDouble(doubleValue);
-    }
+    getByteBuf().writeDouble(doubleValue);
+  }
 }

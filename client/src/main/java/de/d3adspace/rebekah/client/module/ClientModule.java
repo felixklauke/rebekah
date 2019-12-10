@@ -24,23 +24,25 @@ import io.reactivex.netty.pipeline.PipelineConfigurator;
  */
 public class ClientModule extends AbstractModule {
 
-    @Override
-    protected void configure() {
-        bind(String.class).annotatedWith(Names.named("serverHost")).toInstance("localhost");
-        bindConstant().annotatedWith(Names.named("serverPort")).to(8083);
+  @Override
+  protected void configure() {
+    bind(String.class).annotatedWith(Names.named("serverHost"))
+      .toInstance("localhost");
+    bindConstant().annotatedWith(Names.named("serverPort")).to(8083);
 
-        bind(RebekahClient.class).to(RebekahClientImpl.class).asEagerSingleton();
-        bind(TransportClient.class).to(NettyClient.class).asEagerSingleton();
+    bind(RebekahClient.class).to(RebekahClientImpl.class).asEagerSingleton();
+    bind(TransportClient.class).to(NettyClient.class).asEagerSingleton();
 
-        bind(ClientConnectionHandler.class).to(ClientConnectionHandlerImpl.class);
+    bind(ClientConnectionHandler.class).to(ClientConnectionHandlerImpl.class);
 
-        bind(Kernel.class).to(ClientKernel.class).asEagerSingleton();
+    bind(Kernel.class).to(ClientKernel.class).asEagerSingleton();
 
-        bind(new TypeLiteral<PipelineConfigurator<IncomingMessage, OutgoingMessage>>() {
-        }).to(NettyPipelineConfigurator.class);
-        bind(new TypeLiteral<RxClient<OutgoingMessage, IncomingMessage>>() {
-        }).toProvider(RxClientProvider.class);
+    bind(
+      new TypeLiteral<PipelineConfigurator<IncomingMessage, OutgoingMessage>>() {
+      }).to(NettyPipelineConfigurator.class);
+    bind(new TypeLiteral<RxClient<OutgoingMessage, IncomingMessage>>() {
+    }).toProvider(RxClientProvider.class);
 
-        install(new CommonsModule());
-    }
+    install(new CommonsModule());
+  }
 }

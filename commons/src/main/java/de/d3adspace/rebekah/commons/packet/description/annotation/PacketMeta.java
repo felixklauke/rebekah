@@ -12,17 +12,17 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PacketMeta {
 
-    /**
-     * The unique id the packet.
-     *
-     * @return The id.
-     */
-    int id();
+  /**
+   * The unique id the packet.
+   *
+   * @return The id.
+   */
+  int id();
 
-    /**
-     * Custom name of the packet or empty.
-     *
-     * @return The name.
-     */
-    String name() default "";
+  /**
+   * Custom name of the packet or empty.
+   *
+   * @return The name.
+   */
+  String name() default "";
 }

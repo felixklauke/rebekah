@@ -24,28 +24,30 @@ import io.reactivex.netty.server.RxServer;
  */
 public class RebekahServerModule extends AbstractModule {
 
-    @Override
-    protected void configure() {
-        bindConstant().annotatedWith(Names.named("serverPort")).to(8081);
+  @Override
+  protected void configure() {
+    bindConstant().annotatedWith(Names.named("serverPort")).to(8081);
 
-        // The main server entry point
-        bind(RebekahServer.class).to(RebekahServerImpl.class).asEagerSingleton();
+    // The main server entry point
+    bind(RebekahServer.class).to(RebekahServerImpl.class).asEagerSingleton();
 
-        // Transport layer
-        bind(TransportServer.class).to(NettyServerImpl.class).asEagerSingleton();
+    // Transport layer
+    bind(TransportServer.class).to(NettyServerImpl.class).asEagerSingleton();
 
-        // Kernel
-        bind(Kernel.class).to(ServerKernel.class).asEagerSingleton();
+    // Kernel
+    bind(Kernel.class).to(ServerKernel.class).asEagerSingleton();
 
-        // Rx Server
-        bind(new TypeLiteral<PipelineConfigurator<IncomingMessage, OutgoingMessage>>() {
-        }).to(NettyPipelineConfigurator.class);
-        bind(new TypeLiteral<ConnectionHandler<IncomingMessage, OutgoingMessage>>() {
-        }).to(NettyConnectionHandler.class);
-        bind(new TypeLiteral<RxServer<IncomingMessage, OutgoingMessage>>() {
-        }).toProvider(RxServerProvider.class);
+    // Rx Server
+    bind(
+      new TypeLiteral<PipelineConfigurator<IncomingMessage, OutgoingMessage>>() {
+      }).to(NettyPipelineConfigurator.class);
+    bind(
+      new TypeLiteral<ConnectionHandler<IncomingMessage, OutgoingMessage>>() {
+      }).to(NettyConnectionHandler.class);
+    bind(new TypeLiteral<RxServer<IncomingMessage, OutgoingMessage>>() {
+    }).toProvider(RxServerProvider.class);
 
-        // Install foreign modules
-        install(new CommonsModule());
-    }
+    // Install foreign modules
+    install(new CommonsModule());
+  }
 }

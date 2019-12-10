@@ -13,11 +13,13 @@ import de.d3adspace.rebekah.commons.packet.factory.PacketFactory;
  */
 public class CommonsModule extends AbstractModule {
 
-    @Override
-    protected void configure() {
-        bind(PacketRegistry.class).to(PacketRegistryImpl.class).asEagerSingleton();
-        bind(IncomingMessageHandlerManager.class).to(IncomingMessageHandlerManagerImpl.class).asEagerSingleton();
+  @Override
+  protected void configure() {
+    bind(PacketRegistry.class).to(PacketRegistryImpl.class).asEagerSingleton();
+    bind(IncomingMessageHandlerManager.class)
+      .to(IncomingMessageHandlerManagerImpl.class)
+      .asEagerSingleton();
 
-        bind(PacketFactory.class).to(GuicePacketFactory.class);
-    }
+    bind(PacketFactory.class).to(GuicePacketFactory.class);
+  }
 }

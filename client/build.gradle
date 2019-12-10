@@ -1,14 +1,14 @@
 plugins {
-    id 'java'
+  id 'java'
 }
 
 group 'de.d3adspace.rebekah'
 version '1.0-SNAPSHOT'
 
 repositories {
-    mavenCentral()
+  mavenCentral()
 }
 
 dependencies {
-    compile project(':rebekah-commons')
+  compile project(':rebekah-commons')
 }
